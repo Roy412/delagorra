@@ -8,7 +8,7 @@ import {
   StatusBar,
   Platform,
 } from 'react-native';
-import SplashScreen from 'react-native-splash-screen'
+import SplashScreen from 'react-native-splash-screen';
 
 import {
   Header,
@@ -20,8 +20,8 @@ import {
 
 const App = () => {
   useEffect(() => {
-    SplashScreen.hide()
-  }, [])
+    SplashScreen.hide();
+  }, []);
 
   return (
     <>
