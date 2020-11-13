@@ -1,12 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,7 +6,9 @@ import {
   View,
   Text,
   StatusBar,
+  Platform,
 } from 'react-native';
+import SplashScreen from 'react-native-splash-screen'
 
 import {
   Header,
@@ -24,10 +18,14 @@ import {
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
-const App: () => React$Node = () => {
+const App = () => {
+  useEffect(() => {
+    SplashScreen.hide()
+  }, [])
+
   return (
     <>
-      <StatusBar barStyle="dark-content" />
+      {Platform.OS === 'ios' && <StatusBar barStyle="light-content" />}
       <SafeAreaView>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
