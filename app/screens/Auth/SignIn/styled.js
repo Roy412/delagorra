@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import { Button } from 'components/ui';
 
-export { TextInput, Button } from 'components/ui';
+export { TextInput, Button, Loader } from 'components/ui';
 
 export const FormContainer = styled.View``;
 

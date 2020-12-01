@@ -1,16 +1,16 @@
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Form, Field } from 'react-final-form';
 import Validate from 'validate.js';
 
-import { auth, navigators } from '~/navigation/routeNames';
-import { Promisify } from 'utils/promisify';
-import { showSimpleError } from '~/utils/alert';
+import { auth, navigators } from '/navigation/routeNames';
+import { Promisify } from '/utils/promisify';
+import { showSimpleError } from '/utils/alert';
 
 import * as Styled from './styled';
 
 const SignIn = ({ navigation, onSignIn }) => {
-  const loader = useRef();
+  const [loading, setLoading] = useState(false);
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -36,13 +36,13 @@ const SignIn = ({ navigation, onSignIn }) => {
 
   const handleSubmit = async (values) => {
     try {
-      loader.current.show();
+      setLoading(true);
       await Promisify(onSignIn, values.username, values.password);
       navigation.reset({ index: 0, routes: [{ name: navigators.main }] });
-      loader.current.hide();
+      setLoading(false);
     } catch (e) {
-      loader.current.hide();
-      showSimpleError(e, 600);
+      setLoading(false);
+      showSimpleError(e);
     }
   };
 
@@ -69,6 +69,7 @@ const SignIn = ({ navigation, onSignIn }) => {
       <Styled.Container>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
       </Styled.Container>
+      <Styled.Loader loading={loading} />
     </KeyboardAvoidingView>
   );
 };
