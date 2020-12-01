@@ -1,4 +1,5 @@
 export default {
+  background: '#F7F7F7',
   pink: '#F84657',
   white: 'white',
   black: 'black',

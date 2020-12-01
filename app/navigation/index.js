@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 const NavigationWrapper = () => (
   <NavigationContainer>
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName={navigators.auth}>
       <Stack.Screen name={navigators.auth} component={Auth} />
     </Stack.Navigator>
   </NavigationContainer>
