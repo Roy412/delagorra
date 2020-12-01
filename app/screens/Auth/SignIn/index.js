@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import Validate from 'validate.js';
 
 import { auth, navigators } from '/navigation/routeNames';
-import { Promisify } from '/utils/promisify';
+import Client from '/utils/client';
 import { showSimpleError } from '/utils/alert';
 
 import * as Styled from './styled';
@@ -37,8 +37,7 @@ const SignIn = ({ navigation, onSignIn }) => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      await Promisify(onSignIn, values.username, values.password);
-      navigation.reset({ index: 0, routes: [{ name: navigators.main }] });
+      const response = await Client.post('/code-request', values);
       setLoading(false);
     } catch (e) {
       setLoading(false);
