@@ -20,6 +20,15 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		B2838DAC1A1E9ECEF720BC38 /* libPods-Cherry-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 820A454D016CDFDE72C2E527 /* libPods-Cherry-tvOSTests.a */; };
 		C14A9704161D19822B836C13 /* libPods-Cherry-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20FE66E8DC7C4A17A89CD027 /* libPods-Cherry-tvOS.a */; };
+		2EEF91D68EAB4F21BE153B5F /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */; };
+		BB309D9662494FCA94528572 /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */; };
+		B09D32E2FCE34DAFB09661CA /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */; };
+		EF3224015B66452E9F845B50 /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */; };
+		AE64C3C6CB3649B092489142 /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */; };
+		F33749C2B1D6425285243D1B /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */; };
+		9D9D7C6E011E4E19BE00DF83 /* SFUIDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */; };
+		856727B0EE7A4D978D3A0A7A /* SFUIDisplay-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */; };
+		E9BD3E896BE744F1B3CEADD6 /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +76,15 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FCB3953079685387CEC0FD69 /* Pods-Cherry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry.debug.xcconfig"; path = "Target Support Files/Pods-Cherry/Pods-Cherry.debug.xcconfig"; sourceTree = "<group>"; };
+		A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Black.otf"; path = "../app/resources/fonts/SFUIDisplay-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Bold.otf"; path = "../app/resources/fonts/SFUIDisplay-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Heavy.otf"; path = "../app/resources/fonts/SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Light.otf"; path = "../app/resources/fonts/SFUIDisplay-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Medium.otf"; path = "../app/resources/fonts/SFUIDisplay-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Semibold.otf"; path = "../app/resources/fonts/SFUIDisplay-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Thin.otf"; path = "../app/resources/fonts/SFUIDisplay-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Ultralight.otf"; path = "../app/resources/fonts/SFUIDisplay-Ultralight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Regular.otf"; path = "../app/resources/fonts/SFUIDisplay-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,6 +199,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				505FE50F230EDCFE7ABDDE44 /* Pods */,
+				68F725A1DAAD40208B7DD1D1 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -197,6 +216,23 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		68F725A1DAAD40208B7DD1D1 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */,
+				3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */,
+				93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */,
+				FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */,
+				DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */,
+				9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */,
+				27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */,
+				71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */,
+				0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -342,6 +378,15 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				2EEF91D68EAB4F21BE153B5F /* SFUIDisplay-Black.otf in Resources */,
+				BB309D9662494FCA94528572 /* SFUIDisplay-Bold.otf in Resources */,
+				B09D32E2FCE34DAFB09661CA /* SFUIDisplay-Heavy.otf in Resources */,
+				EF3224015B66452E9F845B50 /* SFUIDisplay-Light.otf in Resources */,
+				AE64C3C6CB3649B092489142 /* SFUIDisplay-Medium.otf in Resources */,
+				F33749C2B1D6425285243D1B /* SFUIDisplay-Semibold.otf in Resources */,
+				9D9D7C6E011E4E19BE00DF83 /* SFUIDisplay-Thin.otf in Resources */,
+				856727B0EE7A4D978D3A0A7A /* SFUIDisplay-Ultralight.otf in Resources */,
+				E9BD3E896BE744F1B3CEADD6 /* SFUIDisplay-Regular.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

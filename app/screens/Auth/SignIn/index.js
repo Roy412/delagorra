@@ -48,6 +48,9 @@ const SignIn = ({ navigation, onSignIn }) => {
   const renderForm = (params) => (
     <Styled.FormContainer>
       <Styled.FormContent>
+        <Styled.Text>
+
+        </Styled.Text>
         <Field
           name="phoneNumber"
           component={Styled.TextInput}
