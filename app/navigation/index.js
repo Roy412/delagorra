@@ -2,13 +2,13 @@ import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { navigators } from 'constants/routeNames'
+import { navigators } from './routeNames';
 
 import Auth from './auth';
 
 const Stack = createStackNavigator();
 
-function App() {
+const NavigationWrapper = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -16,6 +16,6 @@ function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
+};
 
-export default App;
+export default NavigationWrapper;
