@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Colors } from '/utils/theme';
+import { Colors } from '~/utils/theme';
 
 export const OverlayBackground = styled.View`
   position: absolute;

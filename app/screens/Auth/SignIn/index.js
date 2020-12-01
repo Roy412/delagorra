@@ -3,9 +3,9 @@ import { KeyboardAvoidingView, Platform } from 'react-native';
 import { Form, Field } from 'react-final-form';
 import Validate from 'validate.js';
 
-import { auth, navigators } from '/navigation/routeNames';
-import Client from '/utils/client';
-import { showSimpleError } from '/utils/alert';
+import { auth, navigators } from '~/navigation/routeNames';
+import Client from '~/utils/client';
+import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
 

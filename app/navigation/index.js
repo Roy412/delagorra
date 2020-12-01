@@ -8,14 +8,12 @@ import Auth from './auth';
 
 const Stack = createStackNavigator();
 
-const NavigationWrapper = () => {
-  return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name={navigators.auth} component={Auth} />
-      </Stack.Navigator>
-    </NavigationContainer>
-  );
-};
+const NavigationWrapper = () => (
+  <NavigationContainer>
+    <Stack.Navigator>
+      <Stack.Screen name={navigators.auth} component={Auth} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);
 
 export default NavigationWrapper;

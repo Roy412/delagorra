@@ -1,7 +1,7 @@
 import React from 'react';
 import { BallIndicator } from 'react-native-indicators';
 
-import { Colors } from '/utils/theme';
+import { Colors } from '~/utils/theme';
 
 import * as Styled from './styled';
 

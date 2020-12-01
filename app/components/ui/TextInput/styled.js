@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { FieldError as FieldErrorUI } from '../FieldError';
+import FieldErrorUI from '../FieldError';
 
 export const Container = styled.View`
   flex-direction: column;
