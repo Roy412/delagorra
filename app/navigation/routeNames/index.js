@@ -1,4 +1,4 @@
-import { createNames } from 'utils/navigation';
+import { createNames } from '~/utils/navigation';
 
 export const navigators = createNames(['auth'], {
   prefix: 'navigators/',
