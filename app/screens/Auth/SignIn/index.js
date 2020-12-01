@@ -1,131 +1,76 @@
-import React, { useRef } from 'react'
-import PT from 'prop-types'
-import { Form, Field } from 'react-final-form'
+import React, { useRef } from 'react';
+import { KeyboardAvoidingView, Platform } from 'react-native';
+import { Form, Field } from 'react-final-form';
+import Validate from 'validate.js';
 
-import { ReactNavigationPropTypes } from 'constants/propTypes'
-import { auth, navigators } from 'constants/routeNames'
-import { Promisify } from 'utils/promisify'
-import ValidationService from 'services/validation'
-import { showSimpleError } from 'utils/alert'
+import { auth, navigators } from 'constants/routeNames';
+import { Promisify } from 'utils/promisify';
+import { showSimpleError } from 'utils/alert';
 
-import {
-  Wrapper as Container,
-  FormInner,
-  FormContainer,
-  ForgotButton,
-  SignInButton,
-  TextInput,
-  Scrollable,
-  AppIcon,
-  ProfileIcon,
-  LockIcon,
-  SignUpButton,
-  TextNew,
-  SignUpWrapper,
-  Loader,
-  CloseButton,
-} from './styles'
+import * as Styled from './styled';
 
 const SignIn = ({ navigation, onSignIn }) => {
-  const loader = useRef()
+  const loader = useRef();
 
   const getInitialValues = () => ({
-    username: '',
-    password: '',
-  })
+    phoneNumber: '',
+    code: '',
+  });
 
   const validate = (values) => {
     const constraints = {
-      username: {
+      phoneNumber: {
         presence: {
           message: 'is required',
           allowEmpty: false,
         },
       },
-      password: {
+      code: {
         presence: true,
-        length: { minimum: 8 },
+        length: { minimum: 4 },
       },
-    }
+    };
 
-    return ValidationService.validate(constraints, values)
-  }
-
-  const handleForgotPress = () => {
-    navigation.navigate(auth.forgotPassword)
-  }
-
-  const handleSignUpPress = () => {
-    navigation.navigate(navigators.onboarding, { screen: auth.signUp })
-  }
+    return Validate(values, constraints);
+  };
 
   const handleSubmit = async (values) => {
     try {
-      loader.current.show()
-      await Promisify(onSignIn, values.username, values.password)
-      navigation.reset({ index: 0, routes: [{ name: navigators.main }] })
-      loader.current.hide()
+      loader.current.show();
+      await Promisify(onSignIn, values.username, values.password);
+      navigation.reset({ index: 0, routes: [{ name: navigators.main }] });
+      loader.current.hide();
     } catch (e) {
-      loader.current.hide()
-      showSimpleError(e, 600)
+      loader.current.hide();
+      showSimpleError(e, 600);
     }
-  }
-
-  const handleClose = () => {
-    navigation.goBack()
-  }
+  };
 
   const renderForm = (params) => (
-    <FormInner>
-      <AppIcon />
-      <FormContainer>
+    <Styled.FormContainer>
+      <Styled.FormContent>
         <Field
-          name="username"
-          component={TextInput}
+          name="phoneNumber"
+          component={Styled.TextInput}
           keyboardType="default"
           placeholder="Username"
           autoCapitalize="none"
-          variant="light"
-          labelIcon={<ProfileIcon />}
         />
 
-        <Field
-          name="password"
-          component={TextInput}
-          placeholder="Enter your password"
-          autoCapitalize="none"
-          secureTextEntry
-          variant="light"
-          labelIcon={<LockIcon />}
-          isLast
-        />
+        <Field name="code" component={Styled.TextInput} placeholder="Enter your password" autoCapitalize="none" />
+      </Styled.FormContent>
 
-        <ForgotButton onPress={handleForgotPress} />
-      </FormContainer>
-
-      <SignInButton onPress={params.handleSubmit} />
-
-      <SignUpWrapper>
-        <TextNew>New to ChitChat?</TextNew>
-        <SignUpButton onPress={handleSignUpPress} />
-      </SignUpWrapper>
-    </FormInner>
-  )
+      <Styled.SignInButton onPress={params.handleSubmit} />
+    </Styled.FormContainer>
+  );
 
   return (
-    <Container>
-      <Scrollable>
+    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+      <Styled.Container>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
-        <CloseButton onPress={handleClose} />
-        <Loader ref={loader} />
-      </Scrollable>
-    </Container>
-  )
-}
+      </Styled.Container>
+    </KeyboardAvoidingView>
+  );
+};
 
-SignIn.propTypes = {
-  ...ReactNavigationPropTypes,
-  onSignIn: PT.func.isRequired,
-}
-
-export default SignIn
+export default SignIn;

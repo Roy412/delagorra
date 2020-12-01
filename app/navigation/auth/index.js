@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { auth } from 'constants/routeNames';
+import { auth } from '../routeNames';
 
 import SignIn from 'screens/Auth/SignIn';
 
