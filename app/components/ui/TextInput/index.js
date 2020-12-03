@@ -48,8 +48,8 @@ const TextInput = ({
   const hasError = Styled.FieldError.hasError(meta);
 
   return (
-    <Styled.Container style={style} hasError={hasError} isFocused={isFocused}>
-      <Styled.InputContainer>
+    <Styled.Container style={style}>
+      <Styled.InputContainer hasError={hasError} isFocused={isFocused}>
         {variant === 'phone' && <Styled.FlagText>🇨🇳 +86</Styled.FlagText>}
         <Styled.Input
           {...restInput}

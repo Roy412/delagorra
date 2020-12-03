@@ -24,7 +24,15 @@ const variantStyles = {
   },
 };
 
-const Button = ({ variant = 'primary', text, style = {}, textStyle = {}, onPress = _.noop, disabled = false }) => {
+const Button = ({
+  variant = 'primary',
+  text,
+  style = {},
+  textStyle = {},
+  textProps = {},
+  onPress = _.noop,
+  disabled = false,
+}) => {
   const variantStyle = variantStyles[variant];
 
   return (
@@ -32,7 +40,9 @@ const Button = ({ variant = 'primary', text, style = {}, textStyle = {}, onPress
       style={[variantStyle.container, variant !== 'transparent', style]}
       onPress={onPress}
       disabled={disabled}>
-      <Styled.Text style={[variantStyle.text, textStyle]}>{text}</Styled.Text>
+      <Styled.Text style={[variantStyle.text, textStyle]} {...textProps}>
+        {text}
+      </Styled.Text>
     </Styled.Container>
   );
 };

@@ -10,6 +10,6 @@ export const Container = styled.TouchableOpacity`
   border-radius: 10px;
 `;
 
-export const Text = styled(TextUI).attrs({
-  family: 'semibold',
-})``;
+export const Text = styled(TextUI).attrs(({ family }) => ({
+  family: family || 'semibold',
+}))``;

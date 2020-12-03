@@ -45,4 +45,7 @@ export const FlagText = styled(TextUI).attrs({
 export const SendButton = styled(Button).attrs({
   variant: 'transparent',
   textStyle: { color: Colors.pink },
-})``;
+  textProps: { family: 'regular' },
+})`
+  margin-right: 15px;
+`;
