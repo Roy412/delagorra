@@ -4,9 +4,7 @@ import Config from 'react-native-config';
 
 const Client = axios.create({
   baseURL: Config.API_HOST,
-  withCredentials: true,
 });
-Client.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 export const get = async (url, data) => {
   try {
@@ -17,10 +15,7 @@ export const get = async (url, data) => {
   }
 };
 
-export const post = async (url, data, config = {}) => {
-  const res = await Client.post(url, data, config);
-  return res;
-};
+export const post = async (url, data, config = {}) => handleResponse(Client.post(url, data, config));
 
 export const put = async (url, data) => {
   const res = await Client.put(url, data);
@@ -39,5 +34,14 @@ export const del = async (url, data) => {
   } catch (e) {
     console.log(e);
     return e;
+  }
+};
+
+const handleResponse = async (func) => {
+  try {
+    const res = await func;
+    return res.data;
+  } catch (err) {
+    throw new Error(err.response.data.message);
   }
 };

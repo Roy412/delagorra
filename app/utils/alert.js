@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 export const showSimpleAlert = (message, delay) => {
   if (delay) {
     setTimeout(() => {
-      Alert.alert('ChitChat', message, [
+      Alert.alert(null, message, [
         {
           text: 'OK',
           style: 'cancel',
@@ -12,7 +12,7 @@ export const showSimpleAlert = (message, delay) => {
     }, delay);
     return;
   }
-  Alert.alert('ChitChat', message, [
+  Alert.alert(null, message, [
     {
       text: 'OK',
       style: 'cancel',

@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import Validate from 'validate.js';
 
 import { auth, navigators } from '~/navigation/routeNames';
-import Client from '~/utils/client';
+import * as Client from '~/utils/client';
 import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
 
@@ -34,7 +34,18 @@ const SignIn = ({ navigation, onSignIn }) => {
     return errors;
   };
 
-  const handleCodeSend = () => {};
+  const handleCodeSend = async ({ phoneNumber }) => {
+    try {
+      setLoading(true);
+      const response = await Client.post('/user/code-request', { phoneNumber });
+      console.log('what???', response);
+      setLoading(false);
+    } catch (e) {
+      console.log('kuhaha?', e)
+      setLoading(false);
+      showSimpleError(e);
+    }
+  };
 
   const handleSubmit = async (values) => {
     try {
@@ -47,7 +58,7 @@ const SignIn = ({ navigation, onSignIn }) => {
     }
   };
 
-  const renderForm = ({ handleSubmit, errors, submitting }) => (
+  const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.FormContainer>
       <View style={{ flex: 1 }} />
       <Styled.FormContent>
@@ -72,7 +83,7 @@ const SignIn = ({ navigation, onSignIn }) => {
           component={Styled.TextInput}
           placeholder="Verification code"
           variant="phoneCode"
-          onSendPress={handleCodeSend}
+          onSendPress={() => handleCodeSend(values)}
           keyboardType="numeric"
           btnSendText={errors.phoneNumber ? '' : 'Send'}
           mask="[0000]"

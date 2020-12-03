@@ -8,5 +8,5 @@ export const OverlayBackground = styled.View`
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: ${Colors.overlayColor};
+  background-color: ${Colors.overlayLight};
 `;
