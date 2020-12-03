@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { Form, Field } from 'react-final-form';
 import Validate from 'validate.js';
@@ -13,6 +13,9 @@ import * as Styled from './styled';
 const SignIn = ({ navigation, onSignIn }) => {
   const [loading, setLoading] = useState(false);
   const [codeSending, setCodeSending] = useState(false);
+  const [countSec, setCountSec] = useState(10);
+  const [countDowning, setCountDowning] = useState(false);
+  const [sendText, setSendText] = useState('Send');
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -35,11 +38,26 @@ const SignIn = ({ navigation, onSignIn }) => {
     return errors;
   };
 
+  const startCountdown = () => {
+    setCountDowning(true);
+    const interval = setInterval(() => {
+      setCountSec((prevCountSec) => {
+        if (prevCountSec === 1) {
+          setCountDowning(false);
+          clearInterval(interval);
+          return;
+        }
+        return prevCountSec - 1;
+      });
+    }, 1000);
+  };
+
   const handleCodeSend = async ({ phoneNumber }) => {
     try {
       setCodeSending(true);
       const response = await Client.post('/user/code-request', { phoneNumber });
-      // setCodeSending(false);
+      setCodeSending(false);
+      startCountdown();
     } catch (e) {
       showSimpleError(e);
       setCodeSending(false);
@@ -56,6 +74,20 @@ const SignIn = ({ navigation, onSignIn }) => {
       showSimpleError(e);
     }
   };
+
+  useEffect(() => {
+    if (countDowning) {
+      setSendText(`${countSec} sec`);
+    } else {
+      setSendText('Send');
+    }
+  }, [countDowning, countSec]);
+
+  useEffect(() => {
+    if (!countDowning) {
+      setCountSec(5);
+    }
+  }, [countDowning]);
 
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.FormContainer>
@@ -84,7 +116,7 @@ const SignIn = ({ navigation, onSignIn }) => {
           variant="phoneCode"
           onSendPress={() => handleCodeSend(values)}
           keyboardType="numeric"
-          btnSendText={errors.phoneNumber ? '' : 'Send'}
+          btnSendText={errors.phoneNumber ? '' : sendText}
           mask="[0000]"
           codeSending={codeSending}
         />
