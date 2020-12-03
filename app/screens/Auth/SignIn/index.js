@@ -21,13 +21,10 @@ const SignIn = ({ navigation, onSignIn }) => {
   const validate = (values) => {
     const constraints = {
       phoneNumber: {
-        presence: {
-          message: 'is required',
-          allowEmpty: false,
-        },
+        presence: { message: '^Required', allowEmpty: false },
       },
       code: {
-        presence: true,
+        presence: { message: '^Required', allowEmpty: false },
         length: { minimum: 4 },
       },
     };
@@ -60,9 +57,11 @@ const SignIn = ({ navigation, onSignIn }) => {
         <Field
           name="phoneNumber"
           component={Styled.TextInput}
-          keyboardType="default"
-          placeholder="Username"
+          placeholder="Your phone"
           autoCapitalize="none"
+          isPhone
+          keyboardType="numeric"
+          mask="([000]) [0000] [0000]"
         />
 
         <Field name="code" component={Styled.TextInput} placeholder="Verification code" autoCapitalize="none" />
