@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 
 import { Colors } from '~/utils/theme';
 
@@ -48,4 +49,8 @@ export const SendButton = styled(Button).attrs({
   textProps: { family: 'regular' },
 })`
   margin-right: 15px;
+`;
+
+export const ActivityIndicator = styled(ActivityIndicatorUI)`
+  margin-right: 20px;
 `;

@@ -40,7 +40,7 @@ export const del = async (url, data) => {
 const handleResponse = async (func) => {
   try {
     const res = await func;
-    return res.data;
+    return res.data.data;
   } catch (err) {
     throw new Error(err.response.data.message);
   }

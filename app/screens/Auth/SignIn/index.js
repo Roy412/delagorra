@@ -12,6 +12,7 @@ import * as Styled from './styled';
 
 const SignIn = ({ navigation, onSignIn }) => {
   const [loading, setLoading] = useState(false);
+  const [codeSending, setCodeSending] = useState(false);
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -36,14 +37,12 @@ const SignIn = ({ navigation, onSignIn }) => {
 
   const handleCodeSend = async ({ phoneNumber }) => {
     try {
-      setLoading(true);
+      setCodeSending(true);
       const response = await Client.post('/user/code-request', { phoneNumber });
-      console.log('what???', response);
-      setLoading(false);
+      // setCodeSending(false);
     } catch (e) {
-      console.log('kuhaha?', e)
-      setLoading(false);
       showSimpleError(e);
+      setCodeSending(false);
     }
   };
 
@@ -87,6 +86,7 @@ const SignIn = ({ navigation, onSignIn }) => {
           keyboardType="numeric"
           btnSendText={errors.phoneNumber ? '' : 'Send'}
           mask="[0000]"
+          codeSending={codeSending}
         />
       </Styled.FormContent>
 

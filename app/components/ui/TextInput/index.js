@@ -15,6 +15,7 @@ const TextInput = ({
   variant,
   onSendPress,
   btnSendText,
+  codeSending,
   ...restProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -66,7 +67,8 @@ const TextInput = ({
           hasRectBorder={hasRectBorder}
           as={restProps.mask ? TextInputMask : undefined}
         />
-        {variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
+        {codeSending && <Styled.ActivityIndicator size="small" color="#0000aa" />}
+        {!codeSending && variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
       </Styled.InputContainer>
 
       <Styled.FieldError meta={meta} />
