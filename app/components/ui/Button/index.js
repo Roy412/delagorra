@@ -1,17 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
 
-// import { Colors } from '~/utils/theme';
+import { Colors } from '~/utils/theme';
 
 import * as Styled from './styled';
 
 const variantStyles = {
   primary: {
     container: {
-      // backgroundColor: Colors.pink,
+      backgroundColor: Colors.pink,
     },
     text: {
-      // color: Colors.white,
+      color: Colors.white,
     },
   },
   transparent: {
@@ -19,7 +19,7 @@ const variantStyles = {
       height: 'auto',
     },
     text: {
-      // color: Colors.black,
+      color: Colors.black,
     },
   },
 };

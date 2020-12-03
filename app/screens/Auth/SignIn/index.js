@@ -50,13 +50,13 @@ const SignIn = ({ navigation, onSignIn }) => {
     <Styled.FormContainer>
       <View style={{ flex: 1 }} />
       <Styled.FormContent>
-        <Styled.Text family="semibold" align='center'>
+        <Styled.TextPhone family="semibold" align="center">
           Phone Number
           <Styled.Text color={Colors.pink} family="semibold">
             {' '}
             Quick Login
           </Styled.Text>
-        </Styled.Text>
+        </Styled.TextPhone>
         <Field
           name="phoneNumber"
           component={Styled.TextInput}
@@ -65,10 +65,10 @@ const SignIn = ({ navigation, onSignIn }) => {
           autoCapitalize="none"
         />
 
-        <Field name="code" component={Styled.TextInput} placeholder="Enter your password" autoCapitalize="none" />
+        <Field name="code" component={Styled.TextInput} placeholder="Verification code" autoCapitalize="none" />
       </Styled.FormContent>
 
-      <Styled.SignInButton onPress={params.handleSubmit} />
+      <Styled.SignInButton onPress={params.handleSubmit} text="Log In" />
 
       <View style={{ flex: 1 }} />
     </Styled.FormContainer>
