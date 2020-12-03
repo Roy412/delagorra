@@ -21,9 +21,9 @@ export const FormContainer = styled.View`
 export const FormContent = styled.View``;
 
 export const TextPhone = styled(TextUI)`
-  margin-bottom: 12px;
-`
+  margin-bottom: 8px;
+`;
 
 export const SignInButton = styled(Button)`
-  margin-top: 7.5px;
+  margin-top: 15px;
 `;

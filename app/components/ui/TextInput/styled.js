@@ -5,7 +5,7 @@ import FieldErrorUI from '../FieldError';
 
 export const Container = styled.View`
   flex-direction: column;
-  padding-vertical: 7.5px;
+  padding-vertical: 10px;
 `;
 
 export const Input = styled.TextInput`
@@ -13,11 +13,14 @@ export const Input = styled.TextInput`
   padding-horizontal: 15px;
   height: 46px;
   border-radius: 10px;
-  border: 1px solid ${Colors.lightGrayishBlue};
+  border-width: 1px;
+
+  ${({ isFocused }) => `border-color: ${Colors[isFocused ? 'veryDarkGray' : 'lightGrayishBlue']};`}
+  ${({ hasError }) => hasError && `border-color: ${Colors.pink};`}
 `;
 
 export const FieldError = styled(FieldErrorUI)`
   position: absolute;
-  bottom: -22px;
-  left: 20px;
+  bottom: -6px;
+  left: 10px;
 `;
