@@ -5,4 +5,5 @@ export default {
   black: 'black',
   overlayLight: 'rgba(255, 255, 255, 0.5)',
   veryDarkGray: '#131313',
+  lightGrayishBlue: '#dededf',
 };

@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 
+import { Colors } from '~/utils/theme';
 import FieldErrorUI from '../FieldError';
 
 export const Container = styled.View`
@@ -7,7 +8,13 @@ export const Container = styled.View`
   padding-vertical: 5px;
 `;
 
-export const Input = styled.TextInput.attrs((props) => ({}))``;
+export const Input = styled.TextInput`
+  background-color: ${Colors.white};
+  padding-horizontal: 15px;
+  height: 48px;
+  border-radius: 10px;
+  border: 1px solid ${Colors.lightGrayishBlue};
+`;
 
 export const FieldError = styled(FieldErrorUI)`
   position: absolute;
