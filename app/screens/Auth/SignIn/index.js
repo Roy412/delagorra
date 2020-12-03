@@ -22,10 +22,11 @@ const SignIn = ({ navigation, onSignIn }) => {
     const constraints = {
       phoneNumber: {
         presence: { message: '^Required', allowEmpty: false },
+        length: { is: 11, message: '^Wrong number' },
       },
       code: {
         presence: { message: '^Required', allowEmpty: false },
-        length: { minimum: 4 },
+        length: { is: 4, message: '^Too short' },
       },
     };
 
@@ -46,45 +47,43 @@ const SignIn = ({ navigation, onSignIn }) => {
     }
   };
 
-  const renderForm = ({ handleSubmit, errors, submitting }) => {
-    return (
-      <Styled.FormContainer>
-        <View style={{ flex: 1 }} />
-        <Styled.FormContent>
-          <Styled.TextPhone family="semibold" align="center">
-            Phone Number
-            <Styled.Text color={Colors.pink} family="semibold">
-              {' '}
-              Quick Login
-            </Styled.Text>
-          </Styled.TextPhone>
-          <Field
-            name="phoneNumber"
-            component={Styled.TextInput}
-            placeholder="Your phone"
-            autoCapitalize="none"
-            variant="phone"
-            keyboardType="numeric"
-            mask="([000]) [0000] [0000]"
-          />
+  const renderForm = ({ handleSubmit, errors, submitting }) => (
+    <Styled.FormContainer>
+      <View style={{ flex: 1 }} />
+      <Styled.FormContent>
+        <Styled.TextPhone family="semibold" align="center">
+          Phone Number
+          <Styled.Text color={Colors.pink} family="semibold">
+            {' '}
+            Quick Login
+          </Styled.Text>
+        </Styled.TextPhone>
+        <Field
+          name="phoneNumber"
+          component={Styled.TextInput}
+          placeholder="Your phone"
+          variant="phone"
+          keyboardType="numeric"
+          mask="([000]) [0000] [0000]"
+        />
 
-          <Field
-            name="code"
-            component={Styled.TextInput}
-            placeholder="Verification code"
-            autoCapitalize="none"
-            variant="phoneCode"
-            onSendPress={handleCodeSend}
-            btnSendText={errors.phoneNumber ? '' : 'Send'}
-          />
-        </Styled.FormContent>
+        <Field
+          name="code"
+          component={Styled.TextInput}
+          placeholder="Verification code"
+          variant="phoneCode"
+          onSendPress={handleCodeSend}
+          keyboardType="numeric"
+          btnSendText={errors.phoneNumber ? '' : 'Send'}
+          mask="[0000]"
+        />
+      </Styled.FormContent>
 
-        <Styled.SignInButton onPress={handleSubmit} text="Log In" disabled={submitting} />
+      <Styled.SignInButton onPress={handleSubmit} text="Log In" disabled={submitting} />
 
-        <View style={{ flex: 1 }} />
-      </Styled.FormContainer>
-    );
-  }
+      <View style={{ flex: 1 }} />
+    </Styled.FormContainer>
+  );
 
   return (
     <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>

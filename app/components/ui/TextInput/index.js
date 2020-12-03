@@ -64,7 +64,7 @@ const TextInput = ({
           isFocused={isFocused}
           hasError={hasError}
           hasRectBorder={hasRectBorder}
-          as={variant === 'phone' ? TextInputMask : undefined}
+          as={restProps.mask ? TextInputMask : undefined}
         />
         {variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
       </Styled.InputContainer>
