@@ -29,8 +29,11 @@ const SignIn = ({ navigation, onSignIn }) => {
       },
     };
 
+    console.log('wow', Validate(values, constraints));
     return Validate(values, constraints);
   };
+
+  const handleCodeSend = () => {};
 
   const handleSubmit = async (values) => {
     try {
@@ -59,12 +62,19 @@ const SignIn = ({ navigation, onSignIn }) => {
           component={Styled.TextInput}
           placeholder="Your phone"
           autoCapitalize="none"
-          isPhone
+          variant="phone"
           keyboardType="numeric"
-          mask="([000]) [0000] [0000]"
+          mask="[000] [0000] [0000]"
         />
 
-        <Field name="code" component={Styled.TextInput} placeholder="Verification code" autoCapitalize="none" />
+        <Field
+          name="code"
+          component={Styled.TextInput}
+          placeholder="Verification code"
+          autoCapitalize="none"
+          variant="phoneCode"
+          onSendPress={handleCodeSend}
+        />
       </Styled.FormContent>
 
       <Styled.SignInButton onPress={params.handleSubmit} text="Log In" />

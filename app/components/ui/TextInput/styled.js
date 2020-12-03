@@ -4,6 +4,7 @@ import { Colors } from '~/utils/theme';
 
 import FieldErrorUI from '../FieldError';
 import TextUI from '../Text';
+import Button from '../Button';
 
 export const Container = styled.View`
   padding-vertical: 10px;
@@ -40,3 +41,8 @@ export const FlagText = styled(TextUI).attrs({
   margin-left: 15px;
   margin-bottom: 2px;
 `;
+
+export const SendButton = styled(Button).attrs({
+  variant: 'transparent',
+  textStyle: { color: Colors.pink },
+})``;

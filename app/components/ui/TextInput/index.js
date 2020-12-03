@@ -12,7 +12,10 @@ const TextInput = ({
   inputStyle,
   inputRef,
   hasRectBorder,
-  isPhone,
+  variant,
+  onSendPress,
+  btnSendText,
+  ...restProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -34,26 +37,36 @@ const TextInput = ({
 
   const { onChange, ...restInput } = input;
 
+  const handleChangeText = (formatted, extracted) => {
+    if (variant === 'phone') {
+      onChange(extracted);
+    } else {
+      onChange(formatted);
+    }
+  };
+
   const hasError = Styled.FieldError.hasError(meta);
 
   return (
     <Styled.Container style={style} hasError={hasError} isFocused={isFocused}>
       <Styled.InputContainer>
-        {isPhone && <Styled.FlagText>🇨🇳 +86</Styled.FlagText>}
+        {variant === 'phone' && <Styled.FlagText>🇨🇳 +86</Styled.FlagText>}
         <Styled.Input
           {...restInput}
+          {...restProps}
           ref={inputRef}
           style={inputStyle}
           placeholder={placeholder}
-          onChangeText={onChange}
+          onChangeText={handleChangeText}
           onBlur={handleBlur}
           onFocus={handleFocus}
           editable={!disabled}
           isFocused={isFocused}
           hasError={hasError}
           hasRectBorder={hasRectBorder}
-          as={isPhone ? TextInputMask : undefined}
+          as={variant === 'phone' ? TextInputMask : undefined}
         />
+        {variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
       </Styled.InputContainer>
 
       <Styled.FieldError meta={meta} />

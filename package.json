@@ -34,6 +34,7 @@
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.15.0",
     "react-native-splash-screen": "^3.2.0",
+    "react-native-text-input-mask": "^2.0.0",
     "styled-components": "^5.2.1",
     "styled-map": "^3.3.0",
     "validate.js": "^0.13.1"
