@@ -4,9 +4,14 @@ import { color } from 'styled-system';
 
 import { backIcon } from '~/resources';
 import { Box, Text, IconButton } from '~/components/ui';
+import { Colors } from '~/utils/theme';
 
 export const Container = styled(SafeAreaView)`
-  overflow: hidden;
+  shadow-color: ${Colors.black};
+  shadow-offset: 0 4px;
+  shadow-opacity: 0.03;
+  shadow-radius: 4px;
+  elevation: ${6};
 `;
 
 export const Content = styled(Box).attrs({
