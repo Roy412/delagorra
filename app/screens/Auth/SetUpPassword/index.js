@@ -21,10 +21,13 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
 
   const validate = (values) => {
     const constraints = {
-      password: { presence: { message: '^Required', allowEmpty: false }, length: { minimum: 8, message: '^Too short' } },
+      password: {
+        presence: { message: '^Required', allowEmpty: false },
+        length: { minimum: 8, message: '^Too short' },
+      },
       confirmPassword: {
         presence: { message: '^Required', allowEmpty: false },
-        length: { minimum: 8,message:'^Too short' },
+        length: { minimum: 8, message: '^Too short' },
         equality: {
           attribute: 'password',
           message: '^Passwords do not match',
@@ -87,9 +90,9 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
   }, [countDowning]);
 
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
-    <Styled.FormContainer>
-      <View style={{ flex: 1 }} />
-      <Styled.FormContent>
+    <Styled.Box px={30} flex={1}>
+      <View style={{ flex: 0.2 }} />
+      <Styled.Box>
         <Field
           name="password"
           component={Styled.TextInput}
@@ -109,21 +112,17 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
         <Styled.Text color="veryDarkGray" fontSize={14} mt={10} opacity={0.4} textAlign="center">
           (8-20 english letters or numbers or symbols)
         </Styled.Text>
-      </Styled.FormContent>
+      </Styled.Box>
 
-      <Styled.ConfirmButton mt={50} onPress={handleSubmit} text="Confirm" disabled={submitting} />
-
-      <View style={{ flex: 1 }} />
-    </Styled.FormContainer>
+      <Styled.Button mt={50} onPress={handleSubmit} text="Confirm" disabled={submitting} />
+    </Styled.Box>
   );
 
   return (
-    <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Styled.Container>
-        <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
-      </Styled.Container>
+    <Styled.Box flex={1}>
+      <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
       <Styled.Loader loading={loading} />
-    </Styled.KeyboardAvoidingView>
+    </Styled.Box>
   );
 };
 

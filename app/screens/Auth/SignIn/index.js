@@ -87,16 +87,16 @@ const SignIn = ({ navigation, onSignIn }) => {
   }, [countDowning]);
 
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
-    <Styled.FormContainer>
+    <Styled.Box px={15} flex={1}>
       <View style={{ flex: 1 }} />
-      <Styled.FormContent>
-        <Styled.TextPhone fontStyle="semibold" align="center">
+      <Styled.Box>
+        <Styled.Text fontStyle="semibold" align="center" mt={15}>
           Phone Number
           <Styled.Text color={Colors.pink} fontStyle="semibold">
             {' '}
             Quick Login
           </Styled.Text>
-        </Styled.TextPhone>
+        </Styled.Text>
         <Field
           name="phoneNumber"
           component={Styled.TextInput}
@@ -118,19 +118,19 @@ const SignIn = ({ navigation, onSignIn }) => {
           mask="[0000]"
           codeSending={codeSending}
         />
-      </Styled.FormContent>
+      </Styled.Box>
 
-      <Styled.SignInButton onPress={handleSubmit} text="Log In" disabled={submitting} />
+      <Styled.SignInButton mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
 
       <View style={{ flex: 1 }} />
-    </Styled.FormContainer>
+    </Styled.Box>
   );
 
   return (
     <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Styled.Container>
+      <Styled.Box flex={1}>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
-      </Styled.Container>
+      </Styled.Box>
       <Styled.Loader loading={loading} />
     </Styled.KeyboardAvoidingView>
   );
