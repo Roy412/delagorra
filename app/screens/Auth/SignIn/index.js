@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
-import { Form, Field } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
-
-import { auth, navigators } from '~/navigation/routeNames';
 import * as Client from '~/utils/client';
 import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
@@ -34,8 +32,7 @@ const SignIn = ({ navigation, onSignIn }) => {
       },
     };
 
-    const errors = Validate(values, constraints);
-    return errors;
+    return Validate(values, constraints);
   };
 
   const startCountdown = () => {

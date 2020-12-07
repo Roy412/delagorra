@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
-import { Form, Field } from 'react-final-form';
+import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
-
-import { auth, navigators } from '~/navigation/routeNames';
 import * as Client from '~/utils/client';
 import { showSimpleError } from '~/utils/alert';
-import { Colors } from '~/utils/theme';
 
 import * as Styled from './styled';
 
-const SignIn = ({ navigation, onSignIn }) => {
+const SetUpPassword = ({ navigation, onSignIn }) => {
   const [loading, setLoading] = useState(false);
   const [codeSending, setCodeSending] = useState(false);
   const [countSec, setCountSec] = useState(10);
@@ -18,24 +15,24 @@ const SignIn = ({ navigation, onSignIn }) => {
   const [sendText, setSendText] = useState('Send');
 
   const getInitialValues = () => ({
-    phoneNumber: '',
-    code: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const validate = (values) => {
     const constraints = {
-      phoneNumber: {
+      password: { presence: { message: '^Required', allowEmpty: false }, length: { minimum: 8, message: '^Too short' } },
+      confirmPassword: {
         presence: { message: '^Required', allowEmpty: false },
-        length: { is: 11, message: '^Wrong number' },
-      },
-      code: {
-        presence: { message: '^Required', allowEmpty: false },
-        length: { is: 4, message: '^Too short' },
+        length: { minimum: 8,message:'^Too short' },
+        equality: {
+          attribute: 'password',
+          message: '^Passwords do not match',
+        },
       },
     };
 
-    const errors = Validate(values, constraints);
-    return errors;
+    return Validate(values, constraints);
   };
 
   const startCountdown = () => {
@@ -93,37 +90,28 @@ const SignIn = ({ navigation, onSignIn }) => {
     <Styled.FormContainer>
       <View style={{ flex: 1 }} />
       <Styled.FormContent>
-        <Styled.TextPhone fontStyle="semibold" align="center">
-          Phone Number
-          <Styled.Text color={Colors.pink} fontStyle="semibold">
-            {' '}
-            Quick Login
-          </Styled.Text>
-        </Styled.TextPhone>
         <Field
-          name="phoneNumber"
+          name="password"
           component={Styled.TextInput}
-          placeholder="Your phone"
-          variant="phone"
-          keyboardType="numeric"
-          mask="([000]) [0000] [0000]"
-          disabled={countDowning}
+          placeholder="Please enter new password"
+          secureTextEntry
+          maxLength={20}
         />
 
         <Field
-          name="code"
+          name="confirmPassword"
           component={Styled.TextInput}
-          placeholder="Verification code"
-          variant="phoneCode"
-          onSendPress={() => handleCodeSend(values)}
-          keyboardType="numeric"
-          btnSendText={errors.phoneNumber ? '' : sendText}
-          mask="[0000]"
-          codeSending={codeSending}
+          placeholder="Please enter new password again"
+          secureTextEntry
+          maxLength={20}
         />
+
+        <Styled.Text color="veryDarkGray" fontSize={14} mt={10} opacity={0.4} textAlign="center">
+          (8-20 english letters or numbers or symbols)
+        </Styled.Text>
       </Styled.FormContent>
 
-      <Styled.SignInButton onPress={handleSubmit} text="Log In" disabled={submitting} />
+      <Styled.ConfirmButton mt={50} onPress={handleSubmit} text="Confirm" disabled={submitting} />
 
       <View style={{ flex: 1 }} />
     </Styled.FormContainer>
@@ -139,4 +127,4 @@ const SignIn = ({ navigation, onSignIn }) => {
   );
 };
 
-export default SignIn;
+export default SetUpPassword;

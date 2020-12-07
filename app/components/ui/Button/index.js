@@ -32,6 +32,7 @@ const Button = ({
   textProps = {},
   onPress = _.noop,
   disabled = false,
+  ...props
 }) => {
   const variantStyle = variantStyles[variant];
 
@@ -39,7 +40,8 @@ const Button = ({
     <Styled.Container
       style={[variantStyle.container, variant !== 'transparent', style]}
       onPress={onPress}
-      disabled={disabled}>
+      disabled={disabled}
+      {...props}>
       <Styled.Text style={[variantStyle.text, textStyle]} {...textProps}>
         {text}
       </Styled.Text>

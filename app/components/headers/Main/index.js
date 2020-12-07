@@ -1,5 +1,4 @@
 import React, { isValidElement } from 'react';
-import { View } from 'react-native';
 
 import { Colors } from '~/utils/theme';
 import * as Styled from './styled';

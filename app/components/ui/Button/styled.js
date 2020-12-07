@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import { space, flexbox, flex } from 'styled-system';
 
 import TextUI from '../Text';
 
@@ -8,8 +9,11 @@ export const Container = styled.TouchableOpacity`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
+  ${space}
+  ${flexbox}
+  ${flex}
 `;
 
-export const Text = styled(TextUI).attrs(({ family }) => ({
-  family: family || 'semibold',
+export const Text = styled(TextUI).attrs(({ fontStyle }) => ({
+  fontStyle: fontStyle || 'semibold',
 }))``;

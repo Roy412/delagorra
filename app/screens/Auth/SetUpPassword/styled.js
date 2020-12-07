@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { KeyboardAvoidingView as KeyboardAvoidingViewUI } from 'react-native';
 
-import { Button, Text as TextUI } from '~/components/ui';
+import { Button } from '~/components/ui';
 
 export { TextInput, Loader, Text } from '~/components/ui';
 
@@ -20,10 +20,4 @@ export const FormContainer = styled.View`
 
 export const FormContent = styled.View``;
 
-export const TextPhone = styled(TextUI)`
-  margin-bottom: 8px;
-`;
-
-export const SignInButton = styled(Button)`
-  margin-top: 15px;
-`;
+export const ConfirmButton = styled(Button)``;
