@@ -5,7 +5,7 @@ export const Text = styled.Text`
   ${color}
   ${space}
   ${fontSize}
-  ${lineHeight}x
+  ${lineHeight}
   ${textAlign}
   font-family: ${(props) => `SFUIDisplay-${props.fontStyle}`};
 `;
