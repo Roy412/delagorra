@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { space, color, fontSize, lineHeight, textAlign } from 'styled-system';
 
-export const Text = styled.Text`
+const Text = styled.Text`
   ${color}
   ${space}
   ${fontSize}
@@ -9,3 +9,5 @@ export const Text = styled.Text`
   ${textAlign}
   font-family: ${(props) => (props.fontStyle ? `SFUIDisplay-${props.fontStyle}` : 'SFUIDisplay-Regular')};
 `;
+
+export default Text;
