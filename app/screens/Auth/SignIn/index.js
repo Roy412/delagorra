@@ -107,6 +107,7 @@ const SignIn = ({ navigation, onSignIn }) => {
           variant="phone"
           keyboardType="numeric"
           mask="([000]) [0000] [0000]"
+          disabled={countDowning}
         />
 
         <Field
