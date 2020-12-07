@@ -1,4 +1,5 @@
 import React, { isValidElement } from 'react';
+import { View } from 'react-native';
 
 import { Colors } from '~/utils/theme';
 import * as Styled from './styled';
@@ -40,7 +41,7 @@ const Main = ({ variant = 'main', scene, navigation, previous, sideLarge = false
 
   return (
     <Styled.Container style={{ backgroundColor: vart.bg }}>
-      <Styled.StatusBar barStyle={variant === 'main' ? 'light-content' : 'dark-content'} bg={vart.bg} />
+      <Styled.StatusBar barStyle={variant === 'main' ? 'dark-content' : 'light-content'} bg={vart.bg} />
 
       <Styled.Content>
         {renderLeft()}

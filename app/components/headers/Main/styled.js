@@ -13,24 +13,25 @@ export const Content = styled(Box).attrs({
   flexDirection: 'row',
   alignItems: 'center',
   height: 44,
-});
+})``;
 
 export const StatusBar = styled(StatusBarUI)`
   ${color}
 `;
 
 export const Title = styled(Text).attrs({
-  fontSize: 16,
+  fontSize: 17,
   fontStyle: 'semibold',
   numberOfLines: 1,
   textAlign: 'center',
   flex: 1,
-  lineHeight: 22,
 })``;
 
-export const Left = styled(Box).attrs({})``;
+export const Left = styled(Box).attrs({
+  width: 60,
+})``;
 
-export const Right = styled(Box).attrs({})``;
+export const Right = styled(Left).attrs({})``;
 
 export const BackButton = styled(IconButton).attrs({
   source: backIcon,

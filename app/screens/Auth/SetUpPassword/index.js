@@ -10,7 +10,7 @@ import { Colors } from '~/utils/theme';
 
 import * as Styled from './styled';
 
-const SetUpPassword = ({ navigation, onSignIn }) => {
+const SignIn = ({ navigation, onSignIn }) => {
   const [loading, setLoading] = useState(false);
   const [codeSending, setCodeSending] = useState(false);
   const [countSec, setCountSec] = useState(10);
@@ -93,9 +93,9 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
     <Styled.FormContainer>
       <View style={{ flex: 1 }} />
       <Styled.FormContent>
-        <Styled.TextPhone family="semibold" align="center">
+        <Styled.TextPhone fontStyle="semibold" align="center">
           Phone Number
-          <Styled.Text color={Colors.pink} family="semibold">
+          <Styled.Text color={Colors.pink} fontStyle="semibold">
             {' '}
             Quick Login
           </Styled.Text>
@@ -139,4 +139,4 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
   );
 };
 
-export default SetUpPassword;
+export default SignIn;
