@@ -10,7 +10,7 @@ import { auth } from '../routeNames';
 const Stack = createStackNavigator();
 
 const AuthNavigator = () => (
-  <Stack.Navigator initialRouteName={auth.setUpPassword} headerMode="screen" screenOptions={{ header: SimpleHeader }}>
+  <Stack.Navigator initialRouteName={auth.signIn} headerMode="screen" screenOptions={{ header: SimpleHeader }}>
     <Stack.Screen name={auth.signIn} component={SignIn} />
     <Stack.Screen
       name={auth.setUpPassword}

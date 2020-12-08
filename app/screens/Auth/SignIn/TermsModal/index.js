@@ -29,9 +29,9 @@ const TermsModal = (props) => {
       <Styled.Box flex={1} borderRadius={8}>
         <Styled.Text fontStyle="semibold">请阅读并同意以下条款</Styled.Text>
         <Styled.LinkButton text="《桃用户协议》" onPress={handlePrivacyClick} />
-        <Styled.Button text="《樱桃隐私政策》" onPress={handlePrivacyClick} />
+        <Styled.LinkButton text="《樱桃隐私政策》" onPress={handlePrivacyClick} />
         <Styled.Button mt={15} onPress={handleAgree} text="同意并不同意" />
-        <Styled.Button text="不同意" variant="transparent" textProps={{ color: 'pureBlue' }} onPress={handleDisAgree} />
+        <Styled.Button text="不同意" variant="text" textProps={{ color: 'pureBlue' }} onPress={handleDisAgree} />
       </Styled.Box>
     </Modal>
   );

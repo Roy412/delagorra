@@ -34,6 +34,7 @@ const Button = ({
   disabled = false,
   ...props
 }) => {
+  console.log('wow', variant)
   const variantStyle = variantStyles[variant];
 
   return (

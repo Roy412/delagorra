@@ -53,15 +53,17 @@ const SignIn = ({ navigation, onSignIn }) => {
   };
 
   const handleCodeSend = async ({ phoneNumber }) => {
-    try {
-      setCodeSending(true);
-      const response = await Client.post('/user/code-request', { phoneNumber });
-      setCodeSending(false);
-      startCountdown();
-    } catch (e) {
-      showSimpleError(e);
-      setCodeSending(false);
-    }
+    setShowTermsModal(true)
+
+    // try {
+    //   setCodeSending(true);
+    //   const response = await Client.post('/user/code-request', { phoneNumber });
+    //   setCodeSending(false);
+    //   startCountdown();
+    // } catch (e) {
+    //   showSimpleError(e);
+    //   setCodeSending(false);
+    // }
   };
 
   const handleSubmit = async (values) => {
@@ -94,9 +96,9 @@ const SignIn = ({ navigation, onSignIn }) => {
 
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.Box px={15} flex={1}>
-      <View style={{ flex: 1 }} />
+      <Styled.Box flex={0.3} />
       <Styled.Box>
-        <Styled.Text fontStyle="semibold" align="center" mt={15}>
+        <Styled.Text fontStyle="semibold" textAlign="center" mb={5}>
           Phone Number
           <Styled.Text color={Colors.pink} fontStyle="semibold">
             {' '}
@@ -127,8 +129,6 @@ const SignIn = ({ navigation, onSignIn }) => {
       </Styled.Box>
 
       <Styled.Button mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
-
-      <View style={{ flex: 1 }} />
     </Styled.Box>
   );
 

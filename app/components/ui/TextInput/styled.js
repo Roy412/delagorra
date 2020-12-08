@@ -49,7 +49,7 @@ export const FlagText = styled(TextUI).attrs({
 `;
 
 export const SendButton = styled(Button).attrs({
-  variant: 'transparent',
+  variant: 'text',
   textStyle: { color: Colors.pink },
   textProps: { family: 'regular' },
   mr: 15,
