@@ -3,8 +3,10 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Colors } from '~/utils/theme';
+import PrivacyPolicy from '~/screens/Auth/PrivacyPolicy';
+import { MainHeader } from '~/components/headers';
 
-import { navigators } from './routeNames';
+import { auth, navigators } from './routeNames';
 import Auth from './auth';
 
 const Stack = createStackNavigator();
@@ -21,6 +23,7 @@ const NavigationWrapper = () => (
   <NavigationContainer theme={MyTheme}>
     <Stack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName={navigators.auth}>
       <Stack.Screen name={navigators.auth} component={Auth} />
+      <Stack.Screen name={auth.privacyPolicy} component={PrivacyPolicy} options={{ headerShown: true, header: MainHeader, title: 'Privacy & Policy' }} />
     </Stack.Navigator>
   </NavigationContainer>
 );
