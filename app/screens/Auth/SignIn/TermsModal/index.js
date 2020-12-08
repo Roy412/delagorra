@@ -1,13 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { Platform, View } from 'react-native';
-import { Field, Form } from 'react-final-form';
-import Validate from 'validate.js';
 import Modal from 'react-native-modal';
-
-import * as Client from '~/utils/client';
-import { showSimpleError } from '~/utils/alert';
-import { Colors } from '~/utils/theme';
 import { auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';

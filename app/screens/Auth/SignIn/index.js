@@ -134,9 +134,9 @@ const SignIn = ({ navigation, onSignIn }) => {
 
   return (
     <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-      <Styled.Box flex={1}>
+      <Styled.Container>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
-      </Styled.Box>
+      </Styled.Container>
       <Styled.Loader loading={loading} />
       <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal}/>
     </Styled.KeyboardAvoidingView>
