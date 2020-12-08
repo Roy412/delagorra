@@ -138,7 +138,7 @@ const SignIn = ({ navigation, onSignIn }) => {
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
       </Styled.Box>
       <Styled.Loader loading={loading} />
-      <TermsModal isVisible={showTermsModal} />
+      <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal}/>
     </Styled.KeyboardAvoidingView>
   );
 };

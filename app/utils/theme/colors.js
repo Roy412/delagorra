@@ -3,6 +3,7 @@ export default {
   pink: '#F84657',
   white: 'white',
   black: 'black',
+  gray: 'gray',
   overlayLight: 'rgba(255, 255, 255, 0.5)',
   veryDarkGray: '#131313',
   lightGrayishBlue: '#dededf',

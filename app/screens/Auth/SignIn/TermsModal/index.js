@@ -18,20 +18,22 @@ const TermsModal = (props) => {
     navigation.navigate(auth.privacyPolicy);
   };
 
-  const handleAgree = () => {
+  const handleAgree = () => {};
 
+  const handleDisAgree = () => {
+    props.onBackdropPress();
   };
-
-  const handleDisAgree = () => {};
 
   return (
     <Modal {...props}>
-      <Styled.Box flex={1} borderRadius={8}>
-        <Styled.Text fontStyle="semibold">请阅读并同意以下条款</Styled.Text>
-        <Styled.LinkButton text="《桃用户协议》" onPress={handlePrivacyClick} />
-        <Styled.LinkButton text="《樱桃隐私政策》" onPress={handlePrivacyClick} />
+      <Styled.Box borderRadius={8} bg="white" px={17} pt={20} mx={30} pb={30}>
+        <Styled.Text fontSize={17} textAlign="center" fontStyle="semibold">
+          请阅读并同意以下条款
+        </Styled.Text>
+        <Styled.LinkButton mt={20} text="《桃用户协议》" onPress={handlePrivacyClick} />
+        <Styled.LinkButton mt={5} text="《樱桃隐私政策》" onPress={handlePrivacyClick} />
         <Styled.Button mt={15} onPress={handleAgree} text="同意并不同意" />
-        <Styled.Button text="不同意" variant="text" textProps={{ color: 'pureBlue' }} onPress={handleDisAgree} />
+        <Styled.Button mt={15} text="不同意" variant="text" textProps={{ color: 'gray' }} onPress={handleDisAgree} />
       </Styled.Box>
     </Modal>
   );

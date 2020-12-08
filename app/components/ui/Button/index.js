@@ -11,7 +11,8 @@ const variantStyles = {
       backgroundColor: Colors.pink,
     },
     text: {
-      color: Colors.white,
+      color: 'white',
+      fontSize: 16,
     },
   },
   text: {
@@ -19,7 +20,8 @@ const variantStyles = {
       height: 'auto',
     },
     text: {
-      color: Colors.black,
+      color: 'black',
+      fontSize: 16,
     },
   },
 };
@@ -34,16 +36,11 @@ const Button = ({
   disabled = false,
   ...props
 }) => {
-  console.log('wow', variant)
   const variantStyle = variantStyles[variant];
 
   return (
-    <Styled.Container
-      style={[variantStyle.container, variant !== 'text', style]}
-      onPress={onPress}
-      disabled={disabled}
-      {...props}>
-      <Styled.Text style={[variantStyle.text, textStyle]} {...textProps}>
+    <Styled.Container style={[variantStyle.container, style]} onPress={onPress} disabled={disabled} {...props}>
+      <Styled.Text style={textStyle} {...{ ...variantStyle.text, ...textProps }}>
         {text}
       </Styled.Text>
     </Styled.Container>
