@@ -8,6 +8,7 @@ import * as Styled from './styled';
 const TermsModal = (props) => {
   const navigation = useNavigation();
   const handlePrivacyClick = () => {
+    props.onBackdropPress();
     navigation.navigate(auth.privacyPolicy);
   };
 

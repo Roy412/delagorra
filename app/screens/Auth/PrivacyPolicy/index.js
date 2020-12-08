@@ -1,6 +1,5 @@
 import React, { useLayoutEffect } from 'react';
 
-import { crossIcon } from '~/resources';
 
 import * as Styled from './styled';
 
@@ -9,13 +8,11 @@ const PrivacyPolicy = ({ navigation }) => {
     navigation.goBack();
   };
 
-  // useLayoutEffect(() => {
-  //     navigation.setOptions({
-  //       headerLeft: (
-  //         <Styled.IconButton source={crossIcon} size={20} onPress={handleClose} />
-  //       ),
-  //     })
-  // }, [navigation])
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: <Styled.CloseButton onPress={handleClose} />,
+    });
+  }, [navigation]);
 
   return (
     <Styled.Content>

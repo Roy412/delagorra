@@ -5,6 +5,7 @@ import { color } from 'styled-system';
 import { backIcon } from '~/resources';
 import { Box, Text, IconButton } from '~/components/ui';
 import { Colors } from '~/utils/theme';
+import { hitSlopArea } from '~/utils/utils';
 
 export const Container = styled(SafeAreaView)`
   shadow-color: ${Colors.black};
@@ -40,5 +41,7 @@ export const Right = styled(Left).attrs({})``;
 
 export const BackButton = styled(IconButton).attrs({
   source: backIcon,
-  hitSlop: 5,
+  hitSlop: hitSlopArea(5),
+  pl: 17,
+  iconStyle: { width: 12, aspectRatio: 10 / 17, height: undefined },
 })``;
