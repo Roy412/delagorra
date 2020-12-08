@@ -54,7 +54,7 @@ const TextInput = ({
 
   return (
     <Styled.Container style={style}>
-      <Styled.InputContainer hasError={hasError} isFocused={isFocused}>
+      <Styled.InputContainer hasError={hasError} isFocused={isFocused} disabled={disabled}>
         {variant === 'phone' && <Styled.FlagText>🇨🇳 +86</Styled.FlagText>}
         <Styled.Input
           {...restInput}

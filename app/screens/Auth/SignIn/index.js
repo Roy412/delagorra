@@ -6,6 +6,8 @@ import * as Client from '~/utils/client';
 import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
 
+import TermsModal from './TermsModal';
+
 import * as Styled from './styled';
 
 const SignIn = ({ navigation, onSignIn }) => {
@@ -14,6 +16,7 @@ const SignIn = ({ navigation, onSignIn }) => {
   const [countSec, setCountSec] = useState(10);
   const [countDowning, setCountDowning] = useState(false);
   const [sendText, setSendText] = useState('Send');
+  const [showTermsModal, setShowTermsModal] = useState(false);
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -64,7 +67,10 @@ const SignIn = ({ navigation, onSignIn }) => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      const response = await Client.post('/code-request', values);
+      const response = await Client.post('/code-verify', values);
+      if (!response.password) {
+        setShowTermsModal(true);
+      }
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -120,7 +126,7 @@ const SignIn = ({ navigation, onSignIn }) => {
         />
       </Styled.Box>
 
-      <Styled.SignInButton mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
+      <Styled.Button mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
 
       <View style={{ flex: 1 }} />
     </Styled.Box>
@@ -132,6 +138,7 @@ const SignIn = ({ navigation, onSignIn }) => {
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
       </Styled.Box>
       <Styled.Loader loading={loading} />
+      <TermsModal isVisible={showTermsModal} />
     </Styled.KeyboardAvoidingView>
   );
 };

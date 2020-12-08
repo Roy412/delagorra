@@ -14,7 +14,7 @@ const variantStyles = {
       color: Colors.white,
     },
   },
-  transparent: {
+  text: {
     container: {
       height: 'auto',
     },
@@ -38,7 +38,7 @@ const Button = ({
 
   return (
     <Styled.Container
-      style={[variantStyle.container, variant !== 'transparent', style]}
+      style={[variantStyle.container, variant !== 'text', style]}
       onPress={onPress}
       disabled={disabled}
       {...props}>

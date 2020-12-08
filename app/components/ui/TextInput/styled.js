@@ -9,16 +9,18 @@ import FieldErrorUI from '../FieldError';
 import TextUI from '../Text';
 import Button from '../Button';
 import IconButton from '../IconButton';
+import Box from '../Box';
 
 export const Container = styled.View`
   padding-vertical: 10px;
 `;
 
-export const InputContainer = styled.View`
+export const InputContainer = styled(Box).attrs(({ disabled }) => ({
+  bg: disabled ? 'veryLightGray' : 'white',
+}))`
   height: 46px;
   flex-direction: row;
   align-items: center;
-  background-color: ${Colors.white};
   border-radius: 10px;
   border-width: 1px;
   ${({ isFocused }) => `border-color: ${Colors[isFocused ? 'veryDarkGray' : 'lightGrayishBlue']};`}

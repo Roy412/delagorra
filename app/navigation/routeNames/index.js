@@ -4,6 +4,6 @@ export const navigators = createNames(['auth'], {
   prefix: 'navigators/',
 });
 
-export const auth = createNames(['signIn', 'setUpPassword'], {
+export const auth = createNames(['signIn', 'setUpPassword', 'privacyPolicy'], {
   prefix: 'auth/',
 });
