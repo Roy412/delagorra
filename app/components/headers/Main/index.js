@@ -1,12 +1,15 @@
 import React, { isValidElement } from 'react';
 
-import { Colors } from '~/utils/theme';
 import * as Styled from './styled';
 
 const variants = {
+  auth: {
+    bg: 'white',
+    title: 'veryDarkGray',
+  },
   main: {
-    bg: Colors.white,
-    title: Colors.veryDarkGray,
+    bg: 'pink',
+    title: 'veryDarkGray',
   },
 };
 

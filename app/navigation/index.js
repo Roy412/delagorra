@@ -8,6 +8,7 @@ import { MainHeader } from '~/components/headers';
 
 import { auth, navigators } from './routeNames';
 import Auth from './auth';
+import Main from './main';
 
 const Stack = createStackNavigator();
 
@@ -23,7 +24,12 @@ const NavigationWrapper = () => (
   <NavigationContainer theme={MyTheme}>
     <Stack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName={navigators.auth}>
       <Stack.Screen name={navigators.auth} component={Auth} />
-      <Stack.Screen name={auth.privacyPolicy} component={PrivacyPolicy} options={{ headerShown: true, header: MainHeader, title: 'Privacy & Policy' }} />
+      <Stack.Screen name={navigators.main} component={Main} />
+      <Stack.Screen
+        name={auth.privacyPolicy}
+        component={PrivacyPolicy}
+        options={{ headerShown: true, header: MainHeader, title: 'Privacy & Policy' }}
+      />
     </Stack.Navigator>
   </NavigationContainer>
 );
