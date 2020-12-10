@@ -28,7 +28,7 @@ export default (rootReducer, rootSaga) => {
   }
 
   // kick off root saga
-  let sagasManager = sagaMiddleware.run(rootSaga);
+  let sagasManager = sagaMiddleware.run(rootSaga, store);
 
   return {
     store,

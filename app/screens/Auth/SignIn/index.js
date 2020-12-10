@@ -1,22 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
+import { Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
-import * as Client from '~/utils/client';
+
+import { AuthCreators } from '~/store/actions/auth';
 import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
+import { Promisify } from '~/utils/promisify';
 
 import TermsModal from './TermsModal';
-
 import * as Styled from './styled';
 
-const SignIn = ({ navigation, onSignIn }) => {
+const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [codeSending, setCodeSending] = useState(false);
   const [countSec, setCountSec] = useState(10);
   const [countDowning, setCountDowning] = useState(false);
   const [sendText, setSendText] = useState('Send');
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const dispatch = useDispatch();
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -53,26 +56,24 @@ const SignIn = ({ navigation, onSignIn }) => {
   };
 
   const handleCodeSend = async ({ phoneNumber }) => {
-    setShowTermsModal(true)
-
-    // try {
-    //   setCodeSending(true);
-    //   const response = await Client.post('/user/code-request', { phoneNumber });
-    //   setCodeSending(false);
-    //   startCountdown();
-    // } catch (e) {
-    //   showSimpleError(e);
-    //   setCodeSending(false);
-    // }
+    try {
+      setCodeSending(true);
+      await Promisify(dispatch, AuthCreators.requestCodeRequest, { phoneNumber });
+      setCodeSending(false);
+      startCountdown();
+    } catch (e) {
+      showSimpleError(e);
+      setCodeSending(false);
+    }
   };
 
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      const response = await Client.post('/code-verify', values);
-      if (!response.password) {
-        setShowTermsModal(true);
-      }
+      // const response = await Client.post('/code-verify', values);
+      // if (!response.password) {
+      //   setShowTermsModal(true);
+      // }
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -138,7 +139,7 @@ const SignIn = ({ navigation, onSignIn }) => {
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
       </Styled.Container>
       <Styled.Loader loading={loading} />
-      <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal}/>
+      <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal} />
     </Styled.KeyboardAvoidingView>
   );
 };

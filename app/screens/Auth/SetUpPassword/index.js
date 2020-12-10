@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Platform, View } from 'react-native';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
-import * as Client from '~/utils/client';
 import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
@@ -55,7 +54,7 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
   const handleCodeSend = async ({ phoneNumber }) => {
     try {
       setCodeSending(true);
-      const response = await Client.post('/user/code-request', { phoneNumber });
+      // const response = await Client.post('/user/code-request', { phoneNumber });
       setCodeSending(false);
       startCountdown();
     } catch (e) {
@@ -67,7 +66,7 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      const response = await Client.post('/code-request', values);
+      // const response = await Client.post('/code-request', values);
       setLoading(false);
     } catch (e) {
       setLoading(false);
