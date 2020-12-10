@@ -1,6 +1,6 @@
-import { all, takeLatest, call } from 'redux-saga/effects';
+import { all, takeLatest, call, put } from 'redux-saga/effects';
 
-import { AuthTypes } from '~/store/actions/auth';
+import { AuthTypes, AuthCreators } from '~/store/actions/auth';
 
 function* codeRequest(api, { payload, resolve, reject }) {
   const response = yield call(api.auth.codeRequest, payload);
@@ -16,8 +16,10 @@ function* codeVerify(api, { payload, resolve, reject }) {
   const response = yield call(api.auth.codeVerify, payload);
 
   if (response.ok && response.data.result === 'OK') {
+    yield put(AuthCreators.signInSuccess(response.data.data));
     resolve(response.data.data);
   } else {
+    yield put(AuthCreators.signInFailure());
     reject(response.data);
   }
 }

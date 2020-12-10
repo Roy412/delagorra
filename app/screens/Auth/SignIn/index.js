@@ -67,7 +67,7 @@ const SignIn = ({ navigation }) => {
     }
   };
 
-  const handleSubmit = async (values) => {
+  const handleSignIn = async (values) => {
     try {
       setLoading(true);
       const response = await Promisify(dispatch, AuthCreators.codeVerifyRequest, values);
@@ -136,7 +136,7 @@ const SignIn = ({ navigation }) => {
   return (
     <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
       <Styled.Container>
-        <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
+        <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSignIn} />
       </Styled.Container>
       <Styled.Loader loading={loading} />
       <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal} />

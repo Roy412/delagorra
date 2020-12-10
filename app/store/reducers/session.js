@@ -8,15 +8,12 @@ const INITIAL_STATE = Immutable({
   token: null,
 });
 
-const signInSuccess = (state, { user }) => state.merge({ user, token: user.token });
-
-const signUpSuccess = (state, { user }) => state.merge({ user, token: user.token });
+const signInSuccess = (state, { payload }) => state.merge({ user: payload.user, token: payload.token });
 
 const signInFailure = () => INITIAL_STATE;
 
 const HANDLERS = {
   [AuthTypes.SIGN_IN_SUCCESS]: signInSuccess,
-  [AuthTypes.SIGN_UP_SUCCESS]: signUpSuccess,
   [AuthTypes.SIGN_IN_FAILURE]: signInFailure,
 };
 
