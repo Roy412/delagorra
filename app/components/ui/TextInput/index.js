@@ -73,7 +73,7 @@ const TextInput = ({
         />
         {codeSending && <Styled.ActivityIndicator size="small" color="#0000aa" />}
         {!codeSending && variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
-        {!!restInput.value && <Styled.ClearButton onPress={handleClear} />}
+        {!disabled && !!restInput.value && <Styled.ClearButton onPress={handleClear} />}
       </Styled.InputContainer>
 
       <Styled.FieldError meta={meta} />

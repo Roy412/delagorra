@@ -113,7 +113,7 @@ const SignIn = ({ navigation }) => {
           variant="phone"
           keyboardType="numeric"
           mask="([000]) [0000] [0000]"
-          disabled={countDowning}
+          disabled={codeSending || countDowning}
         />
 
         <Field
