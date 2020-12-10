@@ -5,4 +5,10 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  codeVerify: (payload) =>
+    apiCall({
+      endpoint: 'user/code-verify',
+      method: 'POST',
+      query: payload,
+    }),
 });

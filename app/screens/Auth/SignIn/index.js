@@ -70,10 +70,10 @@ const SignIn = ({ navigation }) => {
   const handleSubmit = async (values) => {
     try {
       setLoading(true);
-      // const response = await Client.post('/code-verify', values);
-      // if (!response.password) {
-      //   setShowTermsModal(true);
-      // }
+      const response = await Promisify(dispatch, AuthCreators.codeVerifyRequest, values);
+      if (!response.password) {
+        setShowTermsModal(true);
+      }
       setLoading(false);
     } catch (e) {
       setLoading(false);
