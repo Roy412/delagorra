@@ -106,6 +106,10 @@ const SignIn = ({ navigation }) => {
     navigation.navigate(auth.setUpPassword);
   };
 
+  const handleClose = () => {
+    navigation.goBack();
+  };
+
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.Box px={15} flex={1}>
       <Styled.Box flex={0.3} />
@@ -149,6 +153,7 @@ const SignIn = ({ navigation }) => {
       <Styled.Container>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSignIn} />
       </Styled.Container>
+      <Styled.CloseButton onPress={handleClose} />
       <Styled.Loader loading={loading} />
       <TermsModal
         onBackdropPress={() => setShowTermsModal(false)}
