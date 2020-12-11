@@ -13,7 +13,7 @@ const variants = {
   },
 };
 
-const Main = ({ variant = 'main', scene, navigation, previous, sideLarge = false, heightHigh = false }) => {
+const Main = ({ variant = 'main', scene, navigation }) => {
   const { options } = scene.descriptor;
   const vart = variants[variant] || variants.main;
 
@@ -28,7 +28,7 @@ const Main = ({ variant = 'main', scene, navigation, previous, sideLarge = false
       return <Styled.Left>{options.headerLeft}</Styled.Left>;
     }
 
-    return <Styled.Left>{previous && renderBack()}</Styled.Left>;
+    return <Styled.Left>{navigation.canGoBack() && renderBack()}</Styled.Left>;
   };
 
   const renderRight = () => {
