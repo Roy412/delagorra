@@ -1,6 +1,5 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
-import Modal from 'react-native-modal';
 
 import { navigators } from '~/navigation/routeNames';
 
@@ -9,16 +8,15 @@ import * as Styled from './styled';
 const TermsModal = (props) => {
   const navigation = useNavigation();
   const handlePrivacyClick = () => {
-    props.onBackdropPress();
     navigation.navigate(navigators.privacyPolicy);
   };
 
   const handleDisAgree = () => {
-    props.onBackdropPress();
+    props.onClosed();
   };
 
   return (
-    <Modal {...props}>
+    <Styled.Modal position="center" {...props}>
       <Styled.Box borderRadius={8} bg="white" px={17} pt={20} mx={30} pb={30}>
         <Styled.Text fontSize={17} textAlign="center" fontStyle="semibold">
           请阅读并同意以下条款
@@ -28,7 +26,7 @@ const TermsModal = (props) => {
         <Styled.Button mt={15} onPress={props.handleAgree} text="同意并不同意" />
         <Styled.Button mt={15} text="不同意" variant="text" textProps={{ color: 'gray' }} onPress={handleDisAgree} />
       </Styled.Box>
-    </Modal>
+    </Styled.Modal>
   );
 };
 

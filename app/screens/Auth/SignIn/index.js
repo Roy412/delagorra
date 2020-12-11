@@ -155,11 +155,7 @@ const SignIn = ({ navigation }) => {
       </Styled.Container>
       <Styled.CloseButton onPress={handleClose} />
       <Styled.Loader loading={loading} />
-      <TermsModal
-        onBackdropPress={() => setShowTermsModal(false)}
-        isVisible={showTermsModal}
-        handleAgree={handlePrivacyAgree}
-      />
+      <TermsModal onClosed={() => setShowTermsModal(false)} isOpen={showTermsModal} handleAgree={handlePrivacyAgree} />
     </Styled.KeyboardAvoidingView>
   );
 };

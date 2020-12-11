@@ -51,7 +51,10 @@ const NavigationWrapper = () => {
 
   return (
     <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName={navigators.main}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, gestureEnabled: false }}
+        mode="modal"
+        initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
         <Stack.Screen name={navigators.main} component={Main} />
         <Stack.Screen
