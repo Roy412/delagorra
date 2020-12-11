@@ -17,7 +17,7 @@ const TermsModal = (props) => {
 
   return (
     <Styled.Modal position="center" {...props}>
-      <Styled.Box borderRadius={8} bg="white" px={17} pt={20} mx={30} pb={30}>
+      <Styled.Box borderRadius={8} bg="white" px={47} pt={20} pb={30}>
         <Styled.Text fontSize={17} textAlign="center" fontStyle="semibold">
           请阅读并同意以下条款
         </Styled.Text>
