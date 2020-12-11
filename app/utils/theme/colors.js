@@ -9,4 +9,5 @@ export default {
   lightGrayishBlue: '#dededf',
   pureBlue: '#007AFF',
   veryLightGray: '#E0E0E0',
+  deepBlush: '#e56a92',
 };
