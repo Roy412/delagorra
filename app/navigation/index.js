@@ -8,7 +8,7 @@ import { Colors } from '~/utils/theme';
 import PrivacyPolicy from '~/screens/Auth/PrivacyPolicy';
 import ProgressScreen from '~/screens/Auth/Progress';
 import { MainHeader, SimpleHeader } from '~/components/headers';
-import { isRehydrated as isRehydratedSelector } from '~/store/selectors/app';
+import { isRestored as isRestoredSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
 
 import { navigators } from './routeNames';
@@ -26,7 +26,7 @@ const MyTheme = {
 };
 
 const NavigationWrapper = () => {
-  const isRehydrated = useSelector(isRehydratedSelector);
+  const isRestored = useSelector(isRestoredSelector);
   const [appState, setAppState] = useState(AppState.currentState);
   const dispatch = useDispatch();
 
@@ -45,7 +45,7 @@ const NavigationWrapper = () => {
     };
   }, [appState]);
 
-  if (!isRehydrated) {
+  if (!isRestored) {
     return <ProgressScreen />;
   }
 
