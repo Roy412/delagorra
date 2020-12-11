@@ -16,7 +16,6 @@ function* codeVerify(api, { payload, resolve, reject }) {
   const response = yield call(api.auth.codeVerify, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(AuthCreators.signInSuccess(response.data.data));
     resolve(response.data.data);
   } else {
     yield put(AuthCreators.signInFailure());

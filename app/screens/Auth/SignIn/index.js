@@ -8,12 +8,14 @@ import { AuthCreators } from '~/store/actions/auth';
 import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
 import { Promisify } from '~/utils/promisify';
+import { main, auth } from '~/navigation/routeNames';
 
 import TermsModal from './TermsModal';
 import * as Styled from './styled';
 
 const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [userResponse, setUserResponse] = useState();
   const [codeSending, setCodeSending] = useState(false);
   const [countSec, setCountSec] = useState(10);
   const [countDowning, setCountDowning] = useState(false);
@@ -71,8 +73,12 @@ const SignIn = ({ navigation }) => {
     try {
       setLoading(true);
       const response = await Promisify(dispatch, AuthCreators.codeVerifyRequest, values);
-      if (!response.password) {
+      setUserResponse(response);
+      if (!response.user.password) {
         setShowTermsModal(true);
+      } else {
+        dispatch(AuthCreators.signInSuccess(response));
+        navigation.navigate(main.home);
       }
       setLoading(false);
     } catch (e) {
@@ -94,6 +100,11 @@ const SignIn = ({ navigation }) => {
       setCountSec(5);
     }
   }, [countDowning]);
+
+  const handlePrivacyAgree = () => {
+    dispatch(AuthCreators.signInSuccess(userResponse));
+    navigation.navigate(auth.setUpPassword);
+  };
 
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.Box px={15} flex={1}>
@@ -139,7 +150,11 @@ const SignIn = ({ navigation }) => {
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSignIn} />
       </Styled.Container>
       <Styled.Loader loading={loading} />
-      <TermsModal onBackdropPress={() => setShowTermsModal(false)} isVisible={showTermsModal} />
+      <TermsModal
+        onBackdropPress={() => setShowTermsModal(false)}
+        isVisible={showTermsModal}
+        handleAgree={handlePrivacyAgree}
+      />
     </Styled.KeyboardAvoidingView>
   );
 };

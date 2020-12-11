@@ -1,7 +1,8 @@
 import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Modal from 'react-native-modal';
-import { auth } from '~/navigation/routeNames';
+
+import { navigators } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
@@ -9,10 +10,8 @@ const TermsModal = (props) => {
   const navigation = useNavigation();
   const handlePrivacyClick = () => {
     props.onBackdropPress();
-    navigation.navigate(auth.privacyPolicy);
+    navigation.navigate(navigators.privacyPolicy);
   };
-
-  const handleAgree = () => {};
 
   const handleDisAgree = () => {
     props.onBackdropPress();
@@ -26,7 +25,7 @@ const TermsModal = (props) => {
         </Styled.Text>
         <Styled.LinkButton mt={20} text="《桃用户协议》" onPress={handlePrivacyClick} />
         <Styled.LinkButton mt={5} text="《樱桃隐私政策》" onPress={handlePrivacyClick} />
-        <Styled.Button mt={15} onPress={handleAgree} text="同意并不同意" />
+        <Styled.Button mt={15} onPress={props.handleAgree} text="同意并不同意" />
         <Styled.Button mt={15} text="不同意" variant="text" textProps={{ color: 'gray' }} onPress={handleDisAgree} />
       </Styled.Box>
     </Modal>
