@@ -12,7 +12,7 @@ export const INITIAL_STATE = Immutable({
   isRefetched: false,
 });
 
-const completeRefetch = (state) => state.merge({ isRefetched: true })
+const completeRefetch = (state) => state.merge({ isRefetched: true });
 const completeRehydration = (state) => state.merge({ isRehydrated: true });
 
 export const HANDLERS = {
