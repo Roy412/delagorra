@@ -5,7 +5,10 @@ export const { Types: AuthTypes, Creators: AuthCreators } = createActions(
     requestCodeRequest: ['payload', 'resolve', 'reject'],
     codeVerifyRequest: ['payload', 'resolve', 'reject'],
     signInSuccess: ['payload'],
-    signInFailure: [],
+    signInFailure: null,
+
+    logOutRequest: null,
+    logOutSuccess: null,
   },
   { prefix: 'Auth/' },
 );

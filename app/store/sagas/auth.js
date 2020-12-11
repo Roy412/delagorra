@@ -23,9 +23,14 @@ function* codeVerify(api, { payload, resolve, reject }) {
   }
 }
 
+function* logOut() {
+  yield put(AuthCreators.logOutSuccess());
+}
+
 export default function* main(api) {
   yield all([
     takeLatest(AuthTypes.REQUEST_CODE_REQUEST, codeRequest, api),
     takeLatest(AuthTypes.CODE_VERIFY_REQUEST, codeVerify, api),
+    takeLatest(AuthTypes.LOG_OUT_REQUEST, logOut),
   ]);
 }
