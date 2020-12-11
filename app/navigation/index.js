@@ -57,7 +57,11 @@ const NavigationWrapper = () => {
         <Stack.Screen
           name={navigators.privacyPolicy}
           component={PrivacyPolicy}
-          options={{ headerShown: true, header: MainHeader, title: 'Privacy & Policy' }}
+          options={{
+            headerShown: true,
+            header: (props) => <MainHeader variant="auth" {...props} />,
+            title: 'Privacy & Policy',
+          }}
         />
         <Stack.Screen
           name={navigators.progress}

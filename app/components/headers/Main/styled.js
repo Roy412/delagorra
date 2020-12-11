@@ -13,6 +13,7 @@ export const Container = styled(SafeAreaView)`
   shadow-opacity: 0.03;
   shadow-radius: 4px;
   elevation: ${6};
+  ${color}
 `;
 
 export const Content = styled(Box).attrs({

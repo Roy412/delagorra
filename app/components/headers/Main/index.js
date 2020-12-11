@@ -42,8 +42,8 @@ const Main = ({ variant = 'main', scene, navigation, previous, sideLarge = false
   const renderTitle = () => <Styled.Title color={vart.title}>{options.title}</Styled.Title>;
 
   return (
-    <Styled.Container style={{ backgroundColor: vart.bg }}>
-      <Styled.StatusBar barStyle={variant === 'main' ? 'dark-content' : 'light-content'} bg={vart.bg} />
+    <Styled.Container bg={vart.bg}>
+      <Styled.StatusBar barStyle="dark-content" bg={vart.bg} />
 
       <Styled.Content>
         {renderLeft()}
