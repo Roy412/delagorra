@@ -7,7 +7,7 @@ import { isAuthenticated } from '~/store/selectors/session';
 function* startup() {
   const authenticated = yield select(isAuthenticated);
   if (authenticated) {
-    yield put(AuthCreators.signInToken());
+    yield put(AuthCreators.signInTokenRequest());
   } else {
     yield put(AppCreators.completeRehydration());
   }

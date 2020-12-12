@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { AuthCreators } from '~/store/actions/auth';
 import { navigators, auth } from '~/navigation/routeNames';
@@ -8,6 +8,7 @@ import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/se
 import * as Styled from './styled';
 
 const Profile = ({ navigation }) => {
+  const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const handleClose = () => {
     navigation.goBack();
@@ -20,7 +21,7 @@ const Profile = ({ navigation }) => {
   }, [navigation]);
 
   const handleSignOut = () => {
-    navigation.dispatch(AuthCreators.logOutRequest());
+    dispatch(AuthCreators.logOutRequest());
     navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
   };
 

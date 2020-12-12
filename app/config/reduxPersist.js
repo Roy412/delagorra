@@ -7,7 +7,7 @@ const REDUX_PERSIST = {
   rootConfig: {
     key: 'primary',
     storage: AsyncStorage,
-    whitelist: [],
+    whitelist: ['session'],
     transforms: [],
   },
 

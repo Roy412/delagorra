@@ -54,7 +54,7 @@ const NavigationWrapper = () => {
       <Stack.Navigator
         screenOptions={{ headerShown: false, gestureEnabled: false }}
         mode="modal"
-        initialRouteName={navigators.auth}>
+        initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
         <Stack.Screen name={navigators.main} component={Main} />
         <Stack.Screen

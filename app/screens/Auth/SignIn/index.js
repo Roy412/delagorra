@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Platform } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
 
@@ -20,6 +21,7 @@ const SignIn = ({ navigation }) => {
   const [countDowning, setCountDowning] = useState(false);
   const [sendText, setSendText] = useState('Send');
   const [showTermsModal, setShowTermsModal] = useState(false);
+  const dispatch = useDispatch();
 
   const getInitialValues = () => ({
     phoneNumber: '',
@@ -58,7 +60,7 @@ const SignIn = ({ navigation }) => {
   const handleCodeSend = async ({ phoneNumber }) => {
     try {
       setCodeSending(true);
-      await Promisify(navigation.dispatch, AuthCreators.requestCodeRequest, { phoneNumber });
+      await Promisify(dispatch, AuthCreators.requestCodeRequest, { phoneNumber });
       setCodeSending(false);
       startCountdown();
     } catch (e) {
@@ -70,12 +72,12 @@ const SignIn = ({ navigation }) => {
   const handleSignIn = async (values) => {
     try {
       setLoading(true);
-      const response = await Promisify(navigation.dispatch, AuthCreators.codeVerifyRequest, values);
+      const response = await Promisify(dispatch, AuthCreators.codeVerifyRequest, values);
       setUserResponse(response);
       if (!response.user.password) {
         setShowTermsModal(true);
       } else {
-        navigation.dispatch(AuthCreators.signInSuccess(response));
+        dispatch(AuthCreators.signInSuccess(response));
         navigation.navigate(main.home);
       }
       setLoading(false);
@@ -100,7 +102,7 @@ const SignIn = ({ navigation }) => {
   }, [countDowning]);
 
   const handlePrivacyAgree = () => {
-    navigation.dispatch(AuthCreators.signInSuccess(userResponse));
+    dispatch(AuthCreators.signInSuccess(userResponse));
     navigation.navigate(auth.setUpPassword);
   };
 

@@ -11,4 +11,15 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  signIn: (payload) =>
+    apiCall({
+      endpoint: 'user/sign-in',
+      method: 'POST',
+      query: payload,
+    }),
+  signInToken: () =>
+    apiCall({
+      endpoint: 'user/refresh-token',
+      method: 'POST',
+    }),
 });
