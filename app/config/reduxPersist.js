@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-community/async-storage';
 
+import { seamlessImmutableReconciler } from 'redux-persist-seamless-immutable';
+
 const REDUX_PERSIST = {
   active: true,
   reducerVersion: '1.0',
@@ -8,7 +10,7 @@ const REDUX_PERSIST = {
     key: 'primary',
     storage: AsyncStorage,
     whitelist: ['session'],
-    transforms: [],
+    stateReconciler: seamlessImmutableReconciler,
   },
 
   dataConfig: {
