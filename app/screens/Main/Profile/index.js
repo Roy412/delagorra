@@ -21,8 +21,8 @@ const Profile = ({ navigation }) => {
   }, [navigation]);
 
   const handleSignOut = () => {
-    dispatch(AuthCreators.logOutRequest());
     navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
+    dispatch(AuthCreators.logOutRequest());
   };
 
   const handleSignIn = () => {

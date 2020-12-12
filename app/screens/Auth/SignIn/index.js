@@ -103,7 +103,10 @@ const SignIn = ({ navigation }) => {
 
   const handlePrivacyAgree = () => {
     dispatch(AuthCreators.signInSuccess(userResponse));
-    navigation.navigate(auth.setUpPassword);
+    navigation.reset({
+      index: 0,
+      routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword } }],
+    });
   };
 
   const handleClose = () => {
