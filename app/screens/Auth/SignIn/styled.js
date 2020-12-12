@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
-import { KeyboardAvoidingView as KeyboardAvoidingViewUI, SafeAreaView } from 'react-native';
+import { SafeAreaView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { crossIcon } from '~/resources';
 import { IconButton } from '~/components/ui';
@@ -7,9 +8,10 @@ import { hitSlopArea } from '~/utils/utils';
 
 export { TextInput, Loader, Text, Box, Button, BackButton } from '~/components/ui';
 
-export const KeyboardAvoidingView = styled(KeyboardAvoidingViewUI)`
-  flex: 1;
-`;
+export const KeyboardAvoidingView = styled(KeyboardAwareScrollView).attrs({
+  contentContainerStyle: { flex: 1 },
+  keyboardShouldPersistTaps: 'handled',
+})``;
 
 export const Container = styled(SafeAreaView)`
   flex: 1;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import { Platform, Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
@@ -74,6 +74,7 @@ const SignIn = ({ navigation }) => {
       setLoading(true);
       const response = await Promisify(dispatch, AuthCreators.signInRequest, values);
       setUserResponse(response);
+      Keyboard.dismiss();
       if (!response.user.password) {
         setShowTermsModal(true);
       } else {
