@@ -103,8 +103,17 @@ const create = (store) => {
       }
 
       if (error) {
-        const status = get(data, 'error.status');
-        const result = buildFailureResponse(status, error, options);
+        let result;
+        if (error.crossDomain) {
+          result = buildFailureResponse(
+            null,
+            new Error('Please check your network connection and try again later.'),
+            options,
+          );
+        } else {
+          const status = get(data, 'error.status');
+          result = buildFailureResponse(status, error, options);
+        }
         resolve(result);
       } else {
         const result = buildSuccessResponse(data.body, options);
@@ -117,10 +126,6 @@ const create = (store) => {
     new Promise((resolve) => {
       const opts = merge({}, DEFAULT_OPTIONS.base, options);
       const JWTHeader = getJWTHeader(store.getState());
-      // console.log('METHOD:', opts.method)
-      // console.log('URL:', `${opts.url}${opts.endpoint}`)
-      // console.log('JWT Header:', JWTHeader)
-      // console.log('PARAMS:', opts.query)
 
       const baseOptions = merge(
         {},

@@ -72,7 +72,7 @@ const SignIn = ({ navigation }) => {
   const handleSignIn = async (values) => {
     try {
       setLoading(true);
-      const response = await Promisify(dispatch, AuthCreators.codeVerifyRequest, values);
+      const response = await Promisify(dispatch, AuthCreators.signInRequest, values);
       setUserResponse(response);
       if (!response.user.password) {
         setShowTermsModal(true);
