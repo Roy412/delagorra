@@ -16,6 +16,7 @@ import * as Styled from './styled';
 const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
   const [userResponse, setUserResponse] = useState();
+  const [loginMode, setLoginMode] = useState('sms');
   const [codeSending, setCodeSending] = useState(false);
   const [countSec, setCountSec] = useState(10);
   const [countDowning, setCountDowning] = useState(false);
@@ -30,17 +31,28 @@ const SignIn = ({ navigation }) => {
 
   const validate = (values) => {
     const constraints = {
-      phoneNumber: {
-        presence: { message: '^Required', allowEmpty: false },
-        length: { is: 11, message: '^Wrong number' },
+      sms: {
+        phoneNumber: {
+          presence: { message: '^Required', allowEmpty: false },
+          length: { is: 11, message: '^Wrong number' },
+        },
+        code: {
+          presence: { message: '^Required', allowEmpty: false },
+          length: { is: 4, message: '^Too short' },
+        },
       },
-      code: {
-        presence: { message: '^Required', allowEmpty: false },
-        length: { is: 4, message: '^Too short' },
+      password: {
+        username: {
+          presence: { message: '^Required', allowEmpty: false },
+        },
+        password: {
+          presence: { message: '^Required', allowEmpty: false },
+          length: { minimum: 8, message: '^Too short' },
+        },
       },
     };
 
-    return Validate(values, constraints);
+    return Validate(values, constraints[loginMode]);
   };
 
   const startCountdown = () => {
@@ -121,41 +133,66 @@ const SignIn = ({ navigation }) => {
     }
   };
 
+  const handleSwitchMode = () => {
+    setLoginMode(loginMode === 'sms' ? 'password' : 'sms');
+  };
+
+  const handleForgotPress = () => {
+    navigation.navigate(auth.forgot);
+  };
+
   const renderForm = ({ handleSubmit, errors, submitting, values }) => (
     <Styled.Box px={15} flex={1}>
       <Styled.Box flex={0.3} />
       <Styled.Box>
-        <Styled.Text fontStyle="semibold" textAlign="center" mb={5}>
-          Phone Number
+        <Styled.Text fontStyle="semibold" textAlign="center" mb={5} fontSize={18}>
+          {loginMode === 'sms' ? 'Phone Number' : 'Account Password'}
           <Styled.Text color={Colors.pink} fontStyle="semibold">
             {' '}
-            Quick Login
+            {loginMode === 'sms' ? 'Quick Login' : 'Login'}
           </Styled.Text>
         </Styled.Text>
-        <Field
-          name="phoneNumber"
-          component={Styled.TextInput}
-          placeholder="Your phone"
-          variant="phone"
-          keyboardType="numeric"
-          mask="([000]) [0000] [0000]"
-          disabled={codeSending || countDowning}
-        />
+        {loginMode === 'sms' ? (
+          <>
+            <Field
+              name="phoneNumber"
+              component={Styled.TextInput}
+              placeholder="Your phone"
+              variant="phone"
+              keyboardType="numeric"
+              mask="([000]) [0000] [0000]"
+              disabled={codeSending || countDowning}
+            />
 
-        <Field
-          name="code"
-          component={Styled.TextInput}
-          placeholder="Verification code"
-          variant="phoneCode"
-          onSendPress={() => handleCodeSend(values)}
-          keyboardType="numeric"
-          btnSendText={errors.phoneNumber ? '' : sendText}
-          mask="[0000]"
-          codeSending={codeSending}
-        />
+            <Field
+              name="code"
+              component={Styled.TextInput}
+              placeholder="Verification code"
+              variant="phoneCode"
+              onSendPress={() => handleCodeSend(values)}
+              keyboardType="numeric"
+              btnSendText={errors.phoneNumber ? '' : sendText}
+              mask="[0000]"
+              codeSending={codeSending}
+            />
+          </>
+        ) : (
+          <>
+            <Field name="username" component={Styled.TextInput} placeholder="Your phone, username or email" />
+            <Field
+              name="password"
+              component={Styled.TextInput}
+              placeholder="Please enter new password"
+              secureTextEntry
+              maxLength={20}
+            />
+            <Styled.ForgotButton onPress={handleForgotPress} />
+          </>
+        )}
       </Styled.Box>
 
       <Styled.Button mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
+      <Styled.ModeButton onPress={handleSwitchMode} loginMode={loginMode} />
     </Styled.Box>
   );
 

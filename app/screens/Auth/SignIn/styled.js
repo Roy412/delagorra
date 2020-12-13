@@ -3,7 +3,7 @@ import { SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 import { crossIcon } from '~/resources';
-import { IconButton } from '~/components/ui';
+import { IconButton, Button } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
 
 export { TextInput, Loader, Text, Box, Button, BackButton } from '~/components/ui';
@@ -26,4 +26,22 @@ export const CloseButton = styled(IconButton).attrs({
   position: absolute;
   left: 20px;
   top: 20px;
+`;
+
+export const ModeButton = styled(Button).attrs((props) => ({
+  variant: 'text',
+  text: props.loginMode === 'sms' ? 'Account and password login' : 'Phone number quick login',
+  textProps: { color: 'veryDarkGray', fontSize: 14 },
+  textStyle: { opacity: 0.5 },
+  py: 20,
+}))``;
+
+export const ForgotButton = styled(Button).attrs((props) => ({
+  variant: 'text',
+  text: 'Forgot password',
+  textProps: { color: 'veryDarkGray', fontSize: 13, fontStyle: 'regular' },
+  py: 5,
+  ml: 10,
+}))`
+  align-self: flex-start;
 `;
