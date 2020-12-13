@@ -1,17 +1,19 @@
-import React, { useEffect, useState } from 'react';
-import { Platform, View } from 'react-native';
+import React, { useState } from 'react';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
+import { useDispatch } from 'react-redux';
+import Toast from 'react-native-toast-message';
+
+import { Promisify } from '~/utils/promisify';
 import { showSimpleError } from '~/utils/alert';
+import { ProfileCreators } from '~/store/actions/profile';
+import { main } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
 const SetUpPassword = ({ navigation, onSignIn }) => {
   const [loading, setLoading] = useState(false);
-  const [codeSending, setCodeSending] = useState(false);
-  const [countSec, setCountSec] = useState(10);
-  const [countDowning, setCountDowning] = useState(false);
-  const [sendText, setSendText] = useState('Send');
+  const dispatch = useDispatch();
 
   const getInitialValues = () => ({
     password: '',
@@ -37,36 +39,17 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
     return Validate(values, constraints);
   };
 
-  const startCountdown = () => {
-    setCountDowning(true);
-    const interval = setInterval(() => {
-      setCountSec((prevCountSec) => {
-        if (prevCountSec === 1) {
-          setCountDowning(false);
-          clearInterval(interval);
-          return;
-        }
-        return prevCountSec - 1;
-      });
-    }, 1000);
-  };
-
-  const handleCodeSend = async ({ phoneNumber }) => {
-    try {
-      setCodeSending(true);
-      // const response = await Client.post('/user/code-request', { phoneNumber });
-      setCodeSending(false);
-      startCountdown();
-    } catch (e) {
-      showSimpleError(e);
-      setCodeSending(false);
-    }
-  };
-
-  const handleSubmit = async (values) => {
+  const handleConfirm = async (values) => {
+    Toast.show({
+      text1: 'Successful Verification',
+      position: 'bottom',
+      style: { backgroundColor: '#FFEFF2'}
+    });
+    return;
     try {
       setLoading(true);
-      // const response = await Client.post('/code-request', values);
+      await Promisify(dispatch, ProfileCreators.profileUpdateRequest, values);
+      navigation.navigate(main.home);
       setLoading(false);
     } catch (e) {
       setLoading(false);
@@ -74,23 +57,9 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
     }
   };
 
-  useEffect(() => {
-    if (countDowning) {
-      setSendText(`${countSec} sec`);
-    } else {
-      setSendText('Send');
-    }
-  }, [countDowning, countSec]);
-
-  useEffect(() => {
-    if (!countDowning) {
-      setCountSec(5);
-    }
-  }, [countDowning]);
-
-  const renderForm = ({ handleSubmit, errors, submitting, values }) => (
+  const renderForm = ({ handleSubmit, submitting }) => (
     <Styled.Box px={30} flex={1}>
-      <View style={{ flex: 0.2 }} />
+      <Styled.Box flex={0.2} />
       <Styled.Box>
         <Field
           name="password"
@@ -113,13 +82,13 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
         </Styled.Text>
       </Styled.Box>
 
-      <Styled.Button mt={50} onPress={handleSubmit} text="Confirm" disabled={submitting} />
+      <Styled.Button mt={50} onPress={() => handleConfirm()} text="Confirm" disabled={submitting} />
     </Styled.Box>
   );
 
   return (
     <Styled.Box flex={1}>
-      <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSubmit} />
+      <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleConfirm} />
       <Styled.Loader loading={loading} />
     </Styled.Box>
   );

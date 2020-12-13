@@ -2824,6 +2824,13 @@ eslint-plugin-prettier@3.1.2:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
+eslint-plugin-prettier@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-prettier/-/eslint-plugin-prettier-3.2.0.tgz#af391b2226fa0e15c96f36c733f6e9035dbd952c"
+  integrity sha512-kOUSJnFjAUFKwVxuzy6sA5yyMx6+o9ino4gCdShzBNx4eyFRudWRYKCFolKjoM40PEiuU6Cn7wBLfq3WsGg7qg==
+  dependencies:
+    prettier-linter-helpers "^1.0.0"
+
 eslint-plugin-react-hooks@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-3.0.0.tgz#9e80c71846eb68dd29c3b21d832728aa66e5bd35"
@@ -6001,6 +6008,14 @@ react-native-text-input-mask@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/react-native-text-input-mask/-/react-native-text-input-mask-2.0.0.tgz#9cb793e764355d9282d92ea5231d8030a7ca5692"
   integrity sha512-kP8gURb1+6iR6CxfUx802f4ja9Jzer76hY1w0cjaCVsfbbzyykYIAANTnlxbmFFv/8pQl4NTm1CbQqkg0Cp/gA==
+
+react-native-toast-message@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/react-native-toast-message/-/react-native-toast-message-1.4.1.tgz#8be7b91d8a5405e86179f83e52e56de58bbce25f"
+  integrity sha512-3EcI2NCp+oMynAjDJ6eNZ44oiitlEHccQftdRAFOOKGk6H7mgTTDw299h+dWmpLnMZkfqBn/JtC75ozNleinzQ==
+  dependencies:
+    eslint-plugin-prettier "^3.2.0"
+    prop-types "^15.7.2"
 
 react-native@0.63.3:
   version "0.63.3"

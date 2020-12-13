@@ -8,6 +8,7 @@ import { Colors } from '~/utils/theme';
 import PrivacyPolicy from '~/screens/Auth/PrivacyPolicy';
 import ProgressScreen from '~/screens/Auth/Progress';
 import { MainHeader, SimpleHeader } from '~/components/headers';
+import { Toast } from '~/components/ui';
 import { isRestored as isRestoredSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
 
@@ -54,7 +55,7 @@ const NavigationWrapper = () => {
       <Stack.Navigator
         screenOptions={{ headerShown: false, gestureEnabled: false }}
         mode="modal"
-        initialRouteName={navigators.main}>
+        initialRouteName={navigators.auth}>
         <Stack.Screen name={navigators.auth} component={Auth} />
         <Stack.Screen name={navigators.main} component={Main} />
         <Stack.Screen
@@ -72,6 +73,7 @@ const NavigationWrapper = () => {
           options={{ headerShown: true, header: SimpleHeader }}
         />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 };

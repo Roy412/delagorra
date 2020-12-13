@@ -6,3 +6,4 @@ export Text from './Text';
 export Image from './Image';
 export IconButton from './IconButton';
 export Box from './Box';
+export Toast from './Toast';
