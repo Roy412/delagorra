@@ -71,8 +71,8 @@ const TextInput = ({
           hasRectBorder={hasRectBorder}
           as={restProps.mask ? TextInputMask : undefined}
         />
-        {codeSending && <Styled.ActivityIndicator size="small" color="#0000aa" />}
         {!disabled && !!restInput.value && <Styled.ClearButton onPress={handleClear} />}
+        {codeSending && <Styled.ActivityIndicator size="small" color="#0000aa" />}
         {!codeSending && variant === 'phoneCode' && <Styled.SendButton text={btnSendText} onPress={onSendPress} />}
       </Styled.InputContainer>
 

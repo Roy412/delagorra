@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Platform, Keyboard } from 'react-native';
+import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
@@ -197,14 +197,14 @@ const SignIn = ({ navigation }) => {
   );
 
   return (
-    <Styled.KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+    <Styled.KeyboardAwareScrollView>
       <Styled.Container>
         <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={handleSignIn} />
       </Styled.Container>
       <Styled.CloseButton onPress={handleClose} />
       <Styled.Loader loading={loading} />
       <TermsModal onClosed={() => setShowTermsModal(false)} isOpen={showTermsModal} handleAgree={handlePrivacyAgree} />
-    </Styled.KeyboardAvoidingView>
+    </Styled.KeyboardAwareScrollView>
   );
 };
 

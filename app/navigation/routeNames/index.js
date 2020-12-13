@@ -4,7 +4,7 @@ export const navigators = createNames(['auth', 'main', 'progress', 'privacyPolic
   prefix: 'navigators/',
 });
 
-export const auth = createNames(['signIn', 'setUpPassword'], {
+export const auth = createNames(['signIn', 'setUpPassword', 'forgot'], {
   prefix: 'auth/',
 });
 
