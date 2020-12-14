@@ -29,6 +29,7 @@ const SignIn = ({ navigation }) => {
 
   useEffect(() => {
     formRef.current.restart();
+    clearInterval(interval);
   }, [loginMode]);
 
   const getInitialValues = () => ({
@@ -64,9 +65,10 @@ const SignIn = ({ navigation }) => {
     return Validate(values, constraints[loginMode]);
   };
 
+  let interval;
   const startCountdown = () => {
     setCountDowning(true);
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       setCountSec((prevCountSec) => {
         if (prevCountSec === 1) {
           setCountDowning(false);
@@ -107,6 +109,7 @@ const SignIn = ({ navigation }) => {
         setShowTermsModal(true);
       } else {
         dispatch(AuthCreators.signInSuccess(response));
+        clearInterval(interval);
         navigation.navigate(navigators.main, { screen: main.profile });
       }
     } catch (e) {
@@ -125,7 +128,7 @@ const SignIn = ({ navigation }) => {
 
   useEffect(() => {
     if (!countDowning) {
-      setCountSec(5);
+      setCountSec(60);
     }
   }, [countDowning]);
 
@@ -153,6 +156,7 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleForgotPress = () => {
+    clearInterval(interval);
     navigation.navigate(auth.forgot);
   };
 

@@ -43,9 +43,10 @@ const ForgotPassword = ({ navigation }) => {
     return Validate(values, constraints[forgotMode]);
   };
 
+  let interval;
   const startCountdown = () => {
     setCountDowning(true);
-    const interval = setInterval(() => {
+    interval = setInterval(() => {
       setCountSec((prevCountSec) => {
         if (prevCountSec === 1) {
           setCountDowning(false);
@@ -79,7 +80,7 @@ const ForgotPassword = ({ navigation }) => {
 
   useEffect(() => {
     if (!countDowning) {
-      setCountSec(5);
+      setCountSec(60);
     }
   }, [countDowning]);
 
@@ -97,6 +98,7 @@ const ForgotPassword = ({ navigation }) => {
           code: values.code,
         });
         setLoading(false);
+        clearInterval(interval);
         navigation.reset({
           index: 0,
           routes: [
