@@ -16,19 +16,19 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* CherryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* CherryTests.m */; };
+		2EEF91D68EAB4F21BE153B5F /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */; };
 		6B57C5D2B7E638A0FF5D29D4 /* libPods-Cherry.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9A13E78974990393371771F /* libPods-Cherry.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B2838DAC1A1E9ECEF720BC38 /* libPods-Cherry-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 820A454D016CDFDE72C2E527 /* libPods-Cherry-tvOSTests.a */; };
-		C14A9704161D19822B836C13 /* libPods-Cherry-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20FE66E8DC7C4A17A89CD027 /* libPods-Cherry-tvOS.a */; };
-		2EEF91D68EAB4F21BE153B5F /* SFUIDisplay-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */; };
-		BB309D9662494FCA94528572 /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */; };
-		B09D32E2FCE34DAFB09661CA /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */; };
-		EF3224015B66452E9F845B50 /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */; };
-		AE64C3C6CB3649B092489142 /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */; };
-		F33749C2B1D6425285243D1B /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */; };
-		9D9D7C6E011E4E19BE00DF83 /* SFUIDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */; };
 		856727B0EE7A4D978D3A0A7A /* SFUIDisplay-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */; };
+		9D9D7C6E011E4E19BE00DF83 /* SFUIDisplay-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = 27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */; };
+		AE64C3C6CB3649B092489142 /* SFUIDisplay-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */; };
+		B09D32E2FCE34DAFB09661CA /* SFUIDisplay-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */; };
+		B2838DAC1A1E9ECEF720BC38 /* libPods-Cherry-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 820A454D016CDFDE72C2E527 /* libPods-Cherry-tvOSTests.a */; };
+		BB309D9662494FCA94528572 /* SFUIDisplay-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */; };
+		C14A9704161D19822B836C13 /* libPods-Cherry-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20FE66E8DC7C4A17A89CD027 /* libPods-Cherry-tvOS.a */; };
 		E9BD3E896BE744F1B3CEADD6 /* SFUIDisplay-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */; };
+		EF3224015B66452E9F845B50 /* SFUIDisplay-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */; };
+		F33749C2B1D6425285243D1B /* SFUIDisplay-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +54,7 @@
 		00E356EE1AD99517003FC87E /* CherryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CherryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* CherryTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CherryTests.m; sourceTree = "<group>"; };
+		0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Regular.otf"; path = "../app/resources/fonts/SFUIDisplay-Regular.otf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Cherry.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Cherry.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Cherry/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Cherry/AppDelegate.m; sourceTree = "<group>"; };
@@ -61,30 +62,29 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Cherry/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Cherry/main.m; sourceTree = "<group>"; };
 		20FE66E8DC7C4A17A89CD027 /* libPods-Cherry-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cherry-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Thin.otf"; path = "../app/resources/fonts/SFUIDisplay-Thin.otf"; sourceTree = "<group>"; };
 		27F53A9D103811067D4DC56B /* libPods-Cherry-CherryTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cherry-CherryTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E47B1E0B4A5D006451C7 /* Cherry-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Cherry-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* Cherry-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Cherry-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Bold.otf"; path = "../app/resources/fonts/SFUIDisplay-Bold.otf"; sourceTree = "<group>"; };
 		37391AB083E7FEF003E5A1B5 /* Pods-Cherry-CherryTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-CherryTests.release.xcconfig"; path = "Target Support Files/Pods-Cherry-CherryTests/Pods-Cherry-CherryTests.release.xcconfig"; sourceTree = "<group>"; };
 		4DF9CECC18F57EDE0E2D0118 /* Pods-Cherry-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-tvOS.release.xcconfig"; path = "Target Support Files/Pods-Cherry-tvOS/Pods-Cherry-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Ultralight.otf"; path = "../app/resources/fonts/SFUIDisplay-Ultralight.otf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Cherry/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		820A454D016CDFDE72C2E527 /* libPods-Cherry-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cherry-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		86920BB3272AF9F18A418604 /* Pods-Cherry-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-Cherry-tvOS/Pods-Cherry-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Semibold.otf"; path = "../app/resources/fonts/SFUIDisplay-Semibold.otf"; sourceTree = "<group>"; };
 		911993C32DEFDAFE728D16E8 /* Pods-Cherry-CherryTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-CherryTests.debug.xcconfig"; path = "Target Support Files/Pods-Cherry-CherryTests/Pods-Cherry-CherryTests.debug.xcconfig"; sourceTree = "<group>"; };
+		93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Heavy.otf"; path = "../app/resources/fonts/SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; };
+		A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Black.otf"; path = "../app/resources/fonts/SFUIDisplay-Black.otf"; sourceTree = "<group>"; };
 		A94ECBC311C30978186B040D /* Pods-Cherry-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-Cherry-tvOSTests/Pods-Cherry-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D9A13E78974990393371771F /* libPods-Cherry.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Cherry.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D9EA7799921372B9E8D26EBF /* Pods-Cherry-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-Cherry-tvOSTests/Pods-Cherry-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Medium.otf"; path = "../app/resources/fonts/SFUIDisplay-Medium.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		FCB3953079685387CEC0FD69 /* Pods-Cherry.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cherry.debug.xcconfig"; path = "Target Support Files/Pods-Cherry/Pods-Cherry.debug.xcconfig"; sourceTree = "<group>"; };
-		A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Black.otf"; path = "../app/resources/fonts/SFUIDisplay-Black.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Bold.otf"; path = "../app/resources/fonts/SFUIDisplay-Bold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Heavy.otf"; path = "../app/resources/fonts/SFUIDisplay-Heavy.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Light.otf"; path = "../app/resources/fonts/SFUIDisplay-Light.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Medium.otf"; path = "../app/resources/fonts/SFUIDisplay-Medium.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Semibold.otf"; path = "../app/resources/fonts/SFUIDisplay-Semibold.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Thin.otf"; path = "../app/resources/fonts/SFUIDisplay-Thin.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Ultralight.otf"; path = "../app/resources/fonts/SFUIDisplay-Ultralight.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */ = {isa = PBXFileReference; name = "SFUIDisplay-Regular.otf"; path = "../app/resources/fonts/SFUIDisplay-Regular.otf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "SFUIDisplay-Light.otf"; path = "../app/resources/fonts/SFUIDisplay-Light.otf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,8 +179,23 @@
 				A94ECBC311C30978186B040D /* Pods-Cherry-tvOSTests.debug.xcconfig */,
 				D9EA7799921372B9E8D26EBF /* Pods-Cherry-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		68F725A1DAAD40208B7DD1D1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */,
+				3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */,
+				93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */,
+				FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */,
+				DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */,
+				9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */,
+				27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */,
+				71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */,
+				0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -216,23 +231,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		68F725A1DAAD40208B7DD1D1 /* Resources */ = {
-			isa = "PBXGroup";
-			children = (
-				A5E38A9CDFCB42ECA947FFF0 /* SFUIDisplay-Black.otf */,
-				3086C37CCBC649DB9C741676 /* SFUIDisplay-Bold.otf */,
-				93F11C176F214A62A8B46FD7 /* SFUIDisplay-Heavy.otf */,
-				FCC018282C0740399F3CBEC9 /* SFUIDisplay-Light.otf */,
-				DA178FED739448B6A6538AC0 /* SFUIDisplay-Medium.otf */,
-				9025A9F80E26492A9366591C /* SFUIDisplay-Semibold.otf */,
-				27F24762606B4E54AF4FB086 /* SFUIDisplay-Thin.otf */,
-				71E54790C11F4AAE8BD9013E /* SFUIDisplay-Ultralight.otf */,
-				0B8EC1ABB5604736B3C8477F /* SFUIDisplay-Regular.otf */,
-			);
-			name = Resources;
-			sourceTree = "<group>";
-			path = "";
 		};
 /* End PBXGroup section */
 
@@ -713,6 +711,7 @@
 				PRODUCT_NAME = Cherry;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -734,6 +733,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = Cherry;
 				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
