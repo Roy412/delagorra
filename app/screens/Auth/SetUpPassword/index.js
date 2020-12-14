@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 
 import { Promisify } from '~/utils/promisify';
 import { showSimpleError } from '~/utils/alert';
-import { ProfileCreators } from '~/store/actions/profile';
+import { AuthCreators } from '~/store/actions/auth';
 import { main, navigators, auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
@@ -14,7 +14,7 @@ import * as Styled from './styled';
 const SetUpPassword = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const { isForgot } = route.params;
+  const { isForgot, phoneNumber } = route.params;
 
   const getInitialValues = () => ({
     password: '',
@@ -51,7 +51,7 @@ const SetUpPassword = ({ navigation, route }) => {
   const handleConfirm = async (values) => {
     try {
       setLoading(true);
-      await Promisify(dispatch, ProfileCreators.profileUpdateRequest, values);
+      await Promisify(dispatch, AuthCreators.updatePasswordRequest, { password: values.password, phoneNumber });
       navigation.navigate(main.home);
       setLoading(false);
       Toast.show({

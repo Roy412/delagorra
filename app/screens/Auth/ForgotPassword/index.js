@@ -99,7 +99,12 @@ const ForgotPassword = ({ navigation }) => {
         setLoading(false);
         navigation.reset({
           index: 0,
-          routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword } }],
+          routes: [
+            {
+              name: navigators.auth,
+              params: { screen: auth.setUpPassword, params: { isForgot: true, phoneNumber: values.phoneNumber } },
+            },
+          ],
         });
       }
     } catch (e) {

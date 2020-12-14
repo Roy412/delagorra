@@ -12,6 +12,9 @@ export const { Types: AuthTypes, Creators: AuthCreators } = createActions(
 
     logOutRequest: null,
     logOutSuccess: null,
+
+    updatePasswordRequest: ['payload', 'resolve', 'reject'],
+    updatePasswordSuccess: ['payload'],
   },
   { prefix: 'Auth/' },
 );

@@ -47,6 +47,17 @@ function* logOut() {
   yield put(AuthCreators.logOutSuccess());
 }
 
+function* updatePassword(api, { payload, resolve, reject }) {
+  const response = yield call(api.auth.updatePassword, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    yield put(AuthCreators.updatePasswordSuccess(response.data.data));
+    resolve();
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([
     takeLatest(AuthTypes.REQUEST_CODE_REQUEST, codeRequest, api),
@@ -54,5 +65,6 @@ export default function* main(api) {
     takeLatest(AuthTypes.SIGN_IN_TOKEN_REQUEST, signInToken, api),
     takeLatest(AuthTypes.SIGN_IN_REQUEST, signIn, api),
     takeLatest(AuthTypes.LOG_OUT_REQUEST, logOut),
+    takeLatest(AuthTypes.UPDATE_PASSWORD_REQUEST, updatePassword, api),
   ]);
 }

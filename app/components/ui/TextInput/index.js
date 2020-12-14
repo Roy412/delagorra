@@ -21,19 +21,19 @@ const TextInput = ({
   const [isFocused, setIsFocused] = useState(false);
 
   useEffect(() => {
-    if (isFocused) {
-      input.onFocus();
-    } else {
-      input.onBlur();
+    if (!meta.visited) {
+      setIsFocused(false);
     }
-  }, [isFocused]);
+  }, [meta.visited]);
 
   const handleFocus = () => {
     setIsFocused(true);
+    input.onFocus();
   };
 
   const handleBlur = () => {
     setIsFocused(false);
+    input.onBlur();
   };
 
   const { onChange, ...restInput } = input;

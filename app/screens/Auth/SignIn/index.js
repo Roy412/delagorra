@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Keyboard } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
+import { OnChange } from 'react-final-form-listeners';
 
 import { AuthCreators } from '~/store/actions/auth';
 import { showSimpleError } from '~/utils/alert';
@@ -15,6 +16,7 @@ import * as Styled from './styled';
 
 const SignIn = ({ navigation }) => {
   const [loading, setLoading] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState();
   const [userResponse, setUserResponse] = useState();
   const [loginMode, setLoginMode] = useState('sms');
   const [codeSending, setCodeSending] = useState(false);
@@ -23,10 +25,17 @@ const SignIn = ({ navigation }) => {
   const [sendText, setSendText] = useState('Send');
   const [showTermsModal, setShowTermsModal] = useState(false);
   const dispatch = useDispatch();
+  const formRef = useRef();
+
+  useEffect(() => {
+    formRef.current.restart();
+  }, [loginMode]);
 
   const getInitialValues = () => ({
     phoneNumber: '',
     code: '',
+    username: '',
+    password: '',
   });
 
   const validate = (values) => {
@@ -118,7 +127,7 @@ const SignIn = ({ navigation }) => {
     dispatch(AuthCreators.signInSuccess(userResponse));
     navigation.reset({
       index: 0,
-      routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword } }],
+      routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword, params: { phoneNumber } } }],
     });
   };
 
@@ -141,60 +150,67 @@ const SignIn = ({ navigation }) => {
     navigation.navigate(auth.forgot);
   };
 
-  const renderForm = ({ handleSubmit, errors, submitting, values }) => (
-    <Styled.Box px={15} flex={1}>
-      <Styled.Box flex={0.3} />
-      <Styled.Box>
-        <Styled.Text fontStyle="semibold" textAlign="center" mb={5} fontSize={18}>
-          {loginMode === 'sms' ? 'Phone Number' : 'Account Password'}
-          <Styled.Text color={Colors.pink} fontStyle="semibold">
-            {' '}
-            {loginMode === 'sms' ? 'Quick Login' : 'Login'}
+  const renderForm = ({ handleSubmit, errors, submitting, values, form }) => {
+    if (!formRef.current) {
+      formRef.current = form;
+    }
+    return (
+      <Styled.Box px={15} flex={1}>
+        <Styled.Box flex={0.3} />
+        <Styled.Box>
+          <Styled.Text fontStyle="semibold" textAlign="center" mb={5} fontSize={18}>
+            {loginMode === 'sms' ? 'Phone Number' : 'Account Password'}
+            <Styled.Text color={Colors.pink} fontStyle="semibold">
+              {' '}
+              {loginMode === 'sms' ? 'Quick Login' : 'Login'}
+            </Styled.Text>
           </Styled.Text>
-        </Styled.Text>
-        {loginMode === 'sms' ? (
-          <>
-            <Field
-              name="phoneNumber"
-              component={Styled.TextInput}
-              placeholder="Your phone"
-              variant="phone"
-              keyboardType="numeric"
-              mask="([000]) [0000] [0000]"
-              disabled={codeSending || countDowning}
-            />
+          {loginMode === 'sms' ? (
+            <>
+              <Field
+                name="phoneNumber"
+                component={Styled.TextInput}
+                placeholder="Your phone"
+                variant="phone"
+                keyboardType="numeric"
+                mask="([000]) [0000] [0000]"
+                disabled={codeSending || countDowning}
+              />
 
-            <Field
-              name="code"
-              component={Styled.TextInput}
-              placeholder="Verification code"
-              variant="phoneCode"
-              onSendPress={() => handleCodeSend(values)}
-              keyboardType="numeric"
-              btnSendText={errors.phoneNumber ? '' : sendText}
-              mask="[0000]"
-              codeSending={codeSending}
-            />
-          </>
-        ) : (
-          <>
-            <Field name="username" component={Styled.TextInput} placeholder="Your phone, username or email" />
-            <Field
-              name="password"
-              component={Styled.TextInput}
-              placeholder="Please enter new password"
-              secureTextEntry
-              maxLength={20}
-            />
-            <Styled.ForgotButton onPress={handleForgotPress} />
-          </>
-        )}
+              <Field
+                name="code"
+                component={Styled.TextInput}
+                placeholder="Verification code"
+                variant="phoneCode"
+                onSendPress={() => handleCodeSend(values)}
+                keyboardType="numeric"
+                btnSendText={errors.phoneNumber ? '' : sendText}
+                mask="[0000]"
+                codeSending={codeSending}
+              />
+            </>
+          ) : (
+            <>
+              <Field name="username" component={Styled.TextInput} placeholder="Your phone, username or email" />
+              <Field
+                name="password"
+                component={Styled.TextInput}
+                placeholder="Please enter new password"
+                secureTextEntry
+                maxLength={20}
+              />
+              <Styled.ForgotButton onPress={handleForgotPress} />
+            </>
+          )}
+
+          <OnChange name="phoneNumber">{setPhoneNumber}</OnChange>
+        </Styled.Box>
+
+        <Styled.Button mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
+        <Styled.ModeButton onPress={handleSwitchMode} loginMode={loginMode} />
       </Styled.Box>
-
-      <Styled.Button mt={15} onPress={handleSubmit} text="Log In" disabled={submitting} />
-      <Styled.ModeButton onPress={handleSwitchMode} loginMode={loginMode} />
-    </Styled.Box>
-  );
+    );
+  };
 
   return (
     <Styled.KeyboardAwareScrollView>

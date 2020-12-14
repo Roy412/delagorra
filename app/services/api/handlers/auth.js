@@ -1,19 +1,19 @@
 export default (apiCall) => ({
   codeRequest: (payload) =>
     apiCall({
-      endpoint: 'user/code-request',
+      endpoint: 'auth/code-request',
       method: 'POST',
       query: payload,
     }),
   codeVerify: (payload) =>
     apiCall({
-      endpoint: 'user/code-verify',
+      endpoint: 'auth/code-verify',
       method: 'POST',
       query: payload,
     }),
   signIn: (payload) =>
     apiCall({
-      endpoint: 'user/sign-in',
+      endpoint: 'auth/sign-in',
       method: 'POST',
       query: payload,
     }),
@@ -21,5 +21,11 @@ export default (apiCall) => ({
     apiCall({
       endpoint: 'user/refresh-token',
       method: 'POST',
+    }),
+  updatePassword: (payload) =>
+    apiCall({
+      endpoint: 'auth/update-password',
+      method: 'POST',
+      query: payload,
     }),
 });
