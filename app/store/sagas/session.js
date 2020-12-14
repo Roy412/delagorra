@@ -10,8 +10,8 @@ function* restoreSession() {
 
     const authenticated = yield select(isAuthenticated);
 
+    yield put(AppCreators.completeRehydration());
     if (authenticated) {
-      yield put(AppCreators.completeRehydration());
       yield put(AppCreators.completeRefetch());
     }
   }

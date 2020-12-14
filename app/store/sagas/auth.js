@@ -18,7 +18,6 @@ function* signIn(api, { payload, resolve, reject }) {
   if (response.ok && response.data.result === 'OK') {
     resolve(response.data.data);
   } else {
-    yield put(AuthCreators.signInFailure());
     reject(response.data);
   }
 }
@@ -29,7 +28,6 @@ function* codeVerify(api, { payload, resolve, reject }) {
   if (response.ok && response.data.result === 'OK') {
     resolve(response.data.data);
   } else {
-    yield put(AuthCreators.signInFailure());
     reject(response.data);
   }
 }
@@ -39,6 +37,7 @@ function* signInToken(api) {
   if (response.ok && response.data.result === 'OK') {
     yield put(AuthCreators.signInSuccess(response.data.data));
   } else {
+    yield put(AuthCreators.signInFailure());
     yield put(AuthCreators.logOutSuccess());
   }
 }
