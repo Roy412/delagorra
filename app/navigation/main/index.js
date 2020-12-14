@@ -23,7 +23,10 @@ const MainNavigator = () => (
     <Tab.Screen
       name={main.profile}
       component={Profile}
-      options={{ header: MainHeader, tabBarIcon: (params) => <TabBarItem source={profileIcon} tintColor={params.color} /> }}
+      options={{
+        header: MainHeader,
+        tabBarIcon: (params) => <TabBarItem source={profileIcon} tintColor={params.color} />,
+      }}
     />
   </Tab.Navigator>
 );

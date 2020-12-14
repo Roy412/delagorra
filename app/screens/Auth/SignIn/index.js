@@ -78,10 +78,10 @@ const SignIn = ({ navigation }) => {
     }, 1000);
   };
 
-  const handleCodeSend = async ({ phoneNumber }) => {
+  const handleCodeSend = async (values) => {
     try {
       setCodeSending(true);
-      await Promisify(dispatch, AuthCreators.requestCodeRequest, { phoneNumber });
+      await Promisify(dispatch, AuthCreators.requestCodeRequest, { phoneNumber: values.phoneNumber });
       setCodeSending(false);
       startCountdown();
     } catch (e) {
@@ -93,14 +93,20 @@ const SignIn = ({ navigation }) => {
   const handleSignIn = async (values) => {
     try {
       setLoading(true);
-      const response = await Promisify(dispatch, AuthCreators.signInRequest, values);
+      let params = {};
+      if (loginMode === 'sms') {
+        params = { phoneNumber: values.phoneNumber, code: values.code };
+      } else {
+        params = { username: values.username, password: values.password };
+      }
+      const response = await Promisify(dispatch, AuthCreators.signInRequest, params);
       setUserResponse(response);
       Keyboard.dismiss();
-      if (!response.user.password) {
+      if (!response.user.hasPassword) {
         setShowTermsModal(true);
       } else {
         dispatch(AuthCreators.signInSuccess(response));
-        navigation.navigate(main.home);
+        navigation.navigate(main.profile);
       }
       setLoading(false);
     } catch (e) {

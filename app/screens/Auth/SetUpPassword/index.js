@@ -44,7 +44,7 @@ const SetUpPassword = ({ navigation, route }) => {
     if (isForgot) {
       navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
     } else {
-      navigation.navigate(navigators.main, { screen: main.home });
+      navigation.navigate(navigators.main, { screen: main.profile });
     }
   };
 
@@ -52,7 +52,6 @@ const SetUpPassword = ({ navigation, route }) => {
     try {
       setLoading(true);
       await Promisify(dispatch, AuthCreators.updatePasswordRequest, { password: values.password, phoneNumber });
-      navigation.navigate(main.home);
       setLoading(false);
       Toast.show({
         text1: 'Successful Verification',
@@ -91,7 +90,7 @@ const SetUpPassword = ({ navigation, route }) => {
         </Styled.Text>
       </Styled.Box>
 
-      <Styled.Button mt={50} onPress={() => handleConfirm()} text="Confirm" disabled={submitting} />
+      <Styled.Button mt={50} onPress={handleSubmit} text="Confirm" disabled={submitting} />
     </Styled.Box>
   );
 
