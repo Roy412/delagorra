@@ -7,13 +7,14 @@ import Toast from 'react-native-toast-message';
 import { Promisify } from '~/utils/promisify';
 import { showSimpleError } from '~/utils/alert';
 import { ProfileCreators } from '~/store/actions/profile';
-import { main } from '~/navigation/routeNames';
+import { main, navigators, auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const SetUpPassword = ({ navigation, onSignIn }) => {
+const SetUpPassword = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const { isForgot } = route.params;
 
   const getInitialValues = () => ({
     password: '',
@@ -39,18 +40,26 @@ const SetUpPassword = ({ navigation, onSignIn }) => {
     return Validate(values, constraints);
   };
 
+  const handleHideToast = () => {
+    if (isForgot) {
+      navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
+    } else {
+      navigation.navigate(navigators.main, { screen: main.home });
+    }
+  };
+
   const handleConfirm = async (values) => {
-    Toast.show({
-      text1: 'Successful Verification',
-      position: 'bottom',
-      style: { backgroundColor: '#FFEFF2'}
-    });
-    return;
     try {
       setLoading(true);
       await Promisify(dispatch, ProfileCreators.profileUpdateRequest, values);
       navigation.navigate(main.home);
       setLoading(false);
+      Toast.show({
+        text1: 'Successful Verification',
+        position: 'bottom',
+        onHide: handleHideToast,
+        visibilityTime: 1000,
+      });
     } catch (e) {
       setLoading(false);
       showSimpleError(e);
