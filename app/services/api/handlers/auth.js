@@ -19,7 +19,7 @@ export default (apiCall) => ({
     }),
   signInToken: () =>
     apiCall({
-      endpoint: 'user/refresh-token',
+      endpoint: 'auth/refresh-token',
       method: 'POST',
     }),
   updatePassword: (payload) =>
