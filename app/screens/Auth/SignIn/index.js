@@ -102,13 +102,13 @@ const SignIn = ({ navigation }) => {
       const response = await Promisify(dispatch, AuthCreators.signInRequest, params);
       setUserResponse(response);
       Keyboard.dismiss();
+      setLoading(false);
       if (!response.user.hasPassword) {
         setShowTermsModal(true);
       } else {
         dispatch(AuthCreators.signInSuccess(response));
-        navigation.navigate(main.profile);
+        navigation.navigate(navigators.main, { screen: main.profile });
       }
-      setLoading(false);
     } catch (e) {
       setLoading(false);
       showSimpleError(e);
