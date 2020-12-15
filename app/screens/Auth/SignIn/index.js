@@ -134,6 +134,7 @@ const SignIn = ({ navigation }) => {
 
   const handlePrivacyAgree = () => {
     dispatch(AuthCreators.signInSuccess(userResponse));
+    clearInterval(interval);
     navigation.reset({
       index: 0,
       routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword, params: { phoneNumber } } }],
