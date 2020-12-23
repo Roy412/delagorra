@@ -12,7 +12,7 @@ const Profile = ({ navigation }) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   const handleSettings = () => {
-    navigation.navigate(navigators.mainNav, { screen: profile.settings });
+    navigation.navigate(profile.settings);
   };
 
   useLayoutEffect(() => {

@@ -11,6 +11,8 @@ import { MainHeader, SimpleHeader } from '~/components/headers';
 import { Toast } from '~/components/ui';
 import { isRestored as isRestoredSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
+import ProfileSettings from '~/screens/Main/Profile/Settings';
+import { profile } from '~/navigation/routeNames';
 
 import { navigators } from './routeNames';
 import Auth from './auth';
@@ -59,12 +61,17 @@ const NavigationWrapper = () => {
         initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
         <Stack.Screen name={navigators.main} component={MainTab} />
+        {/*<Stack.Screen*/}
+        {/*  name={navigators.mainNav}*/}
+        {/*  component={MainNav}*/}
+        {/*  options={{*/}
+        {/*    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,*/}
+        {/*  }}*/}
+        {/*/>*/}
         <Stack.Screen
-          name={navigators.mainNav}
-          component={MainNav}
-          options={{
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
+          name={profile.settings}
+          component={ProfileSettings}
+          options={{ title: 'Settings', headerShown: true, header: MainHeader }}
         />
         <Stack.Screen
           name={navigators.privacyPolicy}

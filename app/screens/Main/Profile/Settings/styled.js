@@ -18,6 +18,7 @@ export const Content = styled(SafeAreaView)`
 export const LeftButton = styled(Button).attrs({
   variant: 'text',
   textProps: { color: 'white', fontStyle: 'regular', fontSize: 17 },
+  pl: 15,
 })`
   flex: 1;
 `;
