@@ -7,3 +7,4 @@ export gearIcon from './icons/gear.png';
 export cameraIcon from './icons/camera.png';
 export homeIcon from './icons/home.png';
 export bellIcon from './icons/bell.png';
+export nextIcon from './icons/next.png';

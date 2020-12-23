@@ -12,6 +12,6 @@ export const main = createNames(['home', 'notification', 'profile'], {
   prefix: 'main/',
 });
 
-export const profile = createNames(['main', 'settings'], {
+export const profile = createNames(['main', 'settings', 'aboutUs'], {
   prefix: 'profile/',
 });

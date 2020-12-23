@@ -1,15 +1,20 @@
 import React, { useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { AuthCreators } from '~/store/actions/auth';
-import { navigators, auth } from '~/navigation/routeNames';
-import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { navigators, auth, profile } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
+const listData = [
+  {
+    label: 'About Us',
+    route: profile.about,
+  },
+];
+
 const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   const handleClose = () => {
     navigation.goBack();
@@ -26,15 +31,22 @@ const ProfileSettings = ({ navigation }) => {
     dispatch(AuthCreators.logOutRequest());
   };
 
+  const handleItemPress = (route) => {
+    navigation.navigate(navigators.mainNav, { screen: route });
+  };
+
+  const renderItem = ({ item }) => (
+    <Styled.Item onPress={() => handleItemPress(item.route)}>
+      <Styled.Text flex={1}>{item.label}</Styled.Text>
+      <Styled.RightArrow />
+    </Styled.Item>
+  );
+
   return (
-    <Styled.Content>
-      <Styled.Container>
-        <Styled.Text fontStyle="bold" fontSize={20} textAlign="center" mt={100}>
-          {isAuthenticated ? "Welcome! You've logged in successfully!" : 'Home screen'}
-        </Styled.Text>
-        <Styled.Button mt={50} text="Sign Out" onPress={handleSignOut} />
-      </Styled.Container>
-    </Styled.Content>
+    <Styled.Container>
+      <Styled.List data={listData} renderItem={renderItem} keyExtractor={(item) => item.label} />
+      <Styled.Button my={50} mx={30} text="Sign Out" onPress={handleSignOut} />
+    </Styled.Container>
   );
 };
 

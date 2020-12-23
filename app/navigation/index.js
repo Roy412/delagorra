@@ -61,13 +61,13 @@ const NavigationWrapper = () => {
         initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
         <Stack.Screen name={navigators.main} component={MainTab} />
-        {/*<Stack.Screen*/}
-        {/*  name={navigators.mainNav}*/}
-        {/*  component={MainNav}*/}
-        {/*  options={{*/}
-        {/*    cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,*/}
-        {/*  }}*/}
-        {/*/>*/}
+        <Stack.Screen
+          name={navigators.mainNav}
+          component={MainNav}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
         <Stack.Screen
           name={profile.settings}
           component={ProfileSettings}
