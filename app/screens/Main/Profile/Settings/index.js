@@ -1,10 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { Alert } from 'react-native';
 
 import { AuthCreators } from '~/store/actions/auth';
 import { navigators, auth, profile } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
+import Toast from 'react-native-toast-message';
 
 const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -25,11 +27,30 @@ const ProfileSettings = ({ navigation }) => {
   };
 
   const handleItemPress = (route) => {
-    navigation.navigate(navigators.mainNav, { screen: route });
+    if (route === 'Clear cache') {
+      Alert.alert(
+        'Warning',
+        'Do you want to clear the cache?',
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
+          },
+          { text: 'OK', onPress: handleClearCache },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      navigation.navigate(navigators.mainNav, { screen: route });
+    }
+  };
+
+  const handleClearCache = () => {
+    Toast.show({ text1: 'Successful cleared cache!', position: 'top' });
   };
 
   const renderItem = ({ item }) => (
-    <Styled.Item onPress={() => handleItemPress(item.route)}>
+    <Styled.Item onPress={() => handleItemPress(item.route || item.label)}>
       <Styled.Text flex={1}>{item.label}</Styled.Text>
       <Styled.RightArrow />
     </Styled.Item>
@@ -52,12 +73,15 @@ const ProfileSettings = ({ navigation }) => {
 
 const listData = [
   {
-    label: 'About Us',
-    route: profile.about,
+    label: 'Clear cache',
   },
   {
     label: 'Check version of the app',
     route: profile.checkVersion,
+  },
+  {
+    label: 'About Us',
+    route: profile.about,
   },
 ];
 
