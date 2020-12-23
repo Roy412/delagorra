@@ -11,10 +11,10 @@ import { MainHeader, SimpleHeader } from '~/components/headers';
 import { Toast } from '~/components/ui';
 import { isRestored as isRestoredSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
-import ProfileSettings from '~/screens/Main/Profile/Settings';
-import { profile } from '~/navigation/routeNames';
+import Settings from '~/screens/Main/Profile/Settings';
+import { profile, navigators } from '~/navigation/routeNames';
+import { settingsData } from '~/config/settings';
 
-import { navigators } from './routeNames';
 import Auth from './auth';
 import MainTab from './main/mainTab';
 import MainNav from './main/mainNav';
@@ -28,6 +28,8 @@ const MyTheme = {
     background: Colors.background,
   },
 };
+
+const ProfileSettings = (props) => <Settings hasSignOut data={settingsData} {...props} />;
 
 const NavigationWrapper = () => {
   const isRestored = useSelector(isRestoredSelector);

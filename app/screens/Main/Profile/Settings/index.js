@@ -4,11 +4,11 @@ import { Alert } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import { AuthCreators } from '~/store/actions/auth';
-import { navigators, auth, profile } from '~/navigation/routeNames';
+import { navigators, auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const ProfileSettings = ({ navigation }) => {
+const ProfileSettings = ({ navigation, data, hasSignOut }) => {
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -16,9 +16,11 @@ const ProfileSettings = ({ navigation }) => {
   };
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      headerLeft: <Styled.LeftButton text="Close" onPress={handleClose} />,
-    });
+    if (hasSignOut) {
+      navigation.setOptions({
+        headerLeft: <Styled.LeftButton text="Close" onPress={handleClose}/>,
+      });
+    }
   }, [navigation]);
 
   const handleSignOut = () => {
@@ -26,8 +28,8 @@ const ProfileSettings = ({ navigation }) => {
     dispatch(AuthCreators.logOutRequest());
   };
 
-  const handleItemPress = (route) => {
-    if (route === 'Clear cache') {
+  const handleItemPress = (screen) => {
+    if (screen === 'Clear cache') {
       Alert.alert(
         'Warning',
         'Do you want to clear the cache?',
@@ -41,7 +43,7 @@ const ProfileSettings = ({ navigation }) => {
         { cancelable: false },
       );
     } else {
-      navigation.navigate(navigators.mainNav, { screen: route });
+      navigation.navigate(navigators.mainNav, { screen });
     }
   };
 
@@ -61,28 +63,14 @@ const ProfileSettings = ({ navigation }) => {
   return (
     <Styled.Container>
       <Styled.List
-        data={listData}
+        data={data}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={(item) => item.label}
       />
-      <Styled.Button my={50} mx={30} text="Sign Out" onPress={handleSignOut} />
+      {hasSignOut && <Styled.Button my={50} mx={30} text="Sign Out" onPress={handleSignOut} />}
     </Styled.Container>
   );
 };
-
-const listData = [
-  {
-    label: 'Clear cache',
-  },
-  {
-    label: 'Check version of the app',
-    route: profile.checkVersion,
-  },
-  {
-    label: 'About Us',
-    route: profile.about,
-  },
-];
 
 export default ProfileSettings;
