@@ -2,12 +2,12 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { MainHeader } from '~/components/headers';
-import Profile from '~/screens/Main/Profile';
 import { profileIcon } from '~/resources';
 import { Colors, Metrics } from '~/utils/theme';
 
 import { main } from '../routeNames';
 import TabBarItem from './TabBarItem';
+import Profile from './profile';
 
 const Tab = createBottomTabNavigator();
 

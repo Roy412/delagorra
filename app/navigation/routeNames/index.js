@@ -11,3 +11,7 @@ export const auth = createNames(['signIn', 'setUpPassword', 'forgot'], {
 export const main = createNames(['home', 'notification', 'profile'], {
   prefix: 'main/',
 });
+
+export const profile = createNames(['main'], {
+  prefix: 'profile/',
+});

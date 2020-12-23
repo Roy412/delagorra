@@ -10,13 +10,14 @@ import * as Styled from './styled';
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
-  const handleClose = () => {
+
+  const handleSettings = () => {
     navigation.goBack();
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerLeft: <Styled.CloseButton onPress={handleClose} />,
+      headerRight: <Styled.GearButton onPress={handleSettings} />,
     });
   }, [navigation]);
 

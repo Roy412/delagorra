@@ -6,10 +6,12 @@ const variants = {
   auth: {
     bg: 'white',
     title: 'veryDarkGray',
+    statusBar: 'dark-content',
   },
   main: {
     bg: 'pink',
     title: 'veryDarkGray',
+    statusBar: 'light-content',
   },
 };
 
@@ -43,7 +45,7 @@ const Main = ({ variant = 'main', scene, navigation }) => {
 
   return (
     <Styled.Container bg={vart.bg}>
-      <Styled.StatusBar barStyle="dark-content" bg={vart.bg} />
+      <Styled.StatusBar barStyle={vart.statusBar} bg={vart.bg} />
 
       <Styled.Content>
         {renderLeft()}

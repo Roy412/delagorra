@@ -3,6 +3,8 @@ import backIcon from './icons/back.png';
 import crossIcon from './icons/cross.png';
 import profileIcon from './icons/profile.png';
 import checkIcon from './icons/check.png';
+import gearIcon from './icons/gear.png';
+import cameraIcon from './icons/camera.png';
 
 export {
   /* Icons */
@@ -11,4 +13,6 @@ export {
   crossIcon,
   profileIcon,
   checkIcon,
+  gearIcon,
+  cameraIcon,
 };
