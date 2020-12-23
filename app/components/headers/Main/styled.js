@@ -27,7 +27,7 @@ export const StatusBar = styled(StatusBarUI)`
 `;
 
 export const Title = styled(Text).attrs({
-  fontSize: 17,
+  fontSize: 18,
   fontStyle: 'semibold',
   numberOfLines: 1,
   textAlign: 'center',
@@ -38,7 +38,9 @@ export const Left = styled(Box).attrs({
   width: 60,
 })``;
 
-export const Right = styled(Left).attrs({})``;
+export const Right = styled(Left).attrs({})`
+  align-items: flex-end;
+`;
 
 export const BackButton = styled(IconButton).attrs({
   source: backIcon,

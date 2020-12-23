@@ -10,7 +10,7 @@ const variants = {
   },
   main: {
     bg: 'pink',
-    title: 'veryDarkGray',
+    title: 'white',
     statusBar: 'light-content',
   },
 };

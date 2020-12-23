@@ -7,7 +7,7 @@ import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/se
 
 import * as Styled from './styled';
 
-const Profile = ({ navigation }) => {
+const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
@@ -46,4 +46,4 @@ const Profile = ({ navigation }) => {
   );
 };
 
-export default Profile;
+export default ProfileSettings;

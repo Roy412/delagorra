@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from 'react-native';
 
@@ -14,7 +14,8 @@ import { AppCreators } from '~/store/actions/app';
 
 import { navigators } from './routeNames';
 import Auth from './auth';
-import Main from './main';
+import MainTab from './main/mainTab';
+import MainNav from './main/mainNav';
 
 const Stack = createStackNavigator();
 
@@ -57,7 +58,14 @@ const NavigationWrapper = () => {
         mode="modal"
         initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
-        <Stack.Screen name={navigators.main} component={Main} />
+        <Stack.Screen name={navigators.main} component={MainTab} />
+        <Stack.Screen
+          name={navigators.mainNav}
+          component={MainNav}
+          options={{
+            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
+          }}
+        />
         <Stack.Screen
           name={navigators.privacyPolicy}
           component={PrivacyPolicy}
