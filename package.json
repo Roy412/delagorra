@@ -30,6 +30,7 @@
     "react-final-form-listeners": "^1.0.2",
     "react-native": "0.63.3",
     "react-native-config": "^1.4.1",
+    "react-native-device-info": "^7.3.1",
     "react-native-fast-image": "^8.3.4",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-indicators": "^0.17.0",

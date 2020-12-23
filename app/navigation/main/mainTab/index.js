@@ -7,7 +7,7 @@ import { Colors, Metrics } from '~/utils/theme';
 
 import { main } from '../../routeNames';
 import TabBarItem from './TabBarItem';
-import Profile from '../profile';
+import Profile from './profile';
 import Home from '~/screens/Main/Home';
 
 const Tab = createBottomTabNavigator();

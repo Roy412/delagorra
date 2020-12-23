@@ -10,6 +10,9 @@ const listData = [
   {
     label: 'About Us',
     route: profile.about,
+  }, {
+    label: 'Check version of the app',
+    route: profile.checkVersion,
   },
 ];
 
