@@ -14,6 +14,7 @@ export const Container = styled(Box).attrs({
   alignItems: 'center',
   py: 10,
   px: 30,
+  my: 20,
 })`
   border: 1px solid #ffdbde;
   border-radius: 10px;

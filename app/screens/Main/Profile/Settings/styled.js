@@ -44,5 +44,5 @@ export const Separator = styled(Box).attrs({
   bg: 'grayishBlue',
   ml: 16,
 })`
-  height: 0.5px;
+  height: 1px;
 `;

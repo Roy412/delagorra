@@ -1,12 +1,12 @@
 import React, { useLayoutEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 import { AuthCreators } from '~/store/actions/auth';
 import { navigators, auth, profile } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
-import Toast from 'react-native-toast-message';
 
 const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
