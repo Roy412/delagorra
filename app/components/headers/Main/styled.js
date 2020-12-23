@@ -36,7 +36,9 @@ export const Title = styled(Text).attrs({
 
 export const Left = styled(Box).attrs({
   width: 60,
-})``;
+})`
+  align-items: flex-start;
+`;
 
 export const Right = styled(Left).attrs({})`
   align-items: flex-end;

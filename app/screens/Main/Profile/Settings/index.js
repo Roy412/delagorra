@@ -11,13 +11,18 @@ const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
-  const handleSettings = () => {
+  const handleClose = () => {
+    navigation.goBack();
+  };
+
+  const handleSave = () => {
     navigation.goBack();
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: <Styled.GearButton onPress={handleSettings} />,
+      headerLeft: <Styled.LeftButton text="Close" pl={10} onPress={handleClose} />,
+      headerRight: <Styled.LeftButton text="Save" pr={10} onPress={handleSave} />,
     });
   }, [navigation]);
 
