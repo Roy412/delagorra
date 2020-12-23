@@ -11,4 +11,5 @@ export default {
   veryLightGray: '#E0E0E0',
   deepBlush: '#e56a92',
   gainsBoro: '#DCDCDC',
+  grayishBlue: '#c6c6c8',
 };

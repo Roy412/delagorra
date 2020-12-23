@@ -3,6 +3,7 @@ import { space, color, fontSize, lineHeight, textAlign, flex } from 'styled-syst
 import { capitalizeFirstLetter } from '~/utils/utils';
 
 const Text = styled.Text`
+  color: black;
   ${color}
   ${space}
   ${fontSize}

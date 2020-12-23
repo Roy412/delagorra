@@ -6,16 +6,6 @@ import { navigators, auth, profile } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const listData = [
-  {
-    label: 'About Us',
-    route: profile.about,
-  }, {
-    label: 'Check version of the app',
-    route: profile.checkVersion,
-  },
-];
-
 const ProfileSettings = ({ navigation }) => {
   const dispatch = useDispatch();
 
@@ -45,12 +35,30 @@ const ProfileSettings = ({ navigation }) => {
     </Styled.Item>
   );
 
+  const renderSeparator = () => <Styled.Separator />;
+
   return (
     <Styled.Container>
-      <Styled.List data={listData} renderItem={renderItem} keyExtractor={(item) => item.label} />
+      <Styled.List
+        data={listData}
+        renderItem={renderItem}
+        ItemSeparatorComponent={renderSeparator}
+        keyExtractor={(item) => item.label}
+      />
       <Styled.Button my={50} mx={30} text="Sign Out" onPress={handleSignOut} />
     </Styled.Container>
   );
 };
+
+const listData = [
+  {
+    label: 'About Us',
+    route: profile.about,
+  },
+  {
+    label: 'Check version of the app',
+    route: profile.checkVersion,
+  },
+];
 
 export default ProfileSettings;
