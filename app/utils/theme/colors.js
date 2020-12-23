@@ -10,4 +10,5 @@ export default {
   pureBlue: '#007AFF',
   veryLightGray: '#E0E0E0',
   deepBlush: '#e56a92',
+  gainsBoro: '#DCDCDC',
 };
