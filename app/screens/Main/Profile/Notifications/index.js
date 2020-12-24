@@ -8,17 +8,17 @@ import { navigators, auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const ProfileSettings = ({ navigation, data, hasSignOut }) => {
+const ProfileNotifications = ({ navigation, data, hasSignOut }) => {
   const dispatch = useDispatch();
 
-  const handleClose = () => {
+  const handleSave = () => {
     navigation.goBack();
   };
 
   useLayoutEffect(() => {
     if (hasSignOut) {
       navigation.setOptions({
-        headerLeft: <Styled.LeftButton text="Close" onPress={handleClose} />,
+        headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
       });
     }
   }, [navigation]);
@@ -73,4 +73,4 @@ const ProfileSettings = ({ navigation, data, hasSignOut }) => {
   );
 };
 
-export default ProfileSettings;
+export default ProfileNotifications;

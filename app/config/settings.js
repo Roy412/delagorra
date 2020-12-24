@@ -2,6 +2,10 @@ import { profile } from '~/navigation/routeNames';
 
 export const settingsData = [
   {
+    label: 'Notifications',
+    route: profile.notifications,
+  },
+  {
     label: 'Privacy',
     route: profile.privacy,
   },
@@ -14,7 +18,7 @@ export const settingsData = [
   },
   {
     label: 'About Us',
-    route: profile.about,
+    route: profile.aboutUs,
   },
 ];
 
