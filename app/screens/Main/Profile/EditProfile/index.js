@@ -47,6 +47,12 @@ const EditProfile = ({ navigation }) => {
     Toast.show({ text1: 'Successful cleared cache!', position: 'top' });
   };
 
+  const handleGenderOpen = () => {
+    if (!user.gender) {
+      setUser({ ...user, gender: 'Male' });
+    }
+  };
+
   const renderItem = ({ item }) => {
     if (item === 'Gender') {
       return (
@@ -56,6 +62,7 @@ const EditProfile = ({ navigation }) => {
             { label: 'Male', value: 'Male' },
             { label: 'Female', value: 'Female' },
           ]}
+          onOpen={handleGenderOpen}
           placeholder={{}}
           touchableWrapperProps={{ activeOpacity: undefined }}>
           <Styled.Item as={Styled.Box}>
