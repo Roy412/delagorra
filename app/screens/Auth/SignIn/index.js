@@ -26,10 +26,11 @@ const SignIn = ({ navigation }) => {
   const [showTermsModal, setShowTermsModal] = useState(false);
   const dispatch = useDispatch();
   const formRef = useRef();
+  const intervalRef = useRef();
 
   useEffect(() => {
     formRef.current.restart();
-    clearInterval(interval);
+    clearInterval(intervalRef.current);
   }, [loginMode]);
 
   const getInitialValues = () => ({
@@ -65,14 +66,13 @@ const SignIn = ({ navigation }) => {
     return Validate(values, constraints[loginMode]);
   };
 
-  let interval;
   const startCountdown = () => {
     setCountDowning(true);
-    interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       setCountSec((prevCountSec) => {
         if (prevCountSec === 1) {
           setCountDowning(false);
-          clearInterval(interval);
+          clearInterval(intervalRef.current);
           return;
         }
         return prevCountSec - 1;
@@ -109,7 +109,7 @@ const SignIn = ({ navigation }) => {
         setShowTermsModal(true);
       } else {
         dispatch(AuthCreators.signInSuccess(response));
-        clearInterval(interval);
+        clearInterval(intervalRef.current);
         navigation.navigate(navigators.main, { screen: main.profile });
       }
     } catch (e) {
@@ -133,8 +133,8 @@ const SignIn = ({ navigation }) => {
   }, [countDowning]);
 
   const handlePrivacyAgree = () => {
+    clearInterval(intervalRef.current);
     dispatch(AuthCreators.signInSuccess(userResponse));
-    clearInterval(interval);
     navigation.reset({
       index: 0,
       routes: [{ name: navigators.auth, params: { screen: auth.setUpPassword, params: { phoneNumber } } }],
@@ -157,7 +157,7 @@ const SignIn = ({ navigation }) => {
   };
 
   const handleForgotPress = () => {
-    clearInterval(interval);
+    clearInterval(intervalRef.current);
     navigation.navigate(auth.forgot);
   };
 

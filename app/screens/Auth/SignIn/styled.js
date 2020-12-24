@@ -10,7 +10,7 @@ export { TextInput, Loader, Text, Box, Button, BackButton } from '~/components/u
 
 export const KeyboardAwareScrollView = styled(KeyboardAwareScrollViewUI).attrs({
   contentContainerStyle: { flex: 1 },
-  keyboardShouldPersistTaps: 'handled',
+  keyboardShouldPersistTaps: 'always',
 })``;
 
 export const Container = styled(SafeAreaView)`
