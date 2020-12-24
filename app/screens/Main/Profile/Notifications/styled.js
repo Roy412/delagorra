@@ -1,10 +1,9 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 
-import { Button, Image, Box } from '~/components/ui';
-import { nextIcon } from '~/resources';
+import { Button, Box } from '~/components/ui';
 
-export { Text, Box, Button, IconButton } from '~/components/ui';
+export { Text, Box, Loader, Button } from '~/components/ui';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -24,20 +23,11 @@ export const List = styled.FlatList.attrs({
   flex: 1;
 `;
 
-export const Item = styled.TouchableOpacity`
+export const Item = styled(Box)`
   flex-direction: row;
   align-items: center;
   padding-horizontal: 16px;
-  padding-vertical: 13px;
-`;
-
-export const RightArrow = styled(Image).attrs({
-  source: nextIcon,
-  tintColor: 'veryDarkGray',
-})`
-  width: 9px;
-  aspect-ratio: ${7 / 12};
-  opacity: 0.2;
+  height: 47px;
 `;
 
 export const Separator = styled(Box).attrs({

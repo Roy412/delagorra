@@ -1,55 +1,49 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert, Switch } from 'react-native';
+import { Switch } from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import { AuthCreators } from '~/store/actions/auth';
-import { navigators, auth } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
+import { showSimpleError } from '~/utils/alert';
+import { Promisify } from '~/utils/promisify';
+import { ProfileCreators } from '~/store/actions/profile';
 
 import * as Styled from './styled';
 
 const ProfileNotifications = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState();
   const user = useSelector(userSelector);
+  const [notificationData, setNotificationData] = useState(user.notification);
 
-  const handleSave = () => {
-    navigation.goBack();
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      await Promisify(dispatch, ProfileCreators.profileUpdateRequest, { notification: notificationData });
+      setLoading(false);
+      Toast.show({ text1: 'Successful updated notifications!', position: 'bottom' });
+    } catch (e) {
+      showSimpleError(e);
+      setLoading(false);
+    }
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
     });
-  }, [navigation]);
+  }, [navigation, notificationData]);
 
-  const handleItemPress = (screen) => {
-    if (screen === 'Clear cache') {
-      Alert.alert(
-        'Warning',
-        'Do you want to clear the cache?',
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          { text: 'OK', onPress: handleClearCache },
-        ],
-        { cancelable: false },
-      );
-    } else {
-      navigation.navigate(navigators.mainNav, { screen });
-    }
-  };
-
-  const handleClearCache = () => {
-    Toast.show({ text1: 'Successful cleared cache!', position: 'top' });
+  const handleValueChange = (id) => (value) => {
+    setNotificationData({ ...notificationData, [id]: value });
   };
 
   const renderItem = ({ item }) => (
-    <Styled.Item onPress={() => handleItemPress(item.route || item.label)}>
-      <Styled.Text flex={1}>{item.label}</Styled.Text>
-      <Switch value={user.notification[item.id]} />
+    <Styled.Item>
+      <Styled.Text fontSize={17} flex={1}>
+        {item.label}
+      </Styled.Text>
+      <Switch value={notificationData[item.id]} onValueChange={handleValueChange(item.id)} />
     </Styled.Item>
   );
 
@@ -63,6 +57,7 @@ const ProfileNotifications = ({ navigation }) => {
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={(item) => item.label}
       />
+      <Styled.Loader loading={loading} />
     </Styled.Container>
   );
 };

@@ -53,7 +53,9 @@ const ProfileSettings = ({ navigation, data, hasSignOut }) => {
 
   const renderItem = ({ item }) => (
     <Styled.Item onPress={() => handleItemPress(item.route || item.label)}>
-      <Styled.Text flex={1}>{item.label}</Styled.Text>
+      <Styled.Text fontSize={17} flex={1}>
+        {item.label}
+      </Styled.Text>
       <Styled.RightArrow />
     </Styled.Item>
   );

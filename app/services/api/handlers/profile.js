@@ -1,7 +1,7 @@
 export default (apiCall) => ({
   update: (payload) =>
     apiCall({
-      endpoint: 'user/update',
+      endpoint: 'profile/update',
       method: 'POST',
       query: payload,
     }),

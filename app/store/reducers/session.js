@@ -2,6 +2,7 @@ import Immutable from 'seamless-immutable';
 
 import { createReducer } from '~/store/redux';
 import { AuthTypes } from '~/store/actions/auth';
+import { ProfileTypes } from '~/store/actions/profile';
 
 const INITIAL_STATE = Immutable({
   user: null,
@@ -12,12 +13,12 @@ const signInSuccess = (state, { payload }) => state.merge({ user: payload.user, 
 
 const signInFailure = () => INITIAL_STATE;
 
-const updatePasswordSuccess = (state, { payload }) => state.merge({ user: { ...state.user, ...payload.user } });
+const updateProfileSuccess = (state, { payload }) => state.merge({ user: { ...state.user, ...payload.user } });
 
 const HANDLERS = {
   [AuthTypes.SIGN_IN_SUCCESS]: signInSuccess,
   [AuthTypes.SIGN_IN_FAILURE]: signInFailure,
-  [AuthTypes.UPDATE_PASSWORD_SUCCESS]: updatePasswordSuccess,
+  [ProfileTypes.PROFILE_UPDATE_SUCCESS]: updateProfileSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

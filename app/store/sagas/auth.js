@@ -1,6 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import { AuthTypes, AuthCreators } from '~/store/actions/auth';
+import { ProfileCreators } from '~/store/actions/profile';
 
 function* codeRequest(api, { payload, resolve, reject }) {
   const response = yield call(api.auth.codeRequest, payload);
@@ -50,7 +51,7 @@ function* updatePassword(api, { payload, resolve, reject }) {
   const response = yield call(api.auth.updatePassword, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(AuthCreators.updatePasswordSuccess(response.data.data));
+    yield put(ProfileCreators.profileUpdateSuccess(response.data.data));
     resolve();
   } else {
     reject(response.data);
