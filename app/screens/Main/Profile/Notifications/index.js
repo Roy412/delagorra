@@ -1,32 +1,27 @@
 import React, { useLayoutEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Alert } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { Alert, Switch } from 'react-native';
 import Toast from 'react-native-toast-message';
 
 import { AuthCreators } from '~/store/actions/auth';
 import { navigators, auth } from '~/navigation/routeNames';
+import { user as userSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
 
-const ProfileNotifications = ({ navigation, data, hasSignOut }) => {
+const ProfileNotifications = ({ navigation }) => {
   const dispatch = useDispatch();
+  const user = useSelector(userSelector);
 
   const handleSave = () => {
     navigation.goBack();
   };
 
   useLayoutEffect(() => {
-    if (hasSignOut) {
-      navigation.setOptions({
-        headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
-      });
-    }
+    navigation.setOptions({
+      headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
+    });
   }, [navigation]);
-
-  const handleSignOut = () => {
-    navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
-    dispatch(AuthCreators.logOutRequest());
-  };
 
   const handleItemPress = (screen) => {
     if (screen === 'Clear cache') {
@@ -54,7 +49,7 @@ const ProfileNotifications = ({ navigation, data, hasSignOut }) => {
   const renderItem = ({ item }) => (
     <Styled.Item onPress={() => handleItemPress(item.route || item.label)}>
       <Styled.Text flex={1}>{item.label}</Styled.Text>
-      <Styled.RightArrow />
+      <Switch value={user.notification[item.id]} />
     </Styled.Item>
   );
 
@@ -63,14 +58,21 @@ const ProfileNotifications = ({ navigation, data, hasSignOut }) => {
   return (
     <Styled.Container>
       <Styled.List
-        data={data}
+        data={listData}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={(item) => item.label}
       />
-      {hasSignOut && <Styled.Button my={50} mx={30} text="Sign Out" onPress={handleSignOut} />}
     </Styled.Container>
   );
 };
+
+const listData = [
+  { id: 'notifications', label: 'Notifications' },
+  { id: 'hotPosts', label: 'Hot posts' },
+  { id: 'replies', label: 'Replies' },
+  { id: 'likes', label: 'Likes' },
+  { id: 'shares', label: 'Shares' },
+];
 
 export default ProfileNotifications;
