@@ -24,6 +24,18 @@ const variantStyles = {
       fontSize: 16,
     },
   },
+  outlined: {
+    container: {
+      height: 'auto',
+      borderWidth: 1,
+      borderColor: Colors.pink,
+      borderRadius: 2,
+    },
+    text: {
+      color: 'pink',
+      fontSize: 16,
+    },
+  },
 };
 
 const Button = ({

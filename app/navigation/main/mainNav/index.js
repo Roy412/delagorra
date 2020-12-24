@@ -6,6 +6,7 @@ import AboutUs from '~/screens/Main/Profile/AboutUs';
 import CheckVersion from '~/screens/Main/Profile/CheckVersion';
 import BlockedUsers from '~/screens/Main/Profile/BlockedUsers';
 import ProfileNotifications from '~/screens/Main/Profile/Notifications';
+import AccountSecurity from '~/screens/Main/Profile/AccountSecurity';
 import { profile } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
 import { privacyData } from '~/config/settings';
@@ -18,7 +19,8 @@ const MainNav = () => (
   <Stack.Navigator
     screenOptions={{ header: (props) => <MainHeader {...props} /> }}
     headerMode="screen"
-    initialRouteName={profile.notifications}>
+    initialRouteName={profile.accountSecurity}>
+    <Stack.Screen name={profile.accountSecurity} component={AccountSecurity} options={{ title: 'Account and Security' }} />
     <Stack.Screen name={profile.notifications} component={ProfileNotifications} options={{ title: 'Notifications' }} />
     <Stack.Screen name={profile.privacy} component={ProfilePrivacy} options={{ title: 'Privacy' }} />
     <Stack.Screen name={profile.blockedUsers} component={BlockedUsers} options={{ title: 'Blocked users' }} />

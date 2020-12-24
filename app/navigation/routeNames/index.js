@@ -13,7 +13,7 @@ export const main = createNames(['home', 'notification', 'profile'], {
 });
 
 export const profile = createNames(
-  ['main', 'settings', 'notifications', 'blockedUsers', 'privacy', 'checkVersion', 'aboutUs'],
+  ['main', 'settings', 'accountSecurity', 'notifications', 'blockedUsers', 'privacy', 'checkVersion', 'aboutUs'],
   {
     prefix: 'profile/',
   },
