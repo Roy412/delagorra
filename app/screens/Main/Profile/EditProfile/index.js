@@ -17,6 +17,7 @@ const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(useSelector(userSelector));
   const [inputModalType, setInputModalType] = useState();
+  const [inputModalId, setInputModalId] = useState();
 
   const handleClose = () => {
     navigation.goBack();
@@ -29,8 +30,9 @@ const EditProfile = ({ navigation }) => {
   }, [navigation]);
 
   const handleItemPress = (screen) => {
-    if (screen === 'Display name') {
-      setInputModalType(screen);
+    if (screen.label === 'Display name' || screen.label === 'Bio') {
+      setInputModalId(screen.id);
+      setInputModalType(screen.label);
     }
   };
 
@@ -45,7 +47,7 @@ const EditProfile = ({ navigation }) => {
   };
 
   const renderItem = ({ item }) => {
-    if (item === 'Gender') {
+    if (item.label === 'Gender') {
       return (
         <RNPickerSelect
           onValueChange={(value) => setUser({ ...user, gender: value })}
@@ -58,7 +60,7 @@ const EditProfile = ({ navigation }) => {
           touchableWrapperProps={{ activeOpacity: undefined }}>
           <Styled.Item as={Styled.Box}>
             <Styled.Text fontSize={17} flex={1}>
-              {item}
+              {item.label}
             </Styled.Text>
             <Styled.Text fontSize={17} color="rgba(60, 60, 67, 0.6)" mr={7}>
               {user.gender}
@@ -71,7 +73,11 @@ const EditProfile = ({ navigation }) => {
     return (
       <Styled.Item onPress={() => handleItemPress(item)}>
         <Styled.Text fontSize={17} flex={1}>
-          {item}
+          {item.label}
+        </Styled.Text>
+
+        <Styled.Text mr={10} fontSize={17} color="rgba(60, 60, 67, 0.6)">
+          {user[item.id]}
         </Styled.Text>
         <Styled.RightArrow />
       </Styled.Item>
@@ -80,19 +86,41 @@ const EditProfile = ({ navigation }) => {
 
   const renderSeparator = () => <Styled.Separator />;
 
+  const handleConfirmInputModal = (value) => {
+    setUser({ ...user, [inputModalId]: value });
+  };
+
+  const handleCloseInputModal = () => {
+    setInputModalId();
+    setInputModalType();
+  };
+
   return (
     <Styled.Container>
       <Styled.List
         data={listData}
         renderItem={renderItem}
         ItemSeparatorComponent={renderSeparator}
-        keyExtractor={(item) => item}
+        keyExtractor={(item) => item.id}
       />
-      <InputModal value={user.displayName} onClosed={() => setInputModalType()} isOpen={!!inputModalType} />
+      <InputModal
+        value={user[inputModalId] || ''}
+        onClosed={handleCloseInputModal}
+        isOpen={!!inputModalType}
+        title={inputModalType}
+        onConfirm={handleConfirmInputModal}
+        prefix={inputModalType === 'Display name' && '@'}
+      />
     </Styled.Container>
   );
 };
 
-const listData = ['Display name', 'Bio', 'Gender', 'Birthday', 'Location'];
+const listData = [
+  { id: 'displayName', label: 'Display name' },
+  { id: 'bio', label: 'Bio' },
+  { id: 'gender', label: 'Gender' },
+  { id: 'birthday', label: 'Birthday' },
+  { id: 'location', label: 'Location' },
+];
 
 export default EditProfile;
