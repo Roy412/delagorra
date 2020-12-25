@@ -1,9 +1,10 @@
 import React, { useLayoutEffect, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Alert } from 'react-native';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import Toast from 'react-native-toast-message';
 import RNPickerSelect from 'react-native-picker-select';
 import _ from 'lodash';
+import { format } from 'date-fns';
 
 import chinaJson from '~/resources/countries/china';
 import { userWithoutNoti as userSelector } from '~/store/selectors/session';
@@ -18,6 +19,7 @@ const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(useSelector(userSelector));
   const [inputModalType, setInputModalType] = useState();
   const [inputModalId, setInputModalId] = useState();
+  const [showDatePicker, setShowDatePicker] = useState();
 
   const handleClose = () => {
     navigation.goBack();
@@ -33,6 +35,8 @@ const EditProfile = ({ navigation }) => {
     if (screen.label === 'Display name' || screen.label === 'Bio') {
       setInputModalId(screen.id);
       setInputModalType(screen.label);
+    } else if (screen.label === 'Birthday') {
+      setShowDatePicker(true);
     }
   };
 
@@ -70,6 +74,12 @@ const EditProfile = ({ navigation }) => {
         </RNPickerSelect>
       );
     }
+
+    let description = user[item.id];
+    if (item.label === 'Birthday' && description) {
+      description = format(description, 'MM.dd.yyyy');
+    }
+
     return (
       <Styled.Item onPress={() => handleItemPress(item)}>
         <Styled.Text fontSize={17} flex={1}>
@@ -77,7 +87,7 @@ const EditProfile = ({ navigation }) => {
         </Styled.Text>
 
         <Styled.Text mr={10} fontSize={17} color="rgba(60, 60, 67, 0.6)">
-          {user[item.id]}
+          {description}
         </Styled.Text>
         <Styled.RightArrow />
       </Styled.Item>
@@ -95,6 +105,11 @@ const EditProfile = ({ navigation }) => {
     setInputModalType();
   };
 
+  const handleConfirmBirthday = (value) => {
+    setShowDatePicker(false);
+    setUser({ ...user, birthday: value });
+  };
+
   return (
     <Styled.Container>
       <Styled.List
@@ -110,6 +125,12 @@ const EditProfile = ({ navigation }) => {
         title={inputModalType}
         onConfirm={handleConfirmInputModal}
         prefix={inputModalType === 'Display name' && '@'}
+      />
+      <DateTimePickerModal
+        isVisible={showDatePicker}
+        date={user.birthday}
+        onConfirm={handleConfirmBirthday}
+        onCancel={() => setShowDatePicker(false)}
       />
     </Styled.Container>
   );
