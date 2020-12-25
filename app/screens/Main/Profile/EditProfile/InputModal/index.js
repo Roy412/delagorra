@@ -36,7 +36,14 @@ const InputModal = ({ title, value: propValue, onClosed, onConfirm, prefix, limi
                 {prefix}
               </Styled.Text>
             )}
-            <Styled.TextInput autoFocus ref={inputRef} onChangeText={setValue} maxLength={limit} value={value} />
+            <Styled.TextInput
+              autoFocus
+              ref={inputRef}
+              onChangeText={setValue}
+              maxLength={limit}
+              value={value}
+              onSubmitEditing={handleConfirm}
+            />
             <Styled.Text ml={3} fontSize={14} fontStyle="semibold" color="rgba(19,19,19,0.25)">
               {value.length}/{limit}
             </Styled.Text>
