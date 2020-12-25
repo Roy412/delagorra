@@ -1,11 +1,16 @@
 import React, { useLayoutEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import RNPickerSelect from 'react-native-picker-select';
 import { format } from 'date-fns';
+import Toast from 'react-native-toast-message';
+import _ from 'lodash';
 
 import { userWithoutNoti as userSelector } from '~/store/selectors/session';
 import jsonChina from '~/resources/countries/china';
+import { showSimpleError } from '~/utils/alert';
+import { Promisify } from '~/utils/promisify';
+import { ProfileCreators } from '~/store/actions/profile';
 
 import * as Styled from './styled';
 import InputModal from './InputModal';
@@ -27,16 +32,30 @@ const EditProfile = ({ navigation }) => {
   const [inputModalType, setInputModalType] = useState();
   const [inputModalId, setInputModalId] = useState();
   const [showDatePicker, setShowDatePicker] = useState();
+  const [loading, setLoading] = useState();
+  const dispatch = useDispatch();
 
-  const handleClose = () => {
-    navigation.goBack();
+  const handleSave = async () => {
+    try {
+      setLoading(true);
+      await Promisify(
+        dispatch,
+        ProfileCreators.profileUpdateRequest,
+        _.pick(user, ['displayName', 'bio', 'gender', 'city', 'birthday']),
+      );
+      setLoading(false);
+      Toast.show({ text1: 'Successful updated the profile!', position: 'bottom' });
+    } catch (e) {
+      showSimpleError(e);
+      setLoading(false);
+    }
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      headerRight: <Styled.RightButton text="Save" onPress={handleClose} />,
+      headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
     });
-  }, [navigation]);
+  }, [navigation, JSON.stringify(user)]);
 
   const handleItemPress = (screen) => {
     if (screen.label === 'Display name' || screen.label === 'Bio') {
@@ -130,6 +149,7 @@ const EditProfile = ({ navigation }) => {
         onConfirm={handleConfirmBirthday}
         onCancel={() => setShowDatePicker(false)}
       />
+      <Styled.Loader loading={loading} />
     </Styled.Container>
   );
 };

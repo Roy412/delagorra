@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native';
 import { Button, Image, Box } from '~/components/ui';
 import { nextIcon } from '~/resources';
 
-export { Text, Box, Button, IconButton } from '~/components/ui';
+export { Text, Box, Button, IconButton, Loader } from '~/components/ui';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;

@@ -1,4 +1,5 @@
 import Immutable from 'seamless-immutable';
+import { parseISO } from 'date-fns';
 
 import { createReducer } from '~/store/redux';
 import { AuthTypes } from '~/store/actions/auth';
@@ -9,11 +10,20 @@ const INITIAL_STATE = Immutable({
   token: null,
 });
 
-const signInSuccess = (state, { payload }) => state.merge({ user: payload.user, token: payload.token });
+const buildUser = (user) => {
+  if (user.birthday) {
+    user.birthday = parseISO(user.birthday);
+  }
+  return user;
+};
+
+const signInSuccess = (state, { payload }) =>
+  state.merge({ user: { ...buildUser(payload.user), token: payload.token } });
 
 const signInFailure = () => INITIAL_STATE;
 
-const updateProfileSuccess = (state, { payload }) => state.merge({ user: { ...state.user, ...payload.user } });
+const updateProfileSuccess = (state, { payload }) =>
+  state.merge({ user: { ...state.user, ...buildUser(payload.user) } });
 
 const HANDLERS = {
   [AuthTypes.SIGN_IN_SUCCESS]: signInSuccess,

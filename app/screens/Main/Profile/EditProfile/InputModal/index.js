@@ -15,8 +15,8 @@ const InputModal = ({ title, value: propValue, onClosed, onConfirm, prefix, limi
   };
 
   const handleConfirm = () => {
-    onClosed();
     onConfirm(value);
+    onClosed();
   };
 
   return (
