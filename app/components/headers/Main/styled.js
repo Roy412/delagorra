@@ -1,11 +1,13 @@
 import styled from 'styled-components/native';
-import { SafeAreaView, StatusBar as StatusBarUI } from 'react-native';
+import { SafeAreaView } from 'react-native';
 import { color } from 'styled-system';
 
 import { backIcon } from '~/resources';
 import { Box, Text, IconButton } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { hitSlopArea } from '~/utils/utils';
+
+import FocusAwareStatusBar from '../FocusAwareStatusBar';
 
 export const Container = styled(SafeAreaView)`
   shadow-color: ${Colors.black};
@@ -22,7 +24,7 @@ export const Content = styled(Box).attrs({
   height: 44,
 })``;
 
-export const StatusBar = styled(StatusBarUI)`
+export const StatusBar = styled(FocusAwareStatusBar)`
   ${color}
 `;
 
