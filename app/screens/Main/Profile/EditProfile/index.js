@@ -11,10 +11,12 @@ import { ProfileCreators } from '~/store/actions/profile';
 import { navigators, auth } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
+import InputModal from './InputModal';
 
 const EditProfile = ({ navigation }) => {
   const dispatch = useDispatch();
   const [user, setUser] = useState(useSelector(userSelector));
+  const [inputModalType, setInputModalType] = useState();
 
   const handleClose = () => {
     navigation.goBack();
@@ -27,19 +29,8 @@ const EditProfile = ({ navigation }) => {
   }, [navigation]);
 
   const handleItemPress = (screen) => {
-    if (screen === 'Gender') {
-      Alert.alert(
-        'Warning',
-        'Do you want to clear the cache?',
-        [
-          {
-            text: 'Cancel',
-            style: 'cancel',
-          },
-          { text: 'OK', onPress: handleClearCache },
-        ],
-        { cancelable: false },
-      );
+    if (screen === 'Display name') {
+      setInputModalType(screen);
     }
   };
 
@@ -97,6 +88,7 @@ const EditProfile = ({ navigation }) => {
         ItemSeparatorComponent={renderSeparator}
         keyExtractor={(item) => item}
       />
+      <InputModal value={user.displayName} onClosed={() => setInputModalType()} isOpen={!!inputModalType} />
     </Styled.Container>
   );
 };
