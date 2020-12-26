@@ -121,35 +121,20 @@ const EditProfile = ({ navigation }) => {
 
   const handlePhotoPress = (option) => {
     setStatusBarStyle('dark-content');
-    if (option === 'Take Photo...') {
-      ImagePicker.openCamera({
-        width: 500,
-        height: 500,
-        cropping: true,
-        cropperCircleOverlay: true,
+    const func = option === 'Take Photo...' ? ImagePicker.openCamera : ImagePicker.openPicker;
+    func({
+      width: 500,
+      height: 500,
+      cropping: true,
+      cropperCircleOverlay: true,
+    })
+      .then((image) => {
+        setProfileImage(PhotoService.file2Attachment(image));
       })
-        .then((image) => {
-          setProfileImage(PhotoService.file2Attachment(image));
-        })
-        .catch(() => {})
-        .finally(() => {
-          setStatusBarStyle('light-content');
-        });
-    } else {
-      ImagePicker.openPicker({
-        width: 500,
-        height: 500,
-        cropping: true,
-        cropperCircleOverlay: true,
-      })
-        .then((image) => {
-          setProfileImage(PhotoService.file2Attachment(image));
-        })
-        .catch(() => {})
-        .finally(() => {
-          setStatusBarStyle('light-content');
-        });
-    }
+      .catch(() => {})
+      .finally(() => {
+        setStatusBarStyle('light-content');
+      });
   };
 
   return (

@@ -44,7 +44,7 @@ const SetUpPassword = ({ navigation, route }) => {
     if (isForgot) {
       navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
     } else {
-      navigation.reset({ index: 0, routes: [{ name: navigators.main, params: { screen: main.profile } }] });
+      navigation.reset({ index: 0, routes: [{ name: navigators.main, params: { screen: main.home } }] });
     }
   };
 

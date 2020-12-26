@@ -17,8 +17,7 @@ const buildUser = (user) => {
   return user;
 };
 
-const signInSuccess = (state, { payload }) =>
-  state.merge({ user: { ...buildUser(payload.user), token: payload.token } });
+const signInSuccess = (state, { payload }) => state.merge({ user: buildUser(payload.user), token: payload.token });
 
 const signInFailure = () => INITIAL_STATE;
 
