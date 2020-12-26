@@ -37,7 +37,6 @@ const EditProfile = ({ navigation }) => {
       setLoading(false);
       Toast.show({ text1: 'Successful updated the profile!', position: 'bottom' });
     } catch (e) {
-      console.log('wow', e);
       showSimpleError(e);
       setLoading(false);
     }

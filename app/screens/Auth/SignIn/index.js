@@ -108,9 +108,8 @@ const SignIn = ({ navigation }) => {
       if (!response.user.hasPassword) {
         setShowTermsModal(true);
       } else {
-        console.log('wow', response);
-        dispatch(AuthCreators.signInSuccess(response));
         clearInterval(intervalRef.current);
+        dispatch(AuthCreators.signInSuccess(response));
         navigation.reset({ index: 0, routes: [{ name: navigators.main, params: { screen: main.home } }] });
       }
     } catch (e) {

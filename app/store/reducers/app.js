@@ -9,14 +9,11 @@ import { AuthTypes } from '~/store/actions/auth';
 
 export const INITIAL_STATE = Immutable({
   isRehydrated: false,
-  isRefetched: false,
 });
 
-const completeRefetch = (state) => state.merge({ isRefetched: true });
 const completeRehydration = (state) => state.merge({ isRehydrated: true });
 
 export const HANDLERS = {
-  [AppTypes.COMPLETE_REFETCH]: completeRefetch,
   [AppTypes.COMPLETE_REHYDRATION]: completeRehydration,
 };
 

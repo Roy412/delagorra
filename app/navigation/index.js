@@ -9,7 +9,7 @@ import PrivacyPolicy from '~/screens/Auth/PrivacyPolicy';
 import ProgressScreen from '~/screens/Auth/Progress';
 import { MainHeader, SimpleHeader } from '~/components/headers';
 import { Toast } from '~/components/ui';
-import { isRestored as isRestoredSelector } from '~/store/selectors/app';
+import { isRehydrated as isRehydratedSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
 import Settings from '~/screens/Main/Profile/Settings';
 import { profile, navigators } from '~/navigation/routeNames';
@@ -32,7 +32,7 @@ const MyTheme = {
 const ProfileSettings = (props) => <Settings hasSignOut data={settingsData} {...props} />;
 
 const NavigationWrapper = () => {
-  const isRestored = useSelector(isRestoredSelector);
+  const isRehydrated = useSelector(isRehydratedSelector);
   const [appState, setAppState] = useState(AppState.currentState);
   const dispatch = useDispatch();
 
@@ -51,7 +51,7 @@ const NavigationWrapper = () => {
     };
   }, [appState]);
 
-  if (!isRestored) {
+  if (!isRehydrated) {
     return <ProgressScreen />;
   }
 
