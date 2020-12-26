@@ -8,4 +8,9 @@ export cameraIcon from './icons/camera.png';
 export homeIcon from './icons/home.png';
 export bellIcon from './icons/bell.png';
 export nextIcon from './icons/next.png';
+export bookmarkIcon from './icons/bookmark.png';
+export activityIcon from './icons/activity.png';
+export historyIcon from './icons/history.png';
+export messageIcon from './icons/message.png';
+
 export profileImage from './images/profile.png';

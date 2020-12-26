@@ -50,6 +50,7 @@ export const Separator = styled(Box).attrs({
 
 export const ProfileImage = styled(Image).attrs((props) => ({
   source: props.source || profileImage,
+  blurRadius: 3,
 }))`
   width: 90px;
   height: 90px;
