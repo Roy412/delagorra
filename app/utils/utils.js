@@ -6,3 +6,5 @@ export const hitSlopArea = (offset) => ({
   bottom: offset,
   left: offset,
 });
+
+export const generateRandomString = (count = 5) => Math.random().toString(36).substr(2, count);

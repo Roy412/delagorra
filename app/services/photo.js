@@ -2,7 +2,7 @@ import { lookup } from 'react-native-mime-types';
 
 import PickingService from './picking';
 
-const file2Attachment = (response, fieldName = 'file') => {
+const file2Attachment = (response, fieldName = 'image') => {
   const name = response.filename || response.path.split('/').pop();
   const type = response.mime || lookup(name);
 

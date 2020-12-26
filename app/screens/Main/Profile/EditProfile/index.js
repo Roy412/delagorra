@@ -23,20 +23,21 @@ const EditProfile = ({ navigation }) => {
   const [inputModalId, setInputModalId] = useState();
   const [showDatePicker, setShowDatePicker] = useState();
   const [loading, setLoading] = useState();
-  const [profileImage, setProfileImage] = useState();
+  const [profileImage, setProfileImage] = useState(user.profileImage && { uri: user.profileImage });
+  const [statusBarStyle, setStatusBarStyle] = useState('light-content');
   const dispatch = useDispatch();
 
   const handleSave = async () => {
     try {
       setLoading(true);
-      await Promisify(
-        dispatch,
-        ProfileCreators.profileUpdateRequest,
-        _.pick(user, ['displayName', 'bio', 'gender', 'city', 'birthday']),
-      );
+      await Promisify(dispatch, ProfileCreators.profileUpdateRequest, {
+        ..._.pick(user, ['displayName', 'bio', 'gender', 'city', 'birthday']),
+        profileImage,
+      });
       setLoading(false);
       Toast.show({ text1: 'Successful updated the profile!', position: 'bottom' });
     } catch (e) {
+      console.log('wow', e);
       showSimpleError(e);
       setLoading(false);
     }
@@ -46,7 +47,7 @@ const EditProfile = ({ navigation }) => {
     navigation.setOptions({
       headerRight: <Styled.RightButton text="Save" onPress={handleSave} />,
     });
-  }, [navigation, JSON.stringify(user)]);
+  }, [navigation, JSON.stringify(user), JSON.stringify(profileImage)]);
 
   const handleItemPress = (screen) => {
     if (screen.label === 'Display name' || screen.label === 'Bio') {
@@ -119,32 +120,41 @@ const EditProfile = ({ navigation }) => {
   };
 
   const handlePhotoPress = (option) => {
+    setStatusBarStyle('dark-content');
     if (option === 'Take Photo...') {
       ImagePicker.openCamera({
         width: 500,
         height: 500,
         cropping: true,
         cropperCircleOverlay: true,
-      }).then((image) => {
-        console.log(image);
-      });
+      })
+        .then((image) => {
+          setProfileImage(PhotoService.file2Attachment(image));
+        })
+        .catch(() => {})
+        .finally(() => {
+          setStatusBarStyle('light-content');
+        });
     } else {
       ImagePicker.openPicker({
-        cropping: true,
         width: 500,
         height: 500,
+        cropping: true,
         cropperCircleOverlay: true,
       })
         .then((image) => {
           setProfileImage(PhotoService.file2Attachment(image));
         })
-        .catch(() => {});
+        .catch(() => {})
+        .finally(() => {
+          setStatusBarStyle('light-content');
+        });
     }
   };
 
   return (
     <Styled.Container>
-      <Styled.FocusAwareStatusBar barStyle="dark-content" bg="black" />
+      <Styled.FocusAwareStatusBar barStyle={statusBarStyle} />
       <Styled.ActionPicker options={['Take Photo...', 'Choose from Library...']} onPressItem={handlePhotoPress}>
         <Styled.ProfileImage source={profileImage && { uri: profileImage.uri }} />
         <Styled.CameraIcon />

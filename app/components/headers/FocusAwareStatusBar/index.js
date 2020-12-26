@@ -1,12 +1,18 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 
+import { generateRandomString } from '~/utils/utils';
+
 const FocusAwareStatusBar = (props) => {
   let isFocused = useIsFocused();
-  isFocused = true;
+  const [key, setKey] = useState();
 
-  return isFocused ? <StatusBar {...props} /> : null;
+  useEffect(() => {
+    setKey(generateRandomString());
+  }, [props.barStyle]);
+
+  return isFocused ? <StatusBar key={key} {...props} /> : null;
 };
 
 export default FocusAwareStatusBar;
