@@ -1,10 +1,11 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 
-import { Button, Image, Box } from '~/components/ui';
-import { nextIcon } from '~/resources';
+import { Button, Image, Box, ActionPicker as ActionPickerUI } from '~/components/ui';
+import { nextIcon, profileImage, cameraIcon } from '~/resources';
 
 export { Text, Box, Button, IconButton, Loader } from '~/components/ui';
+export { FocusAwareStatusBar } from '~/components/headers';
 
 export const Container = styled(SafeAreaView)`
   flex: 1;
@@ -45,4 +46,28 @@ export const Separator = styled(Box).attrs({
   ml: 16,
 })`
   height: 1px;
+`;
+
+export const ProfileImage = styled(Image).attrs((props) => ({
+  source: props.source || profileImage,
+}))`
+  width: 90px;
+  height: 90px;
+  border-radius: 45px;
+  align-self: center;
+`;
+
+export const CameraIcon = styled(Image).attrs({
+  source: cameraIcon,
+})`
+  position: absolute;
+  width: 32px;
+  height: 26px;
+`;
+
+export const ActionPicker = styled(ActionPickerUI)`
+  margin-vertical: 30px;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 `;

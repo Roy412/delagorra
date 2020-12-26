@@ -59,5 +59,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+  <key>NSCameraUsageDescription</key>
+  <string>Cherry requires camera access for uploading photo to the profile</string>
+  <key>NSPhotoLibraryAddUsageDescription</key>
+  <string>Cherry requires photo library access for uploading image to the profile</string>
+  <key>NSPhotoLibraryUsageDescription</key>
+  <string>Cherry requires photo library access for uploading image to the profile</string>
 </dict>
 </plist>

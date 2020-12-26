@@ -5,27 +5,17 @@ import RNPickerSelect from 'react-native-picker-select';
 import { format } from 'date-fns';
 import Toast from 'react-native-toast-message';
 import _ from 'lodash';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import { userWithoutNoti as userSelector } from '~/store/selectors/session';
 import jsonChina from '~/resources/countries/china';
 import { showSimpleError } from '~/utils/alert';
 import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
+import PhotoService from '~/services/photo';
 
 import * as Styled from './styled';
 import InputModal from './InputModal';
-
-const Item = ({ label, description, ...props }) => (
-  <Styled.Item {...props}>
-    <Styled.Text fontSize={17} flex={1}>
-      {label}
-    </Styled.Text>
-    <Styled.Text fontSize={17} color="rgba(60, 60, 67, 0.6)" mr={7}>
-      {description}
-    </Styled.Text>
-    <Styled.RightArrow />
-  </Styled.Item>
-);
 
 const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(useSelector(userSelector));
@@ -33,6 +23,7 @@ const EditProfile = ({ navigation }) => {
   const [inputModalId, setInputModalId] = useState();
   const [showDatePicker, setShowDatePicker] = useState();
   const [loading, setLoading] = useState();
+  const [profileImage, setProfileImage] = useState();
   const dispatch = useDispatch();
 
   const handleSave = async () => {
@@ -127,8 +118,37 @@ const EditProfile = ({ navigation }) => {
     setUser({ ...user, birthday: value });
   };
 
+  const handlePhotoPress = (option) => {
+    if (option === 'Take Photo...') {
+      ImagePicker.openCamera({
+        width: 500,
+        height: 500,
+        cropping: true,
+        cropperCircleOverlay: true,
+      }).then((image) => {
+        console.log(image);
+      });
+    } else {
+      ImagePicker.openPicker({
+        cropping: true,
+        width: 500,
+        height: 500,
+        cropperCircleOverlay: true,
+      })
+        .then((image) => {
+          setProfileImage(PhotoService.file2Attachment(image));
+        })
+        .catch(() => {});
+    }
+  };
+
   return (
     <Styled.Container>
+      <Styled.FocusAwareStatusBar barStyle="dark-content" bg="black" />
+      <Styled.ActionPicker options={['Take Photo...', 'Choose from Library...']} onPressItem={handlePhotoPress}>
+        <Styled.ProfileImage source={profileImage && { uri: profileImage.uri }} />
+        <Styled.CameraIcon />
+      </Styled.ActionPicker>
       <Styled.List
         data={listData}
         renderItem={renderItem}
@@ -153,6 +173,18 @@ const EditProfile = ({ navigation }) => {
     </Styled.Container>
   );
 };
+
+const Item = ({ label, description, ...props }) => (
+  <Styled.Item {...props}>
+    <Styled.Text fontSize={17} flex={1}>
+      {label}
+    </Styled.Text>
+    <Styled.Text fontSize={17} color="rgba(60, 60, 67, 0.6)" mr={7}>
+      {description}
+    </Styled.Text>
+    <Styled.RightArrow />
+  </Styled.Item>
+);
 
 const listData = [
   { id: 'displayName', label: 'Display name' },
