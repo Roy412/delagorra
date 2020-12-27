@@ -28,7 +28,7 @@ const MainNavigator = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={main.profile}
+      initialRouteName={main.home}
       tabBarOptions={{
         activeTintColor: Colors.pink,
         inactiveTintColor: Colors.gainsBoro,

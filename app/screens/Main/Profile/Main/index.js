@@ -4,12 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AuthCreators } from '~/store/actions/auth';
 import { navigators, auth, profile } from '~/navigation/routeNames';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { user as userSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
 
 const Profile = ({ navigation }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const user = useSelector(userSelector);
 
   const handleSettings = () => {
     navigation.navigate(profile.settings);
@@ -18,8 +20,9 @@ const Profile = ({ navigation }) => {
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: <Styled.GearButton onPress={handleSettings} />,
+      title: user.displayName,
     });
-  }, [navigation]);
+  }, [navigation, user]);
 
   const handleSignOut = () => {
     navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });

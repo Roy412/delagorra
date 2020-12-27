@@ -7,7 +7,7 @@ import Toast from 'react-native-toast-message';
 import _ from 'lodash';
 import ImagePicker from 'react-native-image-crop-picker';
 
-import { userWithoutNoti as userSelector } from '~/store/selectors/session';
+import { user as userSelector } from '~/store/selectors/session';
 import jsonChina from '~/resources/countries/china';
 import { showSimpleError } from '~/utils/alert';
 import { Promisify } from '~/utils/promisify';
@@ -18,7 +18,9 @@ import * as Styled from './styled';
 import InputModal from './InputModal';
 
 const EditProfile = ({ navigation }) => {
-  const [user, setUser] = useState(useSelector(userSelector));
+  const [user, setUser] = useState(
+    _.pick(useSelector(userSelector), ['displayName', 'bio', 'gender', 'city', 'birthday']),
+  );
   const [inputModalType, setInputModalType] = useState();
   const [inputModalId, setInputModalId] = useState();
   const [showDatePicker, setShowDatePicker] = useState();
