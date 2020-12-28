@@ -58,7 +58,7 @@ const NavigationWrapper = () => {
   return (
     <NavigationContainer theme={MyTheme}>
       <Stack.Navigator
-        screenOptions={{ headerShown: false, gestureEnabled: false }}
+        screenOptions={{ headerShown: false }}
         mode="modal"
         initialRouteName={navigators.main}>
         <Stack.Screen name={navigators.auth} component={Auth} />
@@ -67,6 +67,8 @@ const NavigationWrapper = () => {
           name={navigators.mainNav}
           component={MainNav}
           options={{
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
           }}
         />

@@ -17,10 +17,7 @@ const Stack = createStackNavigator();
 const ProfilePrivacy = (props) => <Settings data={privacyData} {...props} />;
 
 const MainNav = () => (
-  <Stack.Navigator
-    screenOptions={{ header: MainHeader }}
-    headerMode="screen"
-    initialRouteName={profile.editProfile}>
+  <Stack.Navigator screenOptions={{ header: MainHeader }} initialRouteName={profile.editProfile} headerMode="screen">
     <Stack.Screen name={profile.editProfile} component={EditProfile} options={{ title: 'Edit profile' }} />
     <Stack.Screen
       name={profile.accountSecurity}
