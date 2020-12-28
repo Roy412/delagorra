@@ -8,3 +8,4 @@ export IconButton from './IconButton';
 export Box from './Box';
 export Toast from './Toast';
 export ActionPicker from './ActionPicker';
+export AvatarPicker from './AvatarPicker';
