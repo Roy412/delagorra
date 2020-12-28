@@ -1,26 +1,13 @@
 import React, { useLayoutEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { AuthCreators } from '~/store/actions/auth';
-import { navigators, auth, profile } from '~/navigation/routeNames';
-import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { profile } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
+import { bookmarkIcon, messageIcon, activityIcon, historyIcon } from '~/resources';
 
 import * as Styled from './styled';
 
-const LikeItem = ({ label, value }) => (
-  <Styled.Box flex={1}>
-    <Styled.Text fontSize={16} textAlign="center" color="veryDarkGray">
-      {value}
-    </Styled.Text>
-    <Styled.Text mt={2} fontSize={14} textAlign="center" color="rgba(19,19,19,0.5)">
-      {label}
-    </Styled.Text>
-  </Styled.Box>
-);
-const Profile = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
+const ProfileMain = ({ navigation }) => {
   const user = useSelector(userSelector);
 
   const handleSettings = () => {
@@ -33,15 +20,6 @@ const Profile = ({ navigation }) => {
       title: user.displayName,
     });
   }, [navigation, user]);
-
-  const handleSignOut = () => {
-    navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });
-    dispatch(AuthCreators.logOutRequest());
-  };
-
-  const handleSignIn = () => {
-    navigation.navigate(navigators.auth);
-  };
 
   const handlePersonalPage = () => {
     // navigation.navigate(navigators.auth);
@@ -71,14 +49,43 @@ const Profile = ({ navigation }) => {
           </Styled.BtnPersnal>
         </Styled.Box>
 
-        <Styled.Box flexDirection="row" alignItems="center" justifyContent="center" mt={20} px={30}>
+        <Styled.Box flexDirection="row" alignItems="center" justifyContent="center" mt={20} px={40}>
           <LikeItem label="likes" value={user.likes} />
           <LikeItem label="following" value={user.following} />
           <LikeItem label="followers" value={user.followers} />
         </Styled.Box>
       </Styled.Box>
+
+      <Styled.BookmarkContainer>
+        <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} />
+        <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} />
+        <BookmarkItem label="My activites" icon={activityIcon} width={23} aspectRatio={1} />
+        <BookmarkItem label="History" icon={historyIcon} width={24} aspectRatio={1} />
+      </Styled.BookmarkContainer>
     </Styled.Content>
   );
 };
 
-export default Profile;
+const LikeItem = ({ label, value }) => (
+  <Styled.Box flex={1}>
+    <Styled.Text fontSize={16} textAlign="center" color="veryDarkGray">
+      {value}
+    </Styled.Text>
+    <Styled.Text mt={2} fontSize={14} textAlign="center" color="rgba(19,19,19,0.5)">
+      {label}
+    </Styled.Text>
+  </Styled.Box>
+);
+
+const BookmarkItem = ({ label, icon, badge, width, aspectRatio }) => (
+  <Styled.BookmarkItem>
+    <Styled.BookmarkIconWrapper>
+      <Styled.BookmarkIcon icon={icon} width={width} aspectRatio={aspectRatio} />
+    </Styled.BookmarkIconWrapper>
+    <Styled.Text mt={7} fontSize={11} textAlign="center" color="rgba(19,19,19,0.5)">
+      {label}
+    </Styled.Text>
+  </Styled.BookmarkItem>
+);
+
+export default ProfileMain;

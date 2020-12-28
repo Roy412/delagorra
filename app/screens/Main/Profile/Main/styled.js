@@ -41,3 +41,37 @@ export const LevelText = styled(Box)`
   padding-horizontal: 8px;
   padding-vertical: 2px;
 `;
+
+export const BookmarkIcon = styled(Image).attrs((props) => ({
+  source: props.icon,
+}))`
+  width: ${(props) => props.width}px;
+  aspect-ratio: ${(props) => props.aspectRatio};
+  height: undefined;
+`;
+
+export const BookmarkContainer = styled(Box).attrs({
+  flexDirection: 'row',
+  mt: 5,
+  bg: 'white',
+  pb: 10,
+  pt: 13,
+  alignItems: 'center',
+  justifyContent: 'center',
+  px: 20,
+})``;
+
+export const BookmarkIconWrapper = styled(Box).attrs({
+  borderRadius: 21,
+  width: 42,
+  height: 42,
+  bg: 'rgba(19,19,19,0.05)',
+  alignItems: 'center',
+  justifyContent: 'center',
+})``;
+
+export const BookmarkItem = styled.TouchableOpacity`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
