@@ -1,5 +1,6 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import ImageView from 'react-native-image-viewing';
 
 import { profile } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
@@ -8,6 +9,7 @@ import { bookmarkIcon, messageIcon, activityIcon, historyIcon } from '~/resource
 import * as Styled from './styled';
 
 const ProfileMain = ({ navigation }) => {
+  const [isAvatarShow, setIsAvatarShow] = useState();
   const user = useSelector(userSelector);
 
   const handleSettings = () => {
@@ -25,11 +27,15 @@ const ProfileMain = ({ navigation }) => {
     // navigation.navigate(navigators.auth);
   };
 
+  const handleAvatarPress = () => {
+    setIsAvatarShow(true);
+  };
+
   return (
     <Styled.Content>
       <Styled.Box bg="white" pb={10} pt={16}>
         <Styled.Box flexDirection="row" alignItems="center" px={16}>
-          <Styled.AvatarPicker url={user.profileImage} size={60} />
+          <Styled.AvatarPicker url={user.profileImage} size={60} onPress={handleAvatarPress} />
 
           <Styled.Text color="veryDarkGray" ml={10} fontStyle="semibold" fontSize={17} textAlign="center">
             {user.displayName}
@@ -62,6 +68,13 @@ const ProfileMain = ({ navigation }) => {
         <BookmarkItem label="My activites" icon={activityIcon} width={23} aspectRatio={1} />
         <BookmarkItem label="History" icon={historyIcon} width={24} aspectRatio={1} />
       </Styled.BookmarkContainer>
+
+      <ImageView
+        images={[{ uri: user.profileImage }]}
+        imageIndex={0}
+        visible={isAvatarShow}
+        onRequestClose={() => setIsAvatarShow(false)}
+      />
     </Styled.Content>
   );
 };

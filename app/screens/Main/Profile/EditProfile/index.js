@@ -19,7 +19,7 @@ import InputModal from './InputModal';
 
 const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(
-    _.pick(useSelector(userSelector), ['displayName', 'bio', 'gender', 'city', 'birthday']),
+    _.pick(useSelector(userSelector), ['displayName', 'bio', 'gender', 'city', 'birthday', 'profileImage']),
   );
   const [inputModalType, setInputModalType] = useState();
   const [inputModalId, setInputModalId] = useState();
