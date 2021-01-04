@@ -13,6 +13,11 @@ const variants = {
     title: 'white',
     statusBar: 'light-content',
   },
+  post: {
+    bg: 'rgba(249, 249, 249, 0.94)',
+    title: 'black',
+    statusBar: 'dark-content',
+  },
 };
 
 const Main = ({ variant = 'main', scene, navigation }) => {

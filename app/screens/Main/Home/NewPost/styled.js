@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 
-import { gearIcon } from '~/resources';
-import { IconButton } from '~/components/ui';
+import { crossIcon } from '~/resources';
+import { IconButton, Button } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Button, IconButton } from '~/components/ui';
@@ -17,10 +17,18 @@ export const Content = styled(SafeAreaView)`
   flex: 1;
 `;
 
-export const GearButton = styled(IconButton).attrs({
-  source: gearIcon,
+export const CloseButton = styled(IconButton).attrs({
+  source: crossIcon,
   hitSlop: hitSlopArea(5),
   pl: 17,
-  tintColor: 'white',
-  size: 20,
+  tintColor: 'pink',
+  iconStyle: { width: 18, aspectRatio: 60 / 66, height: undefined },
 })``;
+
+export const RightButton = styled(Button).attrs((props) => ({
+  variant: 'text',
+  textProps: { color: props.disabled ? 'veryDarkGray' : 'pink', fontStyle: 'regular', fontSize: 17 },
+  pr: 15,
+}))`
+  flex: 1;
+`;

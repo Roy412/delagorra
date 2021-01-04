@@ -1,6 +1,5 @@
 import React, { useLayoutEffect } from 'react';
 
-
 import * as Styled from './styled';
 
 const PrivacyPolicy = ({ navigation }) => {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AuthCreators } from '~/store/actions/auth';
@@ -9,7 +9,21 @@ import * as Styled from './styled';
 
 const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [postEnable, setPostEnable] = useState();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  const handleClose = () => {
+    navigation.goBack();
+  };
+
+  const handlePost = () => {};
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerLeft: <Styled.CloseButton onPress={handleClose} />,
+      headerRight: <Styled.RightButton disabled={!postEnable} text="Post" onPress={handlePost} />,
+    });
+  }, [navigation, postEnable]);
 
   const handleSignOut = () => {
     navigation.reset({ index: 0, routes: [{ name: navigators.auth, params: { screen: auth.signIn } }] });

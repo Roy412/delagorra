@@ -30,7 +30,11 @@ const MainNav = () => (
     <Stack.Screen name={profile.blockedUsers} component={BlockedUsers} options={{ title: 'Blocked users' }} />
     <Stack.Screen name={profile.checkVersion} component={CheckVersion} options={{ title: 'Version' }} />
     <Stack.Screen name={profile.aboutUs} component={AboutUs} options={{ title: 'About Us' }} />
-    <Stack.Screen name={home.newPost} component={NewPost} options={{ title: 'Make a Post' }} />
+    <Stack.Screen
+      name={home.newPost}
+      component={NewPost}
+      options={{ title: 'Make a Post', header: (props) => <MainHeader variant="post" {...props} /> }}
+    />
   </Stack.Navigator>
 );
 
