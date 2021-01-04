@@ -1,6 +1,9 @@
 import React, { useLayoutEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import ImageView from 'react-native-image-viewing';
+import { PermissionsAndroid, Platform, Alert } from 'react-native';
+import CameraRoll from '@react-native-community/cameraroll';
+import Toast from 'react-native-toast-message';
+import RNFetchBlob from 'rn-fetch-blob';
 
 import { profile } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
@@ -28,7 +31,54 @@ const ProfileMain = ({ navigation }) => {
   };
 
   const handleAvatarPress = () => {
-    setIsAvatarShow(true);
+    if (user.profileImage) {
+      setIsAvatarShow(true);
+    }
+  };
+
+  const hasAndroidPermission = async () => {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
+
+    const hasPermission = await PermissionsAndroid.check(permission);
+    if (hasPermission) {
+      return true;
+    }
+
+    const status = await PermissionsAndroid.request(permission);
+    return status === 'granted';
+  };
+
+  const handleSaveProfileImg = async () => {
+    if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
+      return;
+    }
+
+    RNFetchBlob.config({ fileCache: true, appendExt: 'png' })
+      .fetch('GET', user.profileImage)
+      .then((res) => {
+        CameraRoll.save(res.data)
+          .then(() => {
+            Toast.show({ text1: 'Picture saved', position: 'bottom' });
+          })
+          .catch((err) => {
+            Alert.alert(
+              'Save profile image',
+              'Failed to save Image: ' + err.message,
+              [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+              { cancelable: false },
+            );
+          })
+          .finally(() => setIsAvatarShow(false));
+      })
+      .catch((error) => {
+        setIsAvatarShow(false);
+        Alert.alert(
+          'Save profile image',
+          'Failed to save Image: ' + error.message,
+          [{ text: 'OK', onPress: () => console.log('OK Pressed') }],
+          { cancelable: false },
+        );
+      });
   };
 
   return (
@@ -69,7 +119,8 @@ const ProfileMain = ({ navigation }) => {
         <BookmarkItem label="History" icon={historyIcon} width={24} aspectRatio={1} />
       </Styled.BookmarkContainer>
 
-      <ImageView
+      <Styled.ImageViewer
+        onSave={handleSaveProfileImg}
         images={[{ uri: user.profileImage }]}
         imageIndex={0}
         visible={isAvatarShow}

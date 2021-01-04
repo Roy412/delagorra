@@ -5,7 +5,7 @@ import { gearIcon, nextIcon } from '~/resources';
 import { IconButton, Image, Box } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
 
-export { Text, Box, Button, IconButton, AvatarPicker } from '~/components/ui';
+export { Text, Box, Button, IconButton, AvatarPicker, ImageViewer } from '~/components/ui';
 
 export const Content = styled(SafeAreaView)`
   flex: 1;
