@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AuthCreators } from '~/store/actions/auth';
-import { navigators, auth } from '~/navigation/routeNames';
+import { navigators, auth, home } from '~/navigation/routeNames';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
 
-const Home = ({ navigation }) => {
+const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
@@ -20,8 +20,15 @@ const Home = ({ navigation }) => {
     navigation.navigate(navigators.auth);
   };
 
+  const handleCreatePost = () => {
+    navigation.navigate(navigators.mainNav, { screen: home.newPost });
+  };
+
   return (
     <Styled.Content>
+      <Styled.Box flexDirection="row" alignItems="center">
+        <Styled.Button text="+ Create" onPress={handleCreatePost} />
+      </Styled.Box>
       <Styled.Container>
         <Styled.Text fontStyle="bold" fontSize={20} textAlign="center" mt={100}>
           {isAuthenticated ? "Welcome! You've logged in successfully!" : 'Home screen'}
@@ -36,4 +43,4 @@ const Home = ({ navigation }) => {
   );
 };
 
-export default Home;
+export default NewPost;

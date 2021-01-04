@@ -8,8 +8,9 @@ import BlockedUsers from '~/screens/Main/Profile/BlockedUsers';
 import ProfileNotifications from '~/screens/Main/Profile/Notifications';
 import AccountSecurity from '~/screens/Main/Profile/AccountSecurity';
 import EditProfile from '~/screens/Main/Profile/EditProfile';
-import { profile } from '~/navigation/routeNames';
+import { profile, home } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
+import NewPost from '~/screens/Main/Home/NewPost';
 import { privacyData } from '~/config/settings';
 
 const Stack = createStackNavigator();
@@ -29,6 +30,7 @@ const MainNav = () => (
     <Stack.Screen name={profile.blockedUsers} component={BlockedUsers} options={{ title: 'Blocked users' }} />
     <Stack.Screen name={profile.checkVersion} component={CheckVersion} options={{ title: 'Version' }} />
     <Stack.Screen name={profile.aboutUs} component={AboutUs} options={{ title: 'About Us' }} />
+    <Stack.Screen name={home.newPost} component={NewPost} options={{ title: 'Make a Post' }} />
   </Stack.Navigator>
 );
 

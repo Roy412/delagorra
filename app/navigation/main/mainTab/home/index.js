@@ -3,7 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import { SimpleHeader } from '~/components/headers';
 import { home } from '~/navigation/routeNames';
-import Home from '~/screens/Main/Home';
+import Home from '~/screens/Main/Home/Main';
 
 const Stack = createStackNavigator();
 

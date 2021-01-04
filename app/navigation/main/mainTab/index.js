@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { profileIcon, homeIcon } from '~/resources';
 import { Colors, Metrics } from '~/utils/theme';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
-import { navigators} from '~/navigation/routeNames';
+import { navigators } from '~/navigation/routeNames';
 
 import { main } from '../../routeNames';
 import TabBarItem from './TabBarItem';
