@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { RefreshControl } from 'react-native';
 import { parseISO, formatDistance } from 'date-fns';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
+import { posts as postsSelector } from '~/store/selectors/post';
+import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
 
@@ -16,21 +18,23 @@ const PostActionItem = ({ source, text }) => (
   </Styled.Box>
 );
 
-const PostList = ({ posts }) => {
+const PostList = () => {
   const dispatch = useDispatch();
+  const posts = useSelector(postsSelector);
+
   const [isRefreshing, setIsRefreshing] = useState();
+  const [lastPostId, setLastPostId] = useState();
 
   const handleAvatarPress = () => {};
 
   const handleRefresh = async () => {
     try {
       setIsRefreshing(true);
-      await Promisify(dispatch, PostCreators.requestCodeRequest, { phoneNumber: values.phoneNumber });
-      setCodeSending(false);
-      startCountdown();
+      await Promisify(dispatch, PostCreators.getPostsRequest, { lastId: lastPostId });
+      setIsRefreshing(false);
     } catch (e) {
+      setIsRefreshing(false);
       showSimpleError(e);
-      setCodeSending(false);
     }
   };
 

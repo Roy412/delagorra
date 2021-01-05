@@ -5,7 +5,7 @@ export const { Types: PostTypes, Creators: PostCreators } = createActions(
     createPostRequest: ['payload', 'resolve', 'reject'],
 
     getPostsRequest: ['payload', 'resolve', 'reject'],
-    getPostsSucess: ['payload'],
+    getPostsSuccess: ['payload'],
   },
   { prefix: 'Post/' },
 );

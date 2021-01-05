@@ -72,7 +72,7 @@ const NewPost = ({ navigation }) => {
       headerLeft: <Styled.CloseButton onPress={handleClose} />,
       headerRight: <Styled.RightButton disabled={!postEnable} text="Post" onPress={handlePost} />,
     });
-  }, [navigation, postEnable]);
+  }, [navigation, postEnable, title, content, image]);
 
   const handlePicturePress = (option) => {
     const func = option === 'Take Photo...' ? ImagePicker.openCamera : ImagePicker.openPicker;
