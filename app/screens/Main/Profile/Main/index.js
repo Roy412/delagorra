@@ -85,7 +85,7 @@ const ProfileMain = ({ navigation }) => {
     <Styled.Content>
       <Styled.Box bg="white" pb={10} pt={16}>
         <Styled.Box flexDirection="row" alignItems="center" px={16}>
-          <Styled.AvatarPicker url={user.profileImage} size={60} onPress={handleAvatarPress} />
+          <Styled.AvatarCircle url={user.profileImage} size={60} onPress={handleAvatarPress} />
 
           <Styled.Text color="veryDarkGray" ml={10} fontStyle="semibold" fontSize={17} textAlign="center">
             {user.displayName}

@@ -14,5 +14,9 @@ export historyIcon from './icons/history.png';
 export messageIcon from './icons/message.png';
 export pictureIcon from './icons/picture.png';
 export crossCircleIcon from './icons/cross_circle.png';
+export likeIcon from './icons/like.png';
+export commentIcon from './icons/comment.png';
+export shareIcon from './icons/share.png';
+export dotsIcon from './icons/dots.png';
 
 export profileImage from './images/profile.png';

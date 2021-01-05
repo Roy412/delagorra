@@ -12,6 +12,18 @@ function* createPost(api, { payload, resolve, reject }) {
   }
 }
 
+function* getPosts(api, { payload, resolve, reject }) {
+  const response = yield call(api.post.getPosts, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    yield put(PostCreators.getPostsSuccess(response.data.data));
+    resolve(response.data.data);
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([takeLatest(PostTypes.CREATE_POST_REQUEST, createPost, api)]);
+  yield all([takeLatest(PostTypes.GET_POSTS_REQUEST, getPosts, api)]);
 }

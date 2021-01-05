@@ -1,5 +1,5 @@
 import React, { useLayoutEffect, useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { Field, Form } from 'react-final-form';
@@ -14,7 +14,6 @@ import { PostCreators } from '~/store/actions/post';
 import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
-import _ from 'lodash';
 
 const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
