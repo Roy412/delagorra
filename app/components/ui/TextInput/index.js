@@ -16,6 +16,7 @@ const TextInput = ({
   onSendPress,
   btnSendText,
   codeSending,
+  inputContainerStyle,
   ...restProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -54,7 +55,12 @@ const TextInput = ({
 
   return (
     <Styled.Container style={style}>
-      <Styled.InputContainer hasError={hasError} isFocused={isFocused} disabled={disabled}>
+      <Styled.InputContainer
+        hasError={hasError}
+        isFocused={isFocused}
+        disabled={disabled}
+        style={inputContainerStyle}
+        multiline={restProps.multiline}>
         {variant === 'phone' && <Styled.FlagText>🇨🇳 +86</Styled.FlagText>}
         <Styled.Input
           {...restInput}

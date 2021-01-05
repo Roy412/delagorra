@@ -2,10 +2,10 @@ import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 
 import { crossIcon } from '~/resources';
-import { IconButton, Button } from '~/components/ui';
+import { IconButton, Button, TextInput } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
 
-export { Text, Box, Button, IconButton } from '~/components/ui';
+export { Text, Box, Button, IconButton, TextInput, Loader } from '~/components/ui';
 
 export const Container = styled.ScrollView.attrs({
   contentContainerStyle: { paddingHorizontal: 16, paddingVertical: 30 },
@@ -31,4 +31,12 @@ export const RightButton = styled(Button).attrs((props) => ({
   pr: 15,
 }))`
   flex: 1;
+`;
+
+export const TitleInput = styled(TextInput).attrs({
+  inputContainerStyle: { backgroundColor: 'transparent', height: 'auto', paddingBottom: 10 },
+})``;
+
+export const ContentInput = styled(TitleInput).attrs({})`
+  margin-top: 20px;
 `;

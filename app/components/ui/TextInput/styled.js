@@ -22,9 +22,9 @@ export const InputContainer = styled(Box).attrs(({ disabled }) => ({
   flex-direction: row;
   align-items: center;
   border-radius: 10px;
-  border-width: 1px;
   ${({ isFocused }) => `border-color: ${Colors[isFocused ? 'veryDarkGray' : 'lightGrayishBlue']};`}
   ${({ hasError }) => hasError && `border-color: ${Colors.pink};`}
+  ${({ multiline }) => (multiline ? 'border-bottom-width: 1px;' : 'border-width: 1px;')}
 `;
 
 export const Input = styled.TextInput`

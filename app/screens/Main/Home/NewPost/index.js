@@ -6,11 +6,33 @@ import { navigators, auth, home } from '~/navigation/routeNames';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
+import { Field, Form } from 'react-final-form';
+import Validate from 'validate.js';
 
 const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
   const [postEnable, setPostEnable] = useState();
+  const [loading, setLoading] = useState();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+
+  const getInitialValues = () => ({
+    title: '',
+    content: '',
+  });
+
+  const validate = (values) => {
+    const constraints = {
+      title: {
+        presence: { message: '^Required', allowEmpty: false },
+        length: { minimum: 3, maximum: 50, tooShort: '^Too short' },
+      },
+      content: {
+        length: { maximum: 40 },
+      },
+    };
+
+    return Validate(values, constraints);
+  };
 
   const handleClose = () => {
     navigation.goBack();
@@ -38,22 +60,33 @@ const NewPost = ({ navigation }) => {
     navigation.navigate(navigators.mainNav, { screen: home.newPost });
   };
 
-  return (
-    <Styled.Content>
-      <Styled.Box flexDirection="row" alignItems="center">
-        <Styled.Button text="+ Create" onPress={handleCreatePost} />
+  const renderForm = ({ handleSubmit, submitting }) => (
+    <Styled.Box px={18} pt={20} flex={1}>
+      <Styled.Box>
+        <Field
+          name="title"
+          component={Styled.TitleInput}
+          placeholder="Enter a title (3 to 50 characters)"
+          maxLength={150}
+          multiline
+        />
+
+        <Field
+          name="content"
+          component={Styled.ContentInput}
+          placeholder="Write out your post"
+          maxLength={40}
+          multiline
+        />
       </Styled.Box>
-      <Styled.Container>
-        <Styled.Text fontStyle="bold" fontSize={20} textAlign="center" mt={100}>
-          {isAuthenticated ? "Welcome! You've logged in successfully!" : 'Home screen'}
-        </Styled.Text>
-        {isAuthenticated ? (
-          <Styled.Button mt={50} text="Sign Out" onPress={handleSignOut} />
-        ) : (
-          <Styled.Button mt={50} text="Sign In" onPress={handleSignIn} />
-        )}
-      </Styled.Container>
-    </Styled.Content>
+    </Styled.Box>
+  );
+
+  return (
+    <Styled.Box flex={1}>
+      <Form initialValues={getInitialValues()} validate={validate} render={renderForm} onSubmit={() => ''} />
+      <Styled.Loader loading={loading} />
+    </Styled.Box>
   );
 };
 
