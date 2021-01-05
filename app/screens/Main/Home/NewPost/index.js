@@ -5,11 +5,16 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 import { Field, Form } from 'react-final-form';
 import Validate from 'validate.js';
 import ImagePicker from 'react-native-image-crop-picker';
+import Toast from 'react-native-toast-message';
+import { OnChange } from 'react-final-form-listeners';
 
+import { Promisify } from '~/utils/promisify';
 import PhotoService from '~/services/photo';
+import { PostCreators } from '~/store/actions/post';
+import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
-import { OnChange } from 'react-final-form-listeners';
+import _ from 'lodash';
 
 const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -20,7 +25,7 @@ const NewPost = ({ navigation }) => {
   const [image, setImage] = useState();
 
   useEffect(() => {
-    setPostEnable(!!title && (!!content || !!image));
+    setPostEnable(!!title && title.length > 2 && (!!content || !!image));
   }, [title, content, image]);
 
   const getInitialValues = () => ({
@@ -46,7 +51,22 @@ const NewPost = ({ navigation }) => {
     navigation.goBack();
   };
 
-  const handlePost = () => {};
+  const handlePost = async () => {
+    try {
+      setLoading(true);
+      await Promisify(dispatch, PostCreators.createPostRequest, { title, description: content, postImage: image });
+      setLoading(false);
+      Toast.show({
+        text1: 'Successful published the post!',
+        position: 'bottom',
+        onHide: handleClose,
+        visibilityTime: 1000,
+      });
+    } catch (e) {
+      showSimpleError(e);
+      setLoading(false);
+    }
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
