@@ -9,12 +9,19 @@ import ImagePicker from 'react-native-image-crop-picker';
 import PhotoService from '~/services/photo';
 
 import * as Styled from './styled';
+import { OnChange } from 'react-final-form-listeners';
 
 const NewPost = ({ navigation }) => {
   const dispatch = useDispatch();
+  const [title, setTitle] = useState('');
+  const [content, setContent] = useState('');
   const [postEnable, setPostEnable] = useState();
   const [loading, setLoading] = useState();
   const [image, setImage] = useState();
+
+  useEffect(() => {
+    setPostEnable(!!title && (!!content || !!image));
+  }, [title, content, image]);
 
   const getInitialValues = () => ({
     title: '',
@@ -79,6 +86,9 @@ const NewPost = ({ navigation }) => {
             maxLength={40}
             multiline
           />
+
+          <OnChange name="title">{setTitle}</OnChange>
+          <OnChange name="content">{setContent}</OnChange>
 
           {image && <Styled.PostImage url={image.uri} onDelete={() => setImage()} />}
         </Styled.Box>
