@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useLayoutEffect, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
@@ -61,26 +61,28 @@ const NewPost = ({ navigation }) => {
   };
 
   const renderForm = ({ values }) => (
-    <Styled.Box pt={20} flex={1} bg="#f4f4f4">
-      <Styled.Box flex={1} px={18}>
-        <Field
-          name="title"
-          component={Styled.TitleInput}
-          placeholder="Enter a title (3 to 50 characters)"
-          maxLength={150}
-          multiline
-        />
+    <Styled.Box flex={1}>
+      <Styled.FormContainer>
+        <Styled.Box px={18}>
+          <Field
+            name="title"
+            component={Styled.TitleInput}
+            placeholder="Enter a title (3 to 50 characters)"
+            maxLength={150}
+            multiline
+          />
 
-        <Field
-          name="content"
-          component={Styled.ContentInput}
-          placeholder="Write out your post"
-          maxLength={40}
-          multiline
-        />
+          <Field
+            name="content"
+            component={Styled.ContentInput}
+            placeholder="Write out your post"
+            maxLength={40}
+            multiline
+          />
 
-        {image && <Styled.PostImage source={image.uri} onDelete={() => setImage()} />}
-      </Styled.Box>
+          {image && <Styled.PostImage url={image.uri} onDelete={() => setImage()} />}
+        </Styled.Box>
+      </Styled.FormContainer>
 
       <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between" bg="white" px={16} py={10}>
         <Styled.ActionPicker

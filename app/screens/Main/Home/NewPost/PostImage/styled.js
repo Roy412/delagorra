@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { IconButton, Image as ImageUI } from '~/components/ui';
-import { crossIcon } from '~/resources';
+import { crossCircleIcon } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
 export const Container = styled.View``;
@@ -15,15 +15,11 @@ export const Image = styled(ImageUI).attrs({
 `;
 
 export const DeleteButton = styled(IconButton).attrs((props) => ({
-  source: crossIcon,
-  tintColor: 'white',
-  size: 15,
+  source: crossCircleIcon,
+  size: 25,
   hitSlop: hitSlopArea(5),
 }))`
-  background-color: black;
-  border-radius: 15px;
   position: absolute;
-  right: 10px;
-  top: 10px;
-  padding: 7px;
+  right: 5px;
+  top: 5px;
 `;

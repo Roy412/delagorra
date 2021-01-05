@@ -14,6 +14,14 @@ export const Container = styled(SafeAreaView)`
   flex: 1;
 `;
 
+export const FormContainer = styled.ScrollView.attrs({
+  contentContainerStyle: { paddingVertical: 20 },
+  keyboardShouldPersistTaps: 'always',
+})`
+  flex: 1;
+  background-color: #f4f4f4;
+`;
+
 export const CloseButton = styled(IconButton).attrs({
   source: crossIcon,
   hitSlop: hitSlopArea(5),
@@ -49,4 +57,8 @@ export const PictureImage = styled(Image).attrs((props) => ({
   height: undefined;
 `;
 
-export const PostImage = styled(PostImageUI)``;
+export const PostImage = styled(PostImageUI)`
+  width: 125px;
+  height: 125px;
+  margin-top: 10px;
+`;
