@@ -12,5 +12,6 @@ export bookmarkIcon from './icons/bookmark.png';
 export activityIcon from './icons/activity.png';
 export historyIcon from './icons/history.png';
 export messageIcon from './icons/message.png';
+export pictureIcon from './icons/picture.png';
 
 export profileImage from './images/profile.png';

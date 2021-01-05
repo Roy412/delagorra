@@ -8,7 +8,10 @@ import NavigationWrapper from '~/navigation';
 import theme from '~/utils/theme';
 import createStore from '~/store';
 
-LogBox.ignoreLogs(['componentWillReceiveProps has been renamed']);
+LogBox.ignoreLogs([
+  'componentWillReceiveProps has been renamed',
+  'Overriding previous layout animation with new one before',
+]);
 
 const App = () => {
   const store = createStore();
