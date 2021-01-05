@@ -2,17 +2,15 @@ import styled from 'styled-components/native';
 import { SafeAreaView } from 'react-native';
 
 import { crossIcon, pictureIcon } from '~/resources';
-import { IconButton, Button, TextInput } from '~/components/ui';
+import { IconButton, Button, TextInput, Image } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
+import PostImageUI from './PostImage';
 
-export { Text, Box, Button, IconButton, TextInput, Loader } from '~/components/ui';
+export { Text, Box, Button, IconButton, TextInput, Loader, ActionPicker } from '~/components/ui';
+export { FocusAwareStatusBar } from '~/components/headers';
 
 export const Container = styled(SafeAreaView)`
   background-color: white;
-  flex: 1;
-`;
-
-export const Content = styled(SafeAreaView)`
   flex: 1;
 `;
 
@@ -43,8 +41,12 @@ export const ContentInput = styled(TitleInput).attrs({
   margin-top: 20px;
 `;
 
-export const PictureButton = styled(IconButton).attrs({
+export const PictureImage = styled(Image).attrs((props) => ({
   source: pictureIcon,
-  hitSlop: hitSlopArea(5),
-  iconStyle: { width: 25, aspectRatio: 100 / 80, height: undefined },
-})``;
+}))`
+  width: 25px;
+  aspect-ratio: ${100 / 80};
+  height: undefined;
+`;
+
+export const PostImage = styled(PostImageUI)``;

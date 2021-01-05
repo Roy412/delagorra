@@ -4,7 +4,7 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import * as Styled from './styled';
 
-const ActionPicker = ({ children, options, onPressItem, ...props }) => {
+const ActionPicker = ({ children, options, onPressItem, disabled, ...props }) => {
   const handlePress = () => {
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
@@ -23,7 +23,7 @@ const ActionPicker = ({ children, options, onPressItem, ...props }) => {
 
   if (Platform.OS === 'ios') {
     return (
-      <Styled.Container {...props} onPress={handlePress}>
+      <Styled.Container disabled={disabled} {...props} onPress={handlePress}>
         {children}
       </Styled.Container>
     );
@@ -34,7 +34,8 @@ const ActionPicker = ({ children, options, onPressItem, ...props }) => {
       onValueChange={onPressItem}
       items={options.map((option) => ({ label: option, value: option }))}
       placeholder={{}}
-      touchableWrapperProps={{ activeOpacity: undefined }}>
+      touchableWrapperProps={{ activeOpacity: undefined }}
+      disabled={disabled}>
       {children}
     </RNPickerSelect>
   );
