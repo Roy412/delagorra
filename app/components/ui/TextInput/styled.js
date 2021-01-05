@@ -4,6 +4,7 @@ import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 import { Colors } from '~/utils/theme';
 import { hitSlopArea } from '~/utils/utils';
 import { crossIcon } from '~/resources';
+import { capitalizeFirstLetter } from '~/utils/utils';
 
 import FieldErrorUI from '../FieldError';
 import TextUI from '../Text';
@@ -32,6 +33,8 @@ export const Input = styled.TextInput`
   align-self: stretch;
   padding-horizontal: 15px;
   color: ${Colors.veryDarkGray};
+  font-family: ${(props) =>
+    props.fontFamily ? `SFUIDisplay-${capitalizeFirstLetter(props.fontFamily)}` : 'SFUIDisplay-Regular'};
 `;
 
 export const FieldError = styled(FieldErrorUI)`

@@ -33,10 +33,13 @@ export const RightButton = styled(Button).attrs((props) => ({
 `;
 
 export const TitleInput = styled(TextInput).attrs({
+  fontStyle: 'semibold',
   inputContainerStyle: { backgroundColor: 'transparent', height: 'auto', paddingBottom: 10 },
 })``;
 
-export const ContentInput = styled(TitleInput).attrs({})`
+export const ContentInput = styled(TitleInput).attrs({
+  fontStyle: 'regular',
+})`
   margin-top: 20px;
 `;
 

@@ -17,6 +17,7 @@ const TextInput = ({
   btnSendText,
   codeSending,
   inputContainerStyle,
+  fontStyle,
   ...restProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -65,6 +66,7 @@ const TextInput = ({
         <Styled.Input
           {...restInput}
           {...restProps}
+          fontFamily={fontStyle}
           ref={inputRef}
           style={inputStyle}
           placeholder={placeholder}
