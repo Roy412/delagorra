@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { RefreshControl, ActivityIndicator } from 'react-native';
-import { parseISO, formatDistance } from 'date-fns';
+import { parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { likeIcon, commentIcon, shareIcon } from '~/resources';
@@ -8,6 +8,7 @@ import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
 import { posts as postsSelector } from '~/store/selectors/post';
 import { showSimpleError } from '~/utils/alert';
+import { timeSince } from '~/utils/utils';
 
 import * as Styled from './styled';
 
@@ -63,6 +64,8 @@ const PostList = () => {
     setLoading(false);
   };
 
+  const handlePostOption = () => {};
+
   const renderFooter = () => {
     if (!loading) {
       return null;
@@ -72,16 +75,27 @@ const PostList = () => {
 
   const renderItem = ({ item }) => (
     <Styled.Box bg="white" mb={10}>
-      <Styled.Box flexDirection="row">
-        <Styled.AvatarCircle url={item.creator.profileImage} size={35} onPress={handleAvatarPress} />
-        <Styled.Box>
-          <Styled.Text>{item.creator.displayName}</Styled.Text>
-          <Styled.Text>{formatDistance(parseISO(item.createdAt), new Date())}</Styled.Text>
+      <Styled.Box pt={18} px={16}>
+        <Styled.Box flexDirection="row">
+          <Styled.AvatarCircle url={item.creator.profileImage} size={35} onPress={handleAvatarPress} />
+          <Styled.Box flex={1} ml={10} justifyContent="center">
+            <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
+              {item.creator.displayName}
+            </Styled.Text>
+            <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
+              {timeSince(parseISO(item.createdAt))}
+            </Styled.Text>
+          </Styled.Box>
+          <Styled.OptionButton onPress={handlePostOption} />
         </Styled.Box>
-      </Styled.Box>
 
-      <Styled.Text>{item.title}</Styled.Text>
-      {item.description && <Styled.Text>{item.description}</Styled.Text>}
+        <Styled.Text mt={18}>{item.title}</Styled.Text>
+        {item.description && (
+          <Styled.Text mt={16} mb={10}>
+            {item.description}
+          </Styled.Text>
+        )}
+      </Styled.Box>
 
       {item.image && <Styled.PostImage source={{ uri: item.image }} />}
 

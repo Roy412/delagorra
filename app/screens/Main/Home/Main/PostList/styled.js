@@ -1,7 +1,9 @@
 import styled from 'styled-components/native';
 
-import { Box, Image } from '~/components/ui';
+import { IconButton, Image } from '~/components/ui';
 import { Colors } from '~/utils/theme';
+import { dotsIcon } from '~/resources';
+import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
@@ -14,4 +16,11 @@ export const List = styled.FlatList.attrs({
 
 export const PostActionIcon = styled(Image).attrs({
   tintColor: 'rgba(19,19,19,0.25)',
+})``;
+
+export const OptionButton = styled(IconButton).attrs({
+  source: dotsIcon,
+  hitSlop: hitSlopArea(5),
+  iconStyle: { width: 18, aspectRatio: 80 / 18, height: undefined },
+  pt: 10,
 })``;
