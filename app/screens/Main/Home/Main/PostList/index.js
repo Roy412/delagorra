@@ -11,10 +11,12 @@ import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
 
-const PostActionItem = ({ source, text }) => (
-  <Styled.Box flexDirection="row" alignItems="center">
-    <Styled.Image source={source} />
-    <Styled.Text>{text}</Styled.Text>
+const PostActionItem = ({ source, text, size, justifyContent }) => (
+  <Styled.Box flexDirection="row" alignItems="center" flex={1} justifyContent={justifyContent}>
+    <Styled.PostActionIcon size={size} source={source} />
+    <Styled.Text ml={6} color="rgba(19,19,19,0.25)" fontStyle="medium">
+      {text}
+    </Styled.Text>
   </Styled.Box>
 );
 
@@ -69,7 +71,7 @@ const PostList = () => {
   };
 
   const renderItem = ({ item }) => (
-    <Styled.Item bg="white">
+    <Styled.Box bg="white" mb={10}>
       <Styled.Box flexDirection="row">
         <Styled.AvatarCircle url={item.creator.profileImage} size={35} onPress={handleAvatarPress} />
         <Styled.Box>
@@ -83,12 +85,12 @@ const PostList = () => {
 
       {item.image && <Styled.PostImage source={{ uri: item.image }} />}
 
-      <Styled.Box flexDirection="row" alignItems="center">
-        <PostActionItem source={likeIcon} text={0} />
-        <PostActionItem source={commentIcon} text={0} />
-        <PostActionItem source={shareIcon} text={0} />
+      <Styled.Box flexDirection="row" alignItems="center" px={16} py={10}>
+        <PostActionItem source={likeIcon} text={0} size={25} justifyContent="flex-start" />
+        <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" />
+        <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" />
       </Styled.Box>
-    </Styled.Item>
+    </Styled.Box>
   );
 
   return (

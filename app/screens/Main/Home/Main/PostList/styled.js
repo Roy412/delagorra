@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Box } from '~/components/ui';
+import { Box, Image } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
@@ -12,9 +12,6 @@ export const List = styled.FlatList.attrs({
   background-color: ${Colors.background};
 `;
 
-export const Item = styled(Box)`
-  flex-direction: row;
-  align-items: center;
-  padding-horizontal: 16px;
-  height: 47px;
-`;
+export const PostActionIcon = styled(Image).attrs({
+  tintColor: 'rgba(19,19,19,0.25)',
+})``;
