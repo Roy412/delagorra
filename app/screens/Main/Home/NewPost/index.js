@@ -94,7 +94,7 @@ const NewPost = ({ navigation }) => {
             name="title"
             component={Styled.TitleInput}
             placeholder="Enter a title (3 to 50 characters)"
-            maxLength={150}
+            maxLength={50}
             multiline
           />
 

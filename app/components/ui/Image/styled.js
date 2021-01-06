@@ -13,4 +13,5 @@ export const Image = styled.Image`
 export const FastImage = styled(FastImageUI)`
   ${space}
   ${size}
+  ${(props) => (props.scaleable ? `width: ${props.calcImgWidth}px;height: ${props.calcImgHeight}px` : '')}
 `;

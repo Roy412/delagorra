@@ -4,6 +4,7 @@ import { IconButton, Image } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { dotsIcon } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
+import { Metrics } from '~/utils/theme';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
@@ -23,4 +24,10 @@ export const OptionButton = styled(IconButton).attrs({
   hitSlop: hitSlopArea(5),
   iconStyle: { width: 18, aspectRatio: 80 / 18, height: undefined },
   pt: 10,
+})``;
+
+export const PostImage = styled(Image).attrs({
+  resizeMode: 'contain',
+  scaleable: true,
+  width: Metrics.screenWidth,
 })``;

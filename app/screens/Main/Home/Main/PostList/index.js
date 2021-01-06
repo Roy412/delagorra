@@ -90,14 +90,14 @@ const PostList = () => {
         </Styled.Box>
 
         <Styled.Text mt={18}>{item.title}</Styled.Text>
-        {item.description && (
+        {!!item.description && (
           <Styled.Text mt={16} mb={10}>
             {item.description}
           </Styled.Text>
         )}
       </Styled.Box>
 
-      {item.image && <Styled.PostImage source={{ uri: item.image }} />}
+      {item.image && <Styled.PostImage mt={16} source={{ uri: item.image }} />}
 
       <Styled.Box flexDirection="row" alignItems="center" px={16} py={10}>
         <PostActionItem source={likeIcon} text={0} size={25} justifyContent="flex-start" />
