@@ -1,13 +1,15 @@
 import styled from 'styled-components/native';
 
-import { Button, Box } from '~/components/ui';
+import { Box } from '~/components/ui';
+import { Colors } from '~/utils/theme';
 
-export { Text, Box, Loader } from '~/components/ui';
+export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
 export const List = styled.FlatList.attrs({
-  contentContainerStyle: { backgroundColor: 'white', marginTop: 5 },
+  contentContainerStyle: { marginTop: 5 },
 })`
   flex: 1;
+  background-color: ${Colors.background};
 `;
 
 export const Item = styled(Box)`
@@ -16,18 +18,3 @@ export const Item = styled(Box)`
   padding-horizontal: 16px;
   height: 47px;
 `;
-
-export const Separator = styled(Box).attrs({
-  bg: 'grayishBlue',
-  ml: 16,
-})`
-  height: 1px;
-`;
-
-export const LinkButton = styled(Button).attrs({
-  variant: 'outlined',
-  text: 'Link',
-  textProps: { fontStyle: 'regular' },
-  px: 10,
-  py: 3,
-})``;

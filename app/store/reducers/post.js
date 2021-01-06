@@ -11,8 +11,8 @@ const INITIAL_STATE = Immutable({
 
 const getPostsSuccess = (state, { payload }) => {
   let updatedPosts = payload.posts;
-  if (payload.lastId) {
-    updatedPosts = _.unionBy(state.posts, payload.posts, 'id');
+  if (payload.isRefresh) {
+    updatedPosts = _.unionBy(state.posts, payload.posts, '_id');
   }
 
   return state.merge({ posts: updatedPosts });

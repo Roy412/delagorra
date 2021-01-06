@@ -16,7 +16,7 @@ function* getPosts(api, { payload, resolve, reject }) {
   const response = yield call(api.post.getPosts, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(PostCreators.getPostsSuccess(response.data.data));
+    yield put(PostCreators.getPostsSuccess({ ...response.data.data, isRefresh: !!payload.lastId }));
     resolve(response.data.data);
   } else {
     reject(response.data);

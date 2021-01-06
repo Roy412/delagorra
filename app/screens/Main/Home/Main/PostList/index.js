@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { RefreshControl } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { RefreshControl, ActivityIndicator } from 'react-native';
 import { parseISO, formatDistance } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -23,23 +23,53 @@ const PostList = () => {
   const posts = useSelector(postsSelector);
 
   const [isRefreshing, setIsRefreshing] = useState();
+  const [loading, setLoading] = useState(true);
   const [lastPostId, setLastPostId] = useState();
+  const [hasMore, setHasMore] = useState(true);
+
+  useEffect(() => {
+    handleLoadMore(true);
+  }, []);
 
   const handleAvatarPress = () => {};
 
   const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await fetchPosts();
+    setIsRefreshing(false);
+  };
+
+  const fetchPosts = async (lastId) => {
     try {
-      setIsRefreshing(true);
-      await Promisify(dispatch, PostCreators.getPostsRequest, { lastId: lastPostId });
-      setIsRefreshing(false);
+      const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId });
+      if (response.posts.length < 1) {
+        setHasMore(false);
+      } else {
+        setLastPostId(response.lastId);
+      }
     } catch (e) {
-      setIsRefreshing(false);
       showSimpleError(e);
     }
   };
 
+  const handleLoadMore = async (isInitial) => {
+    if (!hasMore || (loading && !isInitial)) {
+      return;
+    }
+    setLoading(true);
+    await fetchPosts(lastPostId);
+    setLoading(false);
+  };
+
+  const renderFooter = () => {
+    if (!loading) {
+      return null;
+    }
+    return <ActivityIndicator style={{ color: '#000', marginVertical: 10 }} size="large" />;
+  };
+
   const renderItem = ({ item }) => (
-    <Styled.Item>
+    <Styled.Item bg="white">
       <Styled.Box flexDirection="row">
         <Styled.AvatarCircle url={item.creator.profileImage} size={35} onPress={handleAvatarPress} />
         <Styled.Box>
@@ -65,8 +95,11 @@ const PostList = () => {
     <Styled.List
       data={posts}
       renderItem={renderItem}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item._id}
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+      ListFooterComponent={renderFooter}
+      onEndReachedThreshold={0.4}
+      onEndReached={handleLoadMore}
     />
   );
 };
