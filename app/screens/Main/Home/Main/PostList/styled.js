@@ -31,3 +31,4 @@ export const PostImage = styled(Image).attrs({
   scaleable: true,
   width: Metrics.screenWidth,
 })``;
+

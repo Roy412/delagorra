@@ -7,9 +7,21 @@ import PostListUI from './PostList';
 
 export { Text, Box, Button, IconButton } from '~/components/ui';
 
-export const Content = styled.View`
+export const Container = styled.View`
   flex: 1;
 `;
+
+export const Content = styled.TouchableWithoutFeedback`
+  flex: 1;
+`;
+
+export const HeaderBar = styled(Box).attrs({
+  flexDirection: 'row',
+  alignItems: 'center',
+  py: 12,
+  px: 16,
+  bg: 'white',
+})``;
 
 export const PostList = styled(PostListUI)``;
 
