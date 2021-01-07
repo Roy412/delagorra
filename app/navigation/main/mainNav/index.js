@@ -2,6 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { MainHeader } from '~/components/headers';
+import { privacyData } from '~/config/settings';
 import AboutUs from '~/screens/Main/Profile/AboutUs';
 import CheckVersion from '~/screens/Main/Profile/CheckVersion';
 import BlockedUsers from '~/screens/Main/Profile/BlockedUsers';
@@ -11,7 +12,7 @@ import EditProfile from '~/screens/Main/Profile/EditProfile';
 import { profile, home } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
 import NewPost from '~/screens/Main/Home/NewPost';
-import { privacyData } from '~/config/settings';
+import PostDetail from '~/screens/Main/Home/PostDetail';
 
 const Stack = createStackNavigator();
 
@@ -35,6 +36,7 @@ const MainNav = () => (
       component={NewPost}
       options={{ title: 'Make a Post', header: (props) => <MainHeader variant="post" {...props} /> }}
     />
+    <Stack.Screen name={home.postDetail} component={PostDetail} options={{ header: MainHeader }} />
   </Stack.Navigator>
 );
 
