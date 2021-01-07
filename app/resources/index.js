@@ -21,3 +21,4 @@ export dotsIcon from './icons/dots.png';
 export searchIcon from './icons/search.png';
 
 export profileImage from './images/profile.png';
+export personalBackground from './images/personal_background.png';
