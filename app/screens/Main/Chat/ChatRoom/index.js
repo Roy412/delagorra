@@ -8,7 +8,6 @@ import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
-import { profileImage } from '~/resources';
 
 import * as Styled from './styled';
 
@@ -23,10 +22,10 @@ const ChatRoom = ({ route, navigation }) => {
   const allMessagesByRoomId = useSelector(getAllMessagesByRoomId);
 
   useLayoutEffect(() => {
-    navigation.setOptions({
-      // title: otherUser.displayName,
-    });
-  }, [navigation]);
+    if (room) {
+      navigation.setOptions({ title: room.otherUser.displayName });
+    }
+  }, [navigation, room]);
 
   useEffect(() => {
     if (otherUserId) {
