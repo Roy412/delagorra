@@ -17,7 +17,7 @@ import { getMessagesByRoomId } from '~/store/selectors/chat';
 //   }
 // }
 
-function* sendMessage(api, { payload }) {
+function* sendMessage(api, { payload, resolve, reject }) {
   const user = yield select(userSelector);
   const messages = yield select(getMessagesByRoomId(payload.roomId));
   let imageMockId;
@@ -55,7 +55,7 @@ function* sendMessage(api, { payload }) {
     // const { data } = uploadImageRes.data;
     // if (uploadImageRes.ok && uploadImageRes.data.result === 'ok') {
     //   yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, imageMockId));
-    //   yield put(ChatCreators.readMessageSuccess(data.roomId, data.id));
+    //   yield put(ChatCreators.readMessageSuccess(data.roomId, data.message._id));
     //   if (resolve) {
     //     resolve(data);
     //   }
@@ -66,24 +66,23 @@ function* sendMessage(api, { payload }) {
   }
 
   if (imageSent && payload.text) {
-    // const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId });
-    //
-    // if (response.ok && response.data.result === 'OK') {
-    //   const { data } = response.data;
-    //   yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
-    //   yield put(ChatCreators.readMessageSuccess(data.roomId, data.id));
-    //   if (resolve) {
-    //     resolve(data);
-    //   }
-    // } else if (reject) {
-    //   reject(response.data);
-    // }
+    const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId });
+
+    if (response.ok && response.data.result === 'OK') {
+      const { data } = response.data;
+      yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
+      yield put(ChatCreators.readMessageSuccess(data.roomId, data.message._id));
+      if (resolve) {
+        resolve(data);
+      }
+    } else if (reject) {
+      reject(response.data);
+    }
   }
 }
 
 function* getRoom(api, { payload, resolve, reject }) {
   const response = yield call(api.chat.getRoom, payload);
-
   if (response.ok && response.data.result === 'OK') {
     yield put(ChatCreators.getRoomSuccess(response.data.data.room));
     yield put(ChatCreators.getMessagesSuccess(response.data.data.room._id, response.data.data.messages));

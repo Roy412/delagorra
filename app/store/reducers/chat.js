@@ -16,8 +16,8 @@ const INITIAL_STATE = Immutable({
 const getRoomsSuccess = (state, { rooms }) => state.merge({ rooms });
 
 const readMessageSuccess = (state, { roomId, messageId }) => {
-  const otherRooms = _.filter(state.rooms, (item) => item.id !== roomId);
-  const room = _.find(state.rooms, { id: roomId });
+  const otherRooms = _.filter(state.rooms, (item) => item._id !== roomId);
+  const room = _.find(state.rooms, { _id: roomId });
   if (!room) {
     return state;
   }
@@ -38,11 +38,15 @@ const getMessagesSuccess = (state, { roomId, messages }) => {
 
   const mockMessages = _.filter(roomMessages, (msg) => !!msg.mockId);
   const sortedMessages = _.sortBy([...mockMessages, ...messages], ({ _id }) => -_id);
+  const updatedMessages = _.map(sortedMessages, (msg) => ({
+    ...msg,
+    user: { ...msg.sender, avatar: msg.sender.avatar || profileImage },
+  }));
 
   return state.merge({
     messagesByRoomId: {
       ...state.messagesByRoomId,
-      [roomId]: sortedMessages,
+      [roomId]: updatedMessages,
     },
   });
 };

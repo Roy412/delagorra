@@ -43,7 +43,8 @@ const ChatRoom = ({ route, navigation }) => {
 
   const fetchRoom = async () => {
     try {
-      setRoom(await Promisify(dispatch, ChatCreators.getRoomRequest, { otherUserId }));
+      const result = await Promisify(dispatch, ChatCreators.getRoomRequest, { otherUserId });
+      setRoom(result);
     } catch (e) {}
   };
 

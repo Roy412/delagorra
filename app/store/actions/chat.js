@@ -12,6 +12,9 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
 
     getRoomRequest: ['payload', 'resolve', 'reject'],
     getRoomSuccess: ['room'],
+
+    readMessageRequest: ['payload', 'resolve', 'reject'],
+    readMessageSuccess: ['roomId', 'messageId'],
   },
   { prefix: 'Chat/' },
 );
