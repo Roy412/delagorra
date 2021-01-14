@@ -6,7 +6,6 @@ export default (apiCall) => ({
       query: payload,
       file: postImage,
     }),
-
   getPosts: (payload) =>
     apiCall({
       endpoint: 'post/list',

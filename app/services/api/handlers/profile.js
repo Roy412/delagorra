@@ -6,7 +6,6 @@ export default (apiCall) => ({
       query: payload,
       file: profileImage,
     }),
-
   getProfile: (profileId) =>
     apiCall({
       endpoint: `profile/get/${profileId}`,

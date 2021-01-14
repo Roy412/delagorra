@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 import { GiftedChat as GiftedChatUI } from 'react-native-gifted-chat';
 
-import { Colors } from '~/utils/theme';
+import { Colors, Metrics } from '~/utils/theme';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
@@ -10,6 +10,7 @@ export const Container = styled.SafeAreaView`
   background-color: ${Colors.white};
 `;
 
-export const GiftedChat = styled(GiftedChatUI).attrs({
-  messagesContainerStyle: { backgroundColor: Colors.background },
-})``;
+export const GiftedChat = styled(GiftedChatUI).attrs((props) => ({
+  messagesContainerStyle: { backgroundColor: props.messages.length === 0 ? 'transparent' : Colors.background },
+  bottomOffset: Metrics.bottomSpace,
+}))``;

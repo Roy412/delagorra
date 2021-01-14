@@ -36,7 +36,7 @@ const getMessagesSuccess = (state, { roomId, messages }) => {
   const roomMessages = state.messagesByRoomId[roomId] || [];
 
   const mockMessages = _.filter(roomMessages, (msg) => !!msg.mockId);
-  const sortedMessages = _.sortBy([...mockMessages, ...messages], ({ id }) => -id);
+  const sortedMessages = _.sortBy([...mockMessages, ...messages], ({ _id }) => -_id);
 
   return state.merge({
     messagesByRoomId: {
@@ -119,7 +119,8 @@ const sendMessageMockRequest = (state, { payload }) => {
     sender: payload.sender.displayName,
     senderId: payload.sender.id,
     createdAt: new Date(),
-    id: roomMessages[0] ? parseInt(roomMessages[0].id, 10) + 1000 : 1000,
+    user: payload.sender,
+    _id: roomMessages[0] ? parseInt(roomMessages[0]._id, 10) + 1000 : 1000,
   };
 
   if (payload.type === 'image') {
@@ -144,7 +145,7 @@ const HANDLERS = {
   [ChatTypes.GET_MESSAGES_SUCCESS]: getMessagesSuccess,
   [ChatTypes.GET_MESSAGE_SUCCESS]: getMessageSuccess,
   [ChatTypes.SEND_MESSAGE_MOCK_REQUEST]: sendMessageMockRequest,
-  [ChatTypes.GET_ROOM_REQUEST]: getRoomRequest,
+  // [ChatTypes.GET_ROOM_REQUEST]: getRoomRequest,
   [ChatTypes.SET_ACTIVE_ROOM_ID_SUCCESS]: setActiveRoomIdSuccess,
 };
 

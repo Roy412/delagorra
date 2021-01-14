@@ -24,6 +24,8 @@ function* getPosts(api, { payload, resolve, reject }) {
 }
 
 export default function* main(api) {
-  yield all([takeLatest(PostTypes.CREATE_POST_REQUEST, createPost, api)]);
-  yield all([takeLatest(PostTypes.GET_POSTS_REQUEST, getPosts, api)]);
+  yield all([
+    takeLatest(PostTypes.CREATE_POST_REQUEST, createPost, api),
+    takeLatest(PostTypes.GET_POSTS_REQUEST, getPosts, api),
+  ]);
 }

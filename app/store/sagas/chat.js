@@ -17,10 +17,9 @@ import { getMessagesByRoomId } from '~/store/selectors/chat';
 //   }
 // }
 
-function* sendMessage(api, { payload, resolve, reject }) {
-  const messageSelector = yield select(getMessagesByRoomId(payload.roomId));
+function* sendMessage(api, { payload }) {
   const user = yield select(userSelector);
-  const messages = yield select(messageSelector);
+  const messages = yield select(getMessagesByRoomId(payload.roomId));
   let imageMockId;
   let mockId;
 
@@ -67,21 +66,35 @@ function* sendMessage(api, { payload, resolve, reject }) {
   }
 
   if (imageSent && payload.text) {
-    const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId });
+    // const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId });
+    //
+    // if (response.ok && response.data.result === 'OK') {
+    //   const { data } = response.data;
+    //   yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
+    //   yield put(ChatCreators.readMessageSuccess(data.roomId, data.id));
+    //   if (resolve) {
+    //     resolve(data);
+    //   }
+    // } else if (reject) {
+    //   reject(response.data);
+    // }
+  }
+}
 
-    if (response.ok && response.data.result === 'OK') {
-      const { data } = response.data;
-      yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
-      yield put(ChatCreators.readMessageSuccess(data.roomId, data.id));
-      if (resolve) {
-        resolve(data);
-      }
-    } else if (reject) {
-      reject(response.data);
-    }
+function* getRoom(api, { payload, resolve, reject }) {
+  const response = yield call(api.chat.getRoom, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    yield put(ChatCreators.getMessagesSuccess(payload.roomId, response.data.data.messages));
+    resolve(response.data.data.room);
+  } else {
+    reject(response.data);
   }
 }
 
 export default function* main(api) {
-  yield all([takeEvery(ChatTypes.CHAT_SEND_REQUEST, sendMessage, api)]);
+  yield all([
+    takeEvery(ChatTypes.CHAT_SEND_REQUEST, sendMessage, api),
+    takeLatest(ChatTypes.GET_ROOM_REQUEST, getRoom, api),
+  ]);
 }
