@@ -47,15 +47,15 @@ const getMessagesSuccess = (state, { roomId, messages }) => {
   });
 };
 
-const getRoomRequest = (state, { roomId }) => {
-  const roomMessages = state.messagesByRoomId[roomId] || [];
+const getRoomSuccess = (state, { room }) => {
+  const roomMessages = state.messagesByRoomId[room._id] || [];
   let cleanedMessages = _.filter(roomMessages, ({ mockId }) => !mockId);
   cleanedMessages = _.map(cleanedMessages, ({ mockUrl, ...msg }) => msg);
 
   return state.merge({
     messagesByRoomId: {
       ...state.messagesByRoomId,
-      [roomId]: cleanedMessages,
+      [room._id]: cleanedMessages,
     },
   });
 };
@@ -146,7 +146,7 @@ const HANDLERS = {
   [ChatTypes.GET_MESSAGES_SUCCESS]: getMessagesSuccess,
   [ChatTypes.GET_MESSAGE_SUCCESS]: getMessageSuccess,
   [ChatTypes.SEND_MESSAGE_MOCK_REQUEST]: sendMessageMockRequest,
-  // [ChatTypes.GET_ROOM_REQUEST]: getRoomRequest,
+  [ChatTypes.GET_ROOM_SUCCESS]: getRoomSuccess,
   [ChatTypes.SET_ACTIVE_ROOM_ID_SUCCESS]: setActiveRoomIdSuccess,
 };
 

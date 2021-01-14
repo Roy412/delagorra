@@ -11,6 +11,7 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
     setActiveRoomIdSuccess: ['roomId'],
 
     getRoomRequest: ['payload', 'resolve', 'reject'],
+    getRoomSuccess: ['room'],
   },
   { prefix: 'Chat/' },
 );

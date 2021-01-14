@@ -85,7 +85,8 @@ function* getRoom(api, { payload, resolve, reject }) {
   const response = yield call(api.chat.getRoom, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(ChatCreators.getMessagesSuccess(payload.roomId, response.data.data.messages));
+    yield put(ChatCreators.getRoomSuccess(response.data.data.room));
+    yield put(ChatCreators.getMessagesSuccess(response.data.data.room._id, response.data.data.messages));
     resolve(response.data.data.room);
   } else {
     reject(response.data);
