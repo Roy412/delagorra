@@ -5,5 +5,6 @@ module.exports = {
     "react-hooks/exhaustive-deps": 0,
     "arrow-body-style": 2,
     "react/jsx-boolean-value": 2,
+    "no-duplicate-imports": 2,
   },
 };

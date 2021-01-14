@@ -81,6 +81,7 @@ const PostList = ({ onUnAuth }) => {
       ListFooterComponent={renderFooter}
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
+      bounces={!loading}
     />
   );
 };

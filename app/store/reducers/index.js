@@ -7,6 +7,7 @@ import app from './app';
 import data from './data';
 import session from './session';
 import post from './post';
+import chat from './chat';
 
 export default combineReducers({
   data: persistReducer(reduxPersistConfig.dataConfig, data),
@@ -14,4 +15,5 @@ export default combineReducers({
   app,
   session,
   post,
+  chat,
 });

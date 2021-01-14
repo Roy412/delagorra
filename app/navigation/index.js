@@ -1,47 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
-import { createStackNavigator, CardStyleInterpolators } from '@react-navigation/stack';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from 'react-native';
+import _ from 'lodash';
 
 import { Colors } from '~/utils/theme';
-import PrivacyPolicy from '~/screens/Auth/PrivacyPolicy';
 import ProgressScreen from '~/screens/Auth/Progress';
-import { MainHeader, SimpleHeader } from '~/components/headers';
 import { Toast } from '~/components/ui';
 import { isRehydrated as isRehydratedSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
-import Settings from '~/screens/Main/Profile/Settings';
-import { profile, navigators } from '~/navigation/routeNames';
-import { settingsData } from '~/config/settings';
+import { getJWTToken, getJWTHeader, isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import SocketService, { RECEIVE_MESSAGE, RECEIVE_INVITE, RECEIVE_NOTIFICATION } from '~/services/socket';
+import { activeRoomId as activeRoomIdSelector } from '~/store/selectors/chat';
+import { home, main } from '~/navigation/routeNames';
+import { ChatCreators } from '~/store/actions/chat';
 
-import Auth from './auth';
-import MainTab from './main/mainTab';
-import MainNav from './main/mainNav';
+import RootNavigator from './root';
 
-const Stack = createStackNavigator();
-
-const MyTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    background: Colors.background,
-  },
-};
-
-const ProfileSettings = (props) => <Settings hasSignOut data={settingsData} {...props} />;
+let socket;
 
 const NavigationWrapper = () => {
   const isRehydrated = useSelector(isRehydratedSelector);
+  const token = useSelector(getJWTToken);
+  const jwtHeader = useSelector(getJWTHeader);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const activeRoomId = useSelector(activeRoomIdSelector);
+
+  const isActiveNotiTab = useRef();
+  const navigationRef = useRef();
+  const routeNameRef = useRef();
+
   const [appState, setAppState] = useState(AppState.currentState);
   const dispatch = useDispatch();
-
-  const handleAppStateChange = (nextAppState) => {
-    if (appState.match(/inactive|background/) && nextAppState === 'active') {
-      dispatch(AppCreators.refresh());
-    }
-    setAppState(nextAppState);
-  };
 
   useEffect(() => {
     AppState.addEventListener('change', handleAppStateChange);
@@ -51,47 +41,98 @@ const NavigationWrapper = () => {
     };
   }, [appState]);
 
+  useEffect(() => {
+    if (token && !socket) {
+      initSocketService();
+    }
+  }, [token]);
+
+  const handleAppStateChange = (nextAppState) => {
+    if (appState.match(/inactive|background/) && nextAppState === 'active') {
+      dispatch(AppCreators.refresh());
+    }
+    setAppState(nextAppState);
+  };
+
+  const initSocketService = () => {
+    if (!token) {
+      return;
+    }
+
+    socket = new SocketService({
+      token,
+      jwtHeader,
+      onReceiveMessage: handleReceiveMessage,
+      onReceiveNotification: handleReceiveNotification,
+      onSocketDisconnect: handleSocketDisconnect,
+      onSocketError: handleSocketError,
+    });
+
+    socket.connect();
+  };
+
+  const handleReceiveMessage = ({ room, message }) => {
+    const read = activeRoomId === room.id;
+    dispatch(ChatCreators.getMessageSuccess(room, message, read));
+    // if (read) {
+    //   dispatch(ChatCreators.onReadMessage({ roomId: room.id, messageId: message.id }));
+    // }
+  };
+
+  const handleReceiveNotification = ({ notiValue }) => {
+    // if (!_.find(notifications, { id: notiValue.id })) {
+    //   onReceiveNotification(notiValue, isActiveNotiTab.current);
+    //   if (isActiveNotiTab.current) {
+    //     onReadNotification({ notiId: notiValue.id });
+    //   }
+    // }
+  };
+
+  const handleSocketDisconnect = () => {
+    setTimeout(() => {
+      if (socket && isAuthenticated) {
+        socket.connect();
+      }
+    }, 1000);
+  };
+
+  const handleSocketError = () => {};
+
+  const handleNavigationStateChange = () => {
+    const previousRouteName = routeNameRef.current;
+    const currentRouteName = navigationRef.current.getCurrentRoute().name;
+
+    if (previousRouteName !== currentRouteName) {
+      if (currentRouteName !== home.chatRoom) {
+        dispatch(ChatCreators.setActiveRoomIdSuccess(null));
+      }
+      isActiveNotiTab.current = currentRouteName === main.notification;
+    }
+    routeNameRef.current = currentRouteName;
+  };
+
   if (!isRehydrated) {
     return <ProgressScreen />;
   }
 
   return (
-    <NavigationContainer theme={MyTheme}>
-      <Stack.Navigator screenOptions={{ headerShown: false }} mode="modal" initialRouteName={navigators.main}>
-        <Stack.Screen name={navigators.auth} component={Auth} />
-        <Stack.Screen name={navigators.main} component={MainTab} />
-        <Stack.Screen
-          name={navigators.mainNav}
-          component={MainNav}
-          options={{
-            gestureEnabled: true,
-            gestureDirection: 'horizontal',
-            cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
-          }}
-        />
-        <Stack.Screen
-          name={profile.settings}
-          component={ProfileSettings}
-          options={{ title: 'Settings', headerShown: true, header: MainHeader }}
-        />
-        <Stack.Screen
-          name={navigators.privacyPolicy}
-          component={PrivacyPolicy}
-          options={{
-            headerShown: true,
-            header: (props) => <MainHeader variant="auth" {...props} />,
-            title: 'Privacy & Policy',
-          }}
-        />
-        <Stack.Screen
-          name={navigators.progress}
-          component={ProgressScreen}
-          options={{ headerShown: true, header: SimpleHeader }}
-        />
-      </Stack.Navigator>
+    <NavigationContainer
+      ref={navigationRef}
+      onReady={() => (routeNameRef.current = navigationRef.current.getCurrentRoute().name)}
+      theme={MyTheme}
+      onStateChange={handleNavigationStateChange}>
+      <RootNavigator />
       <Toast />
     </NavigationContainer>
   );
+};
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    background: Colors.background,
+  },
 };
 
 export default NavigationWrapper;

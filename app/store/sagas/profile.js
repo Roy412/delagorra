@@ -13,6 +13,19 @@ function* updateProfile(api, { payload, resolve, reject }) {
   }
 }
 
+function* getProfile(api, { profileId, resolve, reject }) {
+  const response = yield call(api.profile.getProfile, profileId);
+
+  if (response.ok && response.data.result === 'OK') {
+    resolve(response.data.data.profile);
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
-  yield all([takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, updateProfile, api)]);
+  yield all([
+    takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, updateProfile, api),
+    takeLatest(ProfileTypes.GET_PROFILE_REQUEST, getProfile, api),
+  ]);
 }

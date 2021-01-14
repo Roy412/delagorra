@@ -6,4 +6,5 @@ export default (apiCall) => ({
   auth: auth(apiCall),
   profile: profile(apiCall),
   post: post(apiCall),
+  chat: post(apiCall),
 });

@@ -19,6 +19,7 @@ export commentIcon from './icons/comment.png';
 export shareIcon from './icons/share.png';
 export dotsIcon from './icons/dots.png';
 export searchIcon from './icons/search.png';
+export profileMessage from './icons/profile_message.png';
 
 export profileImage from './images/profile.png';
 export personalBackground from './images/personal_background.png';

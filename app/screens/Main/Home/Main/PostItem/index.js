@@ -3,10 +3,12 @@ import { TouchableWithoutFeedback } from 'react-native';
 import { parseISO } from 'date-fns';
 import { useSelector } from 'react-redux';
 import _ from 'lodash';
+import { useNavigation } from '@react-navigation/native';
 
 import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { profile, navigators } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
@@ -20,9 +22,12 @@ const PostActionItem = ({ source, text, size, justifyContent }) => (
 );
 
 const PostItem = ({ item, onPress = _.noop }) => {
+  const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
-  const handleAvatarPress = () => {};
+  const handleAvatarPress = () => {
+    navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
+  };
 
   const handlePostOption = () => {};
 

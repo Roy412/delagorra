@@ -12,7 +12,7 @@ import createHandlers from './handlers';
 
 const DEFAULT_OPTIONS = {
   base: {
-    url: Config.API_HOST,
+    url: `${Config.HOST}/`,
     endpoint: '',
     needsNormalization: true,
   },
