@@ -31,7 +31,7 @@ const ProfileMain = ({ navigation }) => {
   };
 
   const handleAvatarPress = () => {
-    if (user.profileImage) {
+    if (user.avatar) {
       setIsAvatarShow(true);
     }
   };
@@ -54,7 +54,7 @@ const ProfileMain = ({ navigation }) => {
     }
 
     RNFetchBlob.config({ fileCache: true, appendExt: 'png' })
-      .fetch('GET', user.profileImage)
+      .fetch('GET', user.avatar)
       .then((res) => {
         CameraRoll.save(res.data)
           .then(() => {
@@ -85,7 +85,7 @@ const ProfileMain = ({ navigation }) => {
     <Styled.Content>
       <Styled.Box bg="white" pb={10} pt={16}>
         <Styled.Box flexDirection="row" alignItems="center" px={16}>
-          <Styled.AvatarCircle url={user.profileImage} size={60} onPress={handleAvatarPress} />
+          <Styled.AvatarCircle url={user.avatar} size={60} onPress={handleAvatarPress} />
 
           <Styled.Text color="veryDarkGray" ml={10} fontStyle="semibold" fontSize={17} textAlign="center">
             {user.displayName}
@@ -121,7 +121,7 @@ const ProfileMain = ({ navigation }) => {
 
       <Styled.ImageViewer
         onSave={handleSaveProfileImg}
-        images={[{ uri: user.profileImage }]}
+        images={[{ uri: user.avatar }]}
         imageIndex={0}
         visible={isAvatarShow}
         onRequestClose={() => setIsAvatarShow(false)}

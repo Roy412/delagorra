@@ -5,6 +5,7 @@ import { createReducer } from '~/store/redux';
 
 import { AuthTypes } from '~/store/actions/auth';
 import { ChatTypes } from '~/store/actions/chat';
+import { profileImage } from '~/resources';
 
 const INITIAL_STATE = Immutable({
   rooms: [],
@@ -119,7 +120,7 @@ const sendMessageMockRequest = (state, { payload }) => {
     sender: payload.sender.displayName,
     senderId: payload.sender.id,
     createdAt: new Date(),
-    user: payload.sender,
+    user: { ...payload.sender, avatar: payload.sender.avatar || profileImage },
     _id: roomMessages[0] ? parseInt(roomMessages[0]._id, 10) + 1000 : 1000,
   };
 

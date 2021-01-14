@@ -8,6 +8,7 @@ import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
+import { profileImage } from '~/resources';
 
 import * as Styled from './styled';
 
@@ -51,8 +52,7 @@ const ChatRoom = ({ route, navigation }) => {
       _.forEach(newMessages, async (newMsg) => {
         try {
           await Promisify(dispatch, ChatCreators.chatSendRequest, { text: newMsg.text, roomId: room._id });
-        } catch (e) {
-        }
+        } catch (e) {}
       });
     },
     [room],
@@ -71,7 +71,7 @@ const ChatRoom = ({ route, navigation }) => {
           </Styled.Text>
         )}
       </Styled.Box>
-      <Styled.GiftedChat messages={messages} onSend={onSend} user={{ _id: user._id }} />
+      <Styled.GiftedChat messages={messages} onSend={onSend} user={{ _id: user._id }} showUserAvatar />
     </Styled.Container>
   );
 };

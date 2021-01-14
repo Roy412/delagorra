@@ -58,7 +58,7 @@ const PersonalPage = ({ route, navigation }) => {
         {!isMine && <Styled.RightButton onPress={handleChat} />}
       </Styled.BackgroundImage>
       <Styled.AvatarWrapper>
-        {/*<Styled.AvatarCircle url={profile.profileImage} />*/}
+        {/*<Styled.AvatarCircle url={profile.avatar} />*/}
       </Styled.AvatarWrapper>
 
       {/*<Styled.Box>*/}

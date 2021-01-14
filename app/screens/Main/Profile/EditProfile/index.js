@@ -19,13 +19,13 @@ import InputModal from './InputModal';
 
 const EditProfile = ({ navigation }) => {
   const [user, setUser] = useState(
-    _.pick(useSelector(userSelector), ['displayName', 'bio', 'gender', 'city', 'birthday', 'profileImage']),
+    _.pick(useSelector(userSelector), ['displayName', 'bio', 'gender', 'city', 'birthday', 'avatar']),
   );
   const [inputModalType, setInputModalType] = useState();
   const [inputModalId, setInputModalId] = useState();
   const [showDatePicker, setShowDatePicker] = useState();
   const [loading, setLoading] = useState();
-  const [profileImage, setProfileImage] = useState(user.profileImage && { uri: user.profileImage });
+  const [profileImage, setProfileImage] = useState(user.avatar && { uri: user.avatar });
   const [statusBarStyle, setStatusBarStyle] = useState('light-content');
   const dispatch = useDispatch();
 

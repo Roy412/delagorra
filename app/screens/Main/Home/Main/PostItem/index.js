@@ -36,7 +36,7 @@ const PostItem = ({ item, onPress = _.noop }) => {
       <Styled.Box bg="white" mb={10} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
         <Styled.Box pt={18} px={16}>
           <Styled.Box flexDirection="row">
-            <Styled.AvatarCircle url={item.creator.profileImage} size={35} onPress={handleAvatarPress} />
+            <Styled.AvatarCircle url={item.creator.avatar} size={35} onPress={handleAvatarPress} />
             <Styled.Box flex={1} ml={10} justifyContent="center">
               <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
                 {item.creator.displayName}

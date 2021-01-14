@@ -1,10 +1,10 @@
 export default (apiCall) => ({
-  update: ({ profileImage, ...payload }) =>
+  update: ({ avatar, ...payload }) =>
     apiCall({
       endpoint: 'profile/update',
       method: 'POST',
       query: payload,
-      file: profileImage,
+      file: avatar,
     }),
   getProfile: (profileId) =>
     apiCall({
