@@ -63,11 +63,7 @@ const getRequester = (options) => {
     const { fieldName, ...file } = options.file;
 
     request.attach(fieldName, file);
-    request.query(options.query);
-
-    if (!isEmpty(options.body)) {
-      request.field(options.body);
-    }
+    request.field(options.query);
   } else if (options.files) {
     _.forEach(options.files, (fileData) => {
       if (fileData) {
@@ -75,10 +71,7 @@ const getRequester = (options) => {
         request.attach(fieldName, file);
       }
     });
-    if (!isEmpty(options.body)) {
-      request.field(options.body);
-    }
-    request.query(options.query);
+    request.field(options.query);
   } else {
     request[sendMethod(HTTPMethod)](sendArguments(HTTPMethod, options.query));
   }
