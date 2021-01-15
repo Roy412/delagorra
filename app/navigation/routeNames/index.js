@@ -16,6 +16,10 @@ export const home = createNames(['main', 'newPost', 'postDetail', 'chatRoom'], {
   prefix: 'home/',
 });
 
+export const notification = createNames(['list'], {
+  prefix: 'notification/',
+});
+
 export const profile = createNames(
   [
     'main',

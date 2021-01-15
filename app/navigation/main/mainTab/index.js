@@ -2,7 +2,7 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useSelector } from 'react-redux';
 
-import { profileIcon, homeIcon } from '~/resources';
+import { profileIcon, homeIcon, bellIcon } from '~/resources';
 import { Colors, Metrics } from '~/utils/theme';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { navigators } from '~/navigation/routeNames';
@@ -11,6 +11,7 @@ import { main } from '../../routeNames';
 import TabBarItem from './TabBarItem';
 import Profile from './profile';
 import Home from './home';
+import Notification from './notification';
 
 const Tab = createBottomTabNavigator();
 
@@ -42,6 +43,17 @@ const MainNavigator = () => {
         options={{
           tabBarIcon: (params) => <TabBarItem source={homeIcon} tintColor={params.color} />,
         }}
+      />
+
+      <Tab.Screen
+        name={main.notification}
+        component={Notification}
+        options={{
+          tabBarIcon: (params) => (
+            <TabBarItem source={bellIcon} width={19.5} aspectRatio={80 / 96} tintColor={params.color} />
+          ),
+        }}
+        listeners={({ navigation, route }) => ({ tabPress: (e) => tabPress(e, navigation) })}
       />
 
       <Tab.Screen

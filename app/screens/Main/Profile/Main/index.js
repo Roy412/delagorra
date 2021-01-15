@@ -141,7 +141,7 @@ const LikeItem = ({ label, value }) => (
   </Styled.Box>
 );
 
-const BookmarkItem = ({ label, icon, badge, width, aspectRatio }) => (
+const BookmarkItem = ({ label, icon, width, aspectRatio }) => (
   <Styled.BookmarkItem>
     <Styled.BookmarkIconWrapper>
       <Styled.BookmarkIcon icon={icon} width={width} aspectRatio={aspectRatio} />

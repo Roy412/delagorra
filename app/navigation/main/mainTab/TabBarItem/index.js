@@ -2,9 +2,9 @@ import React from 'react';
 
 import { Container, Icon, Badge, BadgeText } from './styled';
 
-const TabBarItem = ({ source, tintColor, notifications = 0 }) => (
+const TabBarItem = ({ source, tintColor, width = 22, aspectRatio = 1, notifications = 0 }) => (
   <Container>
-    <Icon size={24} source={source} tintColor={tintColor} />
+    <Icon width={width} aspectRatio={aspectRatio} source={source} tintColor={tintColor} />
     {notifications > 0 && (
       <Badge>
         <BadgeText>{notifications > 100 ? '99+' : notifications}</BadgeText>

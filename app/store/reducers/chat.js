@@ -68,7 +68,7 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
   message.user = { ...message.sender, avatar: message.sender.avatar || profileImage };
   const roomMessages = state.messagesByRoomId[room._id] || [];
 
-  if (_.find(roomMessages, { id: message._id })) {
+  if (_.find(roomMessages, { _id: message._id })) {
     return state;
   }
 

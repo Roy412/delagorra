@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { Metrics } from '~/utils/theme';
-import { Box, Text, Image as IconUI } from '~/components/ui';
+import { Box, Text, Image } from '~/components/ui';
 
 export const Container = styled(Box)`
   position: absolute;
@@ -13,7 +13,11 @@ export const Container = styled(Box)`
   justify-content: center;
 `;
 
-export const Icon = IconUI;
+export const Icon = styled(Image)`
+  width: ${(props) => props.width}px;
+  aspect-ratio: ${(props) => props.aspectRatio};
+  height: undefined;
+`;
 
 export const Badge = styled(Box).attrs({
   bg: 'deepBlush',
