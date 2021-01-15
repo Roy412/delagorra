@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 
-import { Box, IconButton, Image } from '~/components/ui';
+import { Box, IconButton, Image, Button } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { personalBackground, backIcon, profileMessage } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
@@ -54,4 +54,20 @@ export const AvatarWrapper = styled(Box)`
   left: 16px;
 `;
 
-export const PointBox = styled(Box)``;
+export const PointBox = styled(Box).attrs({
+  bg: 'pink',
+})`
+  width: ${(props) => (props.point / props.maxPoint) * 100}%;
+  height: 15px;
+`;
+
+export const BtnEditProfile = styled(Button).attrs({
+  variant: 'outlined',
+  text: 'Edit profile',
+  py: 5,
+  px: 13,
+  textProps: { color: 'veryDarkGray', fontStyle: 'regular', fontSize: 13 },
+})`
+  border-radius: 3px;
+  border-color: rgba(0, 0, 0, 0.2);
+`;

@@ -71,25 +71,34 @@ const PersonalPage = ({ route, navigation }) => {
         <ProfileInfoItem label="followers" value={profile.followers} />
       </Styled.Box>
 
-      {/*<Styled.Box flexDirection="row" alignItems="center">*/}
-      {/*  <Styled.Text>{profile.displayName}</Styled.Text>*/}
-      {/*  <Styled.Button text={`LV ${profile.level}`} />*/}
-      {/*  <Styled.Button text="Edit profile" onPress={handleEditProfile} />*/}
-      {/*</Styled.Box>*/}
+      <Styled.Box flexDirection="row" alignItems="center" ml={20} mr={18} mt={20}>
+        <Styled.Text color="veryDarkGray" fontSize={18}>
+          {profile.displayName}
+        </Styled.Text>
+        <Styled.Box alignItems="center" justifyContent="center" bg="vividBlue" borderRadius={18} px={9} py={3} ml={15}>
+          <Styled.Text color="white" fontSize={13} fontStyle="semiBold">{`LV ${profile.level}`}</Styled.Text>
+        </Styled.Box>
+        <Styled.Box flex={1} />
+        {isMine && <Styled.BtnEditProfile onPress={handleEditProfile} />}
+      </Styled.Box>
 
-      {/*<Styled.Box flexDirection="row" alignItems="center">*/}
-      {/*  <Styled.Text>LV {profile.level}</Styled.Text>*/}
+      <Styled.Box flexDirection="row" alignItems="center" mt={16} mx={18}>
+        <Styled.Text color="pink" fontStyle="semiBold" fontSize={14}>
+          LV {profile.level}
+        </Styled.Text>
+        <Styled.Box flex={1} bg="rgba(19,19,19,0.1)" mx={10}>
+          <Styled.PointBox point={profile.point} maxPoint={profile.maxPoint} />
+        </Styled.Box>
+        <Styled.Text color="pink" fontStyle="semiBold">
+          {profile.point}/{profile.maxPoint}
+        </Styled.Text>
+      </Styled.Box>
 
-      {/*  <Styled.Box>*/}
-      {/*    <Styled.PointBox point={profile.point} maxPoint={profile.maxPoint} />*/}
-      {/*  </Styled.Box>*/}
-
-      {/*  <Styled.Text>*/}
-      {/*    {profile.point}/{profile.maxPoint}*/}
-      {/*  </Styled.Text>*/}
-      {/*</Styled.Box>*/}
-
-      {/*{!!profile.bio && <Styled.Text>{profile.bio}</Styled.Text>}*/}
+      {!!profile.bio && (
+        <Styled.Text m={16} color="rgba(19,19,19,0.8)">
+          {profile.bio}
+        </Styled.Text>
+      )}
     </Styled.Container>
   );
 };
