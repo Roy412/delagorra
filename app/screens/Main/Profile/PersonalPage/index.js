@@ -54,12 +54,13 @@ const PersonalPage = ({ route, navigation }) => {
   return (
     <Styled.Container>
       <Styled.BackgroundImage>
-        <Styled.BackButton onPress={handleBack} />
-        {!isMine && <Styled.RightButton onPress={handleChat} />}
+        <Styled.SimpleHeader barStyle="light-content" bg={'transparent'} />
+        <Styled.Header flexDirection="row" alignItems="center" justifyContent="space-between" mt={10}>
+          <Styled.BackButton onPress={handleBack} />
+          {!isMine && <Styled.RightButton onPress={handleChat} />}
+        </Styled.Header>
       </Styled.BackgroundImage>
-      <Styled.AvatarWrapper>
-        {/*<Styled.AvatarCircle url={profile.avatar} />*/}
-      </Styled.AvatarWrapper>
+      <Styled.AvatarWrapper>{/*<Styled.AvatarCircle url={profile.avatar} />*/}</Styled.AvatarWrapper>
 
       {/*<Styled.Box>*/}
       {/*  <ProfileInfoItem label="likes" value={profile.likes} />*/}

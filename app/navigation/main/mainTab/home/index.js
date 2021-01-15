@@ -8,7 +8,10 @@ import Home from '~/screens/Main/Home/Main';
 const Stack = createStackNavigator();
 
 const HomeNavigator = () => (
-  <Stack.Navigator screenOptions={{ header: (props) => <SimpleHeader bg="white" {...props} /> }} headerMode="screen" initialRouteName={home.main}>
+  <Stack.Navigator
+    screenOptions={{ header: (props) => <SimpleHeader bg="white" {...props} /> }}
+    headerMode="screen"
+    initialRouteName={home.main}>
     <Stack.Screen name={home.main} component={Home} />
   </Stack.Navigator>
 );

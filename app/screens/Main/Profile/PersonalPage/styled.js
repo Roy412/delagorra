@@ -1,11 +1,13 @@
 import styled from 'styled-components/native';
+import { SafeAreaView } from 'react-native';
 
-import { Box, Image, IconButton } from '~/components/ui';
+import { Box, IconButton } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { personalBackground, backIcon, profileMessage } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Loader, Image, AvatarCircle, Button } from '~/components/ui';
+export { SimpleHeader } from '~/components/headers';
 
 export const Container = styled(Box)`
   flex: 1;
@@ -17,12 +19,16 @@ export const BackgroundImage = styled.ImageBackground.attrs({
 })`
   width: 100%;
   height: 130px;
+  flex-direction: column;
 `;
+
+export const Header = styled(Box)``;
 
 export const RightButton = styled(IconButton).attrs({
   source: profileMessage,
   hitSlop: hitSlopArea(5),
-  size: 25,
+  size: 26,
+  pr: 17,
 })``;
 
 export const BackButton = styled(IconButton).attrs({
@@ -30,6 +36,7 @@ export const BackButton = styled(IconButton).attrs({
   hitSlop: hitSlopArea(5),
   pl: 17,
   iconStyle: { width: 12, aspectRatio: 10 / 17, height: undefined },
+  tintColor: 'white',
 })``;
 
 export const AvatarWrapper = styled(Box)`

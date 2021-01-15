@@ -32,7 +32,11 @@ const MainNav = () => (
     <Stack.Screen name={profile.privacy} component={ProfilePrivacy} options={{ title: 'Privacy' }} />
     <Stack.Screen name={profile.blockedUsers} component={BlockedUsers} options={{ title: 'Blocked users' }} />
     <Stack.Screen name={profile.checkVersion} component={CheckVersion} options={{ title: 'Version' }} />
-    <Stack.Screen name={profile.personalPage} component={PersonalPage} options={{ header: SimpleHeader }} />
+    <Stack.Screen
+      name={profile.personalPage}
+      component={PersonalPage}
+      options={{ headerShown: false, headerTransparent: true }}
+    />
     <Stack.Screen name={profile.aboutUs} component={AboutUs} options={{ title: 'About Us' }} />
     <Stack.Screen
       name={home.newPost}
