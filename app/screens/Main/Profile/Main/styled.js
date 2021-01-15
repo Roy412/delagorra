@@ -34,8 +34,9 @@ export const BtnPersnal = styled.TouchableOpacity`
   padding-vertical: 10px;
 `;
 
-export const LevelText = styled(Box)`
-  background-color: #1499fa;
+export const LevelText = styled(Box).attrs({
+  bg: 'vividBlue',
+})`
   border-radius: 18px;
   margin-left: 7px;
   padding-horizontal: 8px;
