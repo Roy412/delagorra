@@ -74,9 +74,9 @@ const NavigationWrapper = () => {
   const handleReceiveMessage = ({ room, message }) => {
     const read = activeRoomId === room._id;
     dispatch(ChatCreators.getMessageSuccess(room, message, read));
-    // if (read) {
-    //   dispatch(ChatCreators.onReadMessage({ roomId: room.id, messageId: message.id }));
-    // }
+    if (read) {
+      dispatch(ChatCreators.readMessageRequest({ roomId: room._id, messageId: message._id }));
+    }
   };
 
   const handleReceiveNotification = ({ notiValue }) => {

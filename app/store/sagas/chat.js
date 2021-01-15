@@ -92,9 +92,23 @@ function* getRoom(api, { payload, resolve, reject }) {
   }
 }
 
+function* readMessage(api, { payload, resolve, reject }) {
+  const response = yield call(api.chat.readMessage, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    if (resolve) {
+      resolve(response.data.data);
+    }
+    yield put(ChatCreators.readMessageSuccess(payload.roomId, payload.messageId));
+  } else if (reject) {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([
     takeEvery(ChatTypes.CHAT_SEND_REQUEST, sendMessage, api),
     takeLatest(ChatTypes.GET_ROOM_REQUEST, getRoom, api),
+    takeLatest(ChatTypes.READ_MESSAGE_REQUEST, readMessage, api),
   ]);
 }

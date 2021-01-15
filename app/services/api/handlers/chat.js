@@ -11,4 +11,12 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  readMessage: ({ roomId, messageId }) =>
+    apiCall({
+      endpoint: `chat/${roomId}/read`,
+      method: 'POST',
+      query: {
+        messageId,
+      },
+    }),
 });
