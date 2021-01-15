@@ -96,9 +96,7 @@ const NavigationWrapper = () => {
     }, 1000);
   };
 
-  const handleSocketError = (err) => {
-    console.log('wua', JSON.stringify(err));
-  };
+  const handleSocketError = (err) => {};
 
   const handleNavigationStateChange = () => {
     const previousRouteName = routeNameRef.current;
