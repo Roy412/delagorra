@@ -72,7 +72,7 @@ const NavigationWrapper = () => {
   };
 
   const handleReceiveMessage = ({ room, message }) => {
-    const read = activeRoomId === room.id;
+    const read = activeRoomId === room._id;
     dispatch(ChatCreators.getMessageSuccess(room, message, read));
     // if (read) {
     //   dispatch(ChatCreators.onReadMessage({ roomId: room.id, messageId: message.id }));
@@ -96,7 +96,9 @@ const NavigationWrapper = () => {
     }, 1000);
   };
 
-  const handleSocketError = () => {};
+  const handleSocketError = (err) => {
+    console.log('wua', JSON.stringify(err));
+  };
 
   const handleNavigationStateChange = () => {
     const previousRouteName = routeNameRef.current;

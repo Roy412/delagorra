@@ -40,7 +40,7 @@ const getMessagesSuccess = (state, { roomId, messages }) => {
   const sortedMessages = _.sortBy([...mockMessages, ...messages], ({ _id }) => -_id);
   const updatedMessages = _.map(sortedMessages, (msg) => ({
     ...msg,
-    user: { ...msg.sender, avatar: msg.sender.avatar || profileImage },
+    user: { ...msg.user, avatar: msg.user.avatar || profileImage },
   }));
 
   return state.merge({
@@ -65,9 +65,10 @@ const getRoomSuccess = (state, { room }) => {
 };
 
 const getMessageSuccess = (state, { room, message, read, mockId }) => {
-  const roomMessages = state.messagesByRoomId[room.id] || [];
+  message.user = { ...message.sender, avatar: message.sender.avatar || profileImage };
+  const roomMessages = state.messagesByRoomId[room._id] || [];
 
-  if (_.find(roomMessages, { id: message.id })) {
+  if (_.find(roomMessages, { id: message._id })) {
     return state;
   }
 
@@ -87,11 +88,11 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
   } else {
     updatedRoomMessages = [message, ...roomMessages];
   }
-  updatedRoomMessages = _.sortBy(updatedRoomMessages, ({ id }) => -id);
+  updatedRoomMessages = _.sortBy(updatedRoomMessages, ({ _id }) => -_id);
   const lastMessage = updatedRoomMessages[0];
 
-  const otherRooms = _.filter(state.rooms, (item) => item.id !== room.id);
-  const oldRoom = _.find(state.rooms, { id: room.id }) || {
+  const otherRooms = _.filter(state.rooms, (item) => item._id !== room._id);
+  const oldRoom = _.find(state.rooms, { _id: room._id }) || {
     ...room,
     countUnread: 0,
     lastReadMessageId: 0,
@@ -99,8 +100,8 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
 
   const updatedRoom = { ...oldRoom, lastMessage };
   if (read) {
-    updatedRoom.lastReadMessageId = lastMessage.id;
-  } else if (updatedRoom.lastReadMessageId < lastMessage.id) {
+    updatedRoom.lastReadMessageId = lastMessage._id;
+  } else if (updatedRoom.lastReadMessageId < lastMessage._id) {
     updatedRoom.countUnread += 1;
   }
   const rooms = [...otherRooms, updatedRoom];
@@ -109,7 +110,7 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
     rooms,
     messagesByRoomId: {
       ...state.messagesByRoomId,
-      [room.id]: updatedRoomMessages,
+      [room._id]: updatedRoomMessages,
     },
   });
 };
@@ -122,7 +123,7 @@ const sendMessageMockRequest = (state, { payload }) => {
     roomId: payload.roomId,
     type: payload.type,
     sender: payload.sender.displayName,
-    senderId: payload.sender.id,
+    senderId: payload.sender._id,
     createdAt: new Date(),
     user: { ...payload.sender, avatar: payload.sender.avatar || profileImage },
     _id: roomMessages[0] ? parseInt(roomMessages[0]._id, 10) + 1000 : 1000,

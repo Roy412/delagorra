@@ -9,7 +9,7 @@ const RECONNECT_ERR = 'reconnect_error';
 
 /* Custom events */
 const NOTIFY = 'notify';
-export const RECEIVE_MESSAGE = 'message';
+export const RECEIVE_MESSAGE = 'chat';
 export const RECEIVE_INVITE = 'invite';
 export const RECEIVE_NOTIFICATION = 'notification';
 
@@ -18,14 +18,8 @@ let socket;
 const Socket = (props) => {
   const connect = (token = props.token, jwtHeader = props.jwtHeader) => {
     const { onSocketDisconnect, onSocketError } = props;
-    const host = `${Config.HOST}?token=${token}`;
 
-    socket = io.connect(host, {
-      reconnect: true,
-      transportOptions: {
-        polling: { extraHeaders: { authorization: jwtHeader } },
-      },
-    });
+    socket = io(Config.HOST, { query: { token } });
 
     // Set listeners
     socket.on(CONNECT, handleConnectEvent);
