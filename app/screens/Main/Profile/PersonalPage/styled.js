@@ -1,7 +1,6 @@
 import styled from 'styled-components/native';
-import { SafeAreaView } from 'react-native';
 
-import { Box, IconButton } from '~/components/ui';
+import { Box, IconButton, Image } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { personalBackground, backIcon, profileMessage } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
@@ -14,12 +13,16 @@ export const Container = styled(Box)`
   background-color: ${Colors.background};
 `;
 
-export const BackgroundImage = styled.ImageBackground.attrs({
+export const BackgroundImage = styled(Image).attrs({
   source: personalBackground,
 })`
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  height: undefined;
   width: 100%;
-  height: 130px;
-  flex-direction: column;
 `;
 
 export const Header = styled(Box)``;
@@ -40,10 +43,14 @@ export const BackButton = styled(IconButton).attrs({
 })``;
 
 export const AvatarWrapper = styled(Box)`
-  width: 100px;
-  height: 100px;
-  border-radius: 50px;
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
   background-color: white;
+  align-items: center;
+  justify-content: center;
+  margin-top: -40px;
+  margin-left: 16px;
 `;
 
 export const PointBox = styled(Box)``;
