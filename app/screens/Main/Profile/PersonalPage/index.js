@@ -10,11 +10,11 @@ import * as Styled from './styled';
 
 const ProfileInfoItem = ({ label, value }) => (
   <Styled.Box alignItems="center" flex={1}>
-    <Styled.Text ml={6} color="rgba(19,19,19,0.25)" fontStyle="medium">
-      {label}
-    </Styled.Text>
-    <Styled.Text ml={6} color="rgba(19,19,19,0.25)" fontStyle="medium">
+    <Styled.Text color="veryDarkGray" fontSize={15}>
       {value}
+    </Styled.Text>
+    <Styled.Text color="rgba(19,19,19,0.5)" fontSize={15}>
+      {label}
     </Styled.Text>
   </Styled.Box>
 );
@@ -61,15 +61,15 @@ const PersonalPage = ({ route, navigation }) => {
           {!isMine && <Styled.RightButton onPress={handleChat} />}
         </Styled.Header>
       </Styled.Box>
-      <Styled.AvatarWrapper>
-        <Styled.AvatarCircle url={profile.avatar} size={74} />
-      </Styled.AvatarWrapper>
 
-      {/*<Styled.Box>*/}
-      {/*  <ProfileInfoItem label="likes" value={profile.likes} />*/}
-      {/*  <ProfileInfoItem label="following" value={profile.following} />*/}
-      {/*  <ProfileInfoItem label="followers" value={profile.followers} />*/}
-      {/*</Styled.Box>*/}
+      <Styled.Box flexDirection="row" alignItems="center" pl={80} pt={8} pr={10}>
+        <Styled.AvatarWrapper>
+          <Styled.AvatarCircle url={profile.avatar} size={74} disabled />
+        </Styled.AvatarWrapper>
+        <ProfileInfoItem label="likes" value={profile.likes} />
+        <ProfileInfoItem label="following" value={profile.following} />
+        <ProfileInfoItem label="followers" value={profile.followers} />
+      </Styled.Box>
 
       {/*<Styled.Box flexDirection="row" alignItems="center">*/}
       {/*  <Styled.Text>{profile.displayName}</Styled.Text>*/}
