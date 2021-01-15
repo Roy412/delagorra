@@ -5,7 +5,7 @@ import CameraRoll from '@react-native-community/cameraroll';
 import Toast from 'react-native-toast-message';
 import RNFetchBlob from 'rn-fetch-blob';
 
-import { profile } from '~/navigation/routeNames';
+import { profile, navigators } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
 import { bookmarkIcon, messageIcon, activityIcon, historyIcon } from '~/resources';
 
@@ -27,7 +27,7 @@ const ProfileMain = ({ navigation }) => {
   }, [navigation, user]);
 
   const handlePersonalPage = () => {
-    // navigation.navigate(navigators.auth);
+    navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: user._id } });
   };
 
   const handleAvatarPress = () => {
