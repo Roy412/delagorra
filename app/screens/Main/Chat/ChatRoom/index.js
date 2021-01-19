@@ -76,7 +76,16 @@ const ChatRoom = ({ route, navigation }) => {
           </Styled.Text>
         )}
       </Styled.Box>
-      <Styled.GiftedChat messages={messages} onSend={onSend} user={{ _id: user._id }} showUserAvatar />
+      <Styled.GiftedChat
+        renderMessage={type === 'post' && ((params) => <Styled.CommentItem {...params} />)}
+        messages={messages}
+        onSend={onSend}
+        user={{ _id: user._id }}
+        showUserAvatar
+        inverted={type === 'chat'}
+        scrollToBottom={type === 'chat'}
+        listViewProps={{ onLayout: () => null }}
+      />
     </Styled.Container>
   );
 };

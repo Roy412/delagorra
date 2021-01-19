@@ -4,6 +4,7 @@ import { GiftedChat as GiftedChatUI } from 'react-native-gifted-chat';
 import { Colors, Metrics } from '~/utils/theme';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
+export CommentItem from './CommentItem';
 
 export const Container = styled.SafeAreaView`
   flex: 1;
