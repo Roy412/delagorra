@@ -12,7 +12,8 @@ import { user as userSelector } from '~/store/selectors/session';
 import * as Styled from './styled';
 
 const ChatRoom = ({ route, navigation }) => {
-  const { otherUserId, post, type } = route.params || {};
+  const { otherUserId, post, type, commentId } = route.params || {};
+
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const user = useSelector(userSelector);
@@ -26,7 +27,7 @@ const ChatRoom = ({ route, navigation }) => {
       navigation.setOptions({ title: room.otherUser.displayName });
     }
     if (type === 'post') {
-      navigation.setOptions({ title: post.creator.displayName });
+      navigation.setOptions({ title: post ? post.creator.displayName : 'Replies' });
     }
   }, [navigation, room]);
 
@@ -47,6 +48,7 @@ const ChatRoom = ({ route, navigation }) => {
         otherUserId,
         type,
         postId: post && post._id,
+        commentId,
       });
       setRoom(result);
     } catch (e) {}
@@ -84,7 +86,7 @@ const ChatRoom = ({ route, navigation }) => {
         showUserAvatar
         inverted={type === 'chat'}
         scrollToBottom={type === 'chat'}
-        listViewProps={{ onLayout: () => null }}
+        keyboardShouldPersistTaps="handled"
       />
     </Styled.Container>
   );

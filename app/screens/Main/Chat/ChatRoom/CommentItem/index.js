@@ -8,7 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
-import { profile, navigators } from '~/navigation/routeNames';
+import { profile, home, navigators } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
@@ -26,14 +26,18 @@ const CommentItem = ({ currentMessage }) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
   const handleAvatarPress = () => {
-    navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
+    // navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
   };
 
   const handlePostOption = () => {};
 
   const handlePress = () => {};
 
-  const handleReply = () => {};
+  const handleReply = () => {
+    navigation.push(home.chatRoom, { type: 'post', commentId: currentMessage._id, post: null, otherUserId: null });
+  };
+
+  const strSince = timeSince(parseISO(currentMessage.createdAt));
 
   return (
     <Styled.Container onPress={handlePress}>
@@ -49,9 +53,11 @@ const CommentItem = ({ currentMessage }) => {
                   </Styled.Text>
                   <Styled.LevelBox level={currentMessage.user.level} />
                 </Styled.Box>
-                <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
-                  {timeSince(parseISO(currentMessage.createdAt))}
-                </Styled.Text>
+                {strSince && (
+                  <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
+                    {timeSince(parseISO(currentMessage.createdAt))}
+                  </Styled.Text>
+                )}
               </Styled.Box>
               <Styled.OptionButton onPress={handlePostOption} />
             </Styled.Box>

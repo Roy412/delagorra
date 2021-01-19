@@ -10,6 +10,9 @@ export const hitSlopArea = (offset) => ({
 export const generateRandomString = (count = 5) => Math.random().toString(36).substr(2, count);
 
 export const timeSince = (date) => {
+  if (isNaN(date)) {
+    return null;
+  }
   var seconds = Math.floor((new Date() - date) / 1000);
 
   var interval = seconds / 31536000;
