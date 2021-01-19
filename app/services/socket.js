@@ -17,13 +17,13 @@ let socket;
 
 const Socket = (props) => {
   const connect = (token = props.token, jwtHeader = props.jwtHeader) => {
-    const { onSocketDisconnect, onSocketError } = props;
+    const { onSocketError } = props;
 
     socket = io(Config.HOST, { query: { token } });
 
     // Set listeners
     socket.on(CONNECT, handleConnectEvent);
-    socket.on(DISCONNECT, onSocketDisconnect);
+    // socket.on(DISCONNECT, onSocketDisconnect);
     socket.on(CONNECT_ERR, onSocketError);
     socket.on(RECONNECT_ERR, onSocketError);
   };

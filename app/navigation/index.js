@@ -9,7 +9,7 @@ import ProgressScreen from '~/screens/Auth/Progress';
 import { Toast } from '~/components/ui';
 import { isRehydrated as isRehydratedSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
-import { getJWTToken, getJWTHeader, isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { getJWTToken, getJWTHeader } from '~/store/selectors/session';
 import SocketService, { RECEIVE_MESSAGE, RECEIVE_INVITE, RECEIVE_NOTIFICATION } from '~/services/socket';
 import { activeRoomId as activeRoomIdSelector } from '~/store/selectors/chat';
 import { home, main } from '~/navigation/routeNames';
@@ -23,7 +23,6 @@ const NavigationWrapper = () => {
   const isRehydrated = useSelector(isRehydratedSelector);
   const token = useSelector(getJWTToken);
   const jwtHeader = useSelector(getJWTHeader);
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
   const activeRoomId = useSelector(activeRoomIdSelector);
 
   const isActiveNotiTab = useRef();
@@ -45,6 +44,9 @@ const NavigationWrapper = () => {
     if (token && !socket) {
       initSocketService();
     }
+    if (!token && socket) {
+      socket.disconnect();
+    }
   }, [token]);
 
   const handleAppStateChange = (nextAppState) => {
@@ -55,16 +57,11 @@ const NavigationWrapper = () => {
   };
 
   const initSocketService = () => {
-    if (!token) {
-      return;
-    }
-
     socket = new SocketService({
       token,
       jwtHeader,
       onReceiveMessage: handleReceiveMessage,
       onReceiveNotification: handleReceiveNotification,
-      onSocketDisconnect: handleSocketDisconnect,
       onSocketError: handleSocketError,
     });
 
@@ -86,14 +83,6 @@ const NavigationWrapper = () => {
     //     onReadNotification({ notiId: notiValue.id });
     //   }
     // }
-  };
-
-  const handleSocketDisconnect = () => {
-    setTimeout(() => {
-      if (socket && isAuthenticated) {
-        socket.connect();
-      }
-    }, 1000);
   };
 
   const handleSocketError = (err) => {};
