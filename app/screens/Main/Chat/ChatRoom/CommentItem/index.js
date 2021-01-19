@@ -64,7 +64,7 @@ const CommentItem = ({ currentMessage }) => {
 
             <Styled.ReplyContainer onPress={handleReply}>
               <Styled.CommentIcon />
-              <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={4}>
+              <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
                 {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
               </Styled.Text>
             </Styled.ReplyContainer>
