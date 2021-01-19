@@ -12,7 +12,7 @@ import { user as userSelector } from '~/store/selectors/session';
 import * as Styled from './styled';
 
 const ChatRoom = ({ route, navigation }) => {
-  const { otherUserId } = route.params || {};
+  const { otherUserId, post, type } = route.params || {};
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const user = useSelector(userSelector);
@@ -22,15 +22,16 @@ const ChatRoom = ({ route, navigation }) => {
   const allMessagesByRoomId = useSelector(getAllMessagesByRoomId);
 
   useLayoutEffect(() => {
-    if (room) {
+    if (type === 'chat' && room) {
       navigation.setOptions({ title: room.otherUser.displayName });
+    }
+    if (type === 'post') {
+      navigation.setOptions({ title: post.creator.displayName });
     }
   }, [navigation, room]);
 
   useEffect(() => {
-    if (otherUserId) {
-      fetchRoom();
-    }
+    fetchRoom();
   }, []);
 
   useEffect(() => {
@@ -42,7 +43,11 @@ const ChatRoom = ({ route, navigation }) => {
 
   const fetchRoom = async () => {
     try {
-      const result = await Promisify(dispatch, ChatCreators.getRoomRequest, { otherUserId });
+      const result = await Promisify(dispatch, ChatCreators.getRoomRequest, {
+        otherUserId,
+        type,
+        postId: post && post._id,
+      });
       setRoom(result);
     } catch (e) {}
   };
