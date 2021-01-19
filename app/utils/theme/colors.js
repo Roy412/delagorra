@@ -13,4 +13,5 @@ export default {
   gainsBoro: '#DCDCDC',
   grayishBlue: '#c6c6c8',
   vividBlue: '#1499FA',
+  darkGray: '#989898',
 };

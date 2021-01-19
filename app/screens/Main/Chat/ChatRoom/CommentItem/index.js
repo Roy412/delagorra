@@ -33,7 +33,7 @@ const CommentItem = ({ currentMessage }) => {
 
   const handlePress = () => {};
 
-  console.log('wow', currentMessage);
+  const handleReply = () => {};
 
   return (
     <Styled.Container onPress={handlePress}>
@@ -55,11 +55,19 @@ const CommentItem = ({ currentMessage }) => {
               </Styled.Box>
               <Styled.OptionButton onPress={handlePostOption} />
             </Styled.Box>
+
             {!!currentMessage.text && (
               <Styled.Text mt={16} mb={10}>
                 {currentMessage.text}
               </Styled.Text>
             )}
+
+            <Styled.ReplyContainer onPress={handleReply}>
+              <Styled.CommentIcon />
+              <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={4}>
+                {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
+              </Styled.Text>
+            </Styled.ReplyContainer>
           </Styled.Box>
         </Styled.Box>
 
