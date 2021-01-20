@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { GiftedChat as GiftedChatUI } from 'react-native-gifted-chat';
 import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 
+import CommentItemUI from './CommentItem';
 import { Colors, Metrics } from '~/utils/theme';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
@@ -19,4 +20,8 @@ export const GiftedChat = styled(GiftedChatUI).attrs((props) => ({
 
 export const ActivityIndicator = styled(ActivityIndicatorUI)`
   margin-top: 20px;
+`;
+
+export const ReplyCommentItem = styled(CommentItemUI)`
+  background-color: white;
 `;

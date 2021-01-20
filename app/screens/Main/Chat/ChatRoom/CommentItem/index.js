@@ -21,7 +21,7 @@ const PostActionItem = ({ source, text, size, justifyContent }) => (
   </Styled.Box>
 );
 
-const CommentItem = ({ currentMessage }) => {
+const CommentItem = ({ currentMessage, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
@@ -34,14 +34,14 @@ const CommentItem = ({ currentMessage }) => {
   const handlePress = () => {};
 
   const handleReply = () => {
-    navigation.push(home.chatRoom, { type: 'post', commentId: currentMessage._id, post: null, otherUserId: null });
+    navigation.push(home.chatRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
   };
 
   const strSince = timeSince(parseISO(currentMessage.createdAt));
 
   return (
     <Styled.Container onPress={handlePress}>
-      <Styled.Box pt={18} px={16}>
+      <Styled.Box style={style} pt={18} px={16} pb={10}>
         <Styled.Box flexDirection="row">
           <Styled.AvatarCircle url={currentMessage.user.avatar} size={35} onPress={handleAvatarPress} />
           <Styled.Box flex={1} ml={10}>

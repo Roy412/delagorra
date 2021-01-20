@@ -11,9 +11,10 @@ import { user as userSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
+import CommentsHeader from './CommentsHeader';
 
 const ChatRoom = ({ route, navigation }) => {
-  const { otherUserId, post, type, commentId } = route.params || {};
+  const { otherUserId, post, type, comment } = route.params || {};
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -33,9 +34,7 @@ const ChatRoom = ({ route, navigation }) => {
   }, [navigation, room]);
 
   useEffect(() => {
-    setTimeout(() => {
-      fetchRoom();
-    }, 5000);
+    fetchRoom();
   }, []);
 
   useEffect(() => {
@@ -51,7 +50,7 @@ const ChatRoom = ({ route, navigation }) => {
         otherUserId,
         type,
         postId: post && post._id,
-        commentId,
+        commentId: comment && comment._id,
       });
       setRoom(result);
     } catch (e) {}
@@ -70,12 +69,8 @@ const ChatRoom = ({ route, navigation }) => {
 
   const renderHeader = () => (
     <Styled.Box>
-      <PostItem item={post} />
-      <Styled.Box flexDirection="row" alignItems="center" bg="#F0F0F0" p={16}>
-        <Styled.Text color="veryDarkGray" fontSize={16}>
-          Comments {room && `(${room.commentCount})`}
-        </Styled.Text>
-      </Styled.Box>
+      {post ? <PostItem item={post} /> : <Styled.ReplyCommentItem currentMessage={comment} />}
+      <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
   );
@@ -103,7 +98,7 @@ const ChatRoom = ({ route, navigation }) => {
         scrollToBottom={type === 'chat'}
         keyboardShouldPersistTaps="handled"
         renderLoadEarlier={renderHeader}
-        loadEarlier={!!post}
+        loadEarlier={type === 'post'}
       />
     </Styled.Container>
   );
