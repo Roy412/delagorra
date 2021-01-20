@@ -4,6 +4,9 @@ import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 
 import CommentItemUI from './CommentItem';
 import { Colors, Metrics } from '~/utils/theme';
+import { IconButton } from '~/components/ui';
+import { hitSlopArea } from '~/utils/utils';
+import { crossIcon } from '~/resources';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 export CommentItem from './CommentItem';
@@ -25,3 +28,11 @@ export const ActivityIndicator = styled(ActivityIndicatorUI)`
 export const ReplyCommentItem = styled(CommentItemUI)`
   background-color: white;
 `;
+
+export const CloseButton = styled(IconButton).attrs({
+  source: crossIcon,
+  hitSlop: hitSlopArea(5),
+  pr: 17,
+  tintColor: 'white',
+  iconStyle: { width: 18, aspectRatio: 60 / 66, height: undefined },
+})``;

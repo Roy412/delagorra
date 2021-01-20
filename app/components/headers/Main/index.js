@@ -31,7 +31,7 @@ const Main = ({ variant = 'main', scene, navigation }) => {
   const renderBack = () => <Styled.BackButton tintColor={vart.title} onPress={handleBackPress} />;
 
   const renderLeft = () => {
-    if (isValidElement(options.headerLeft)) {
+    if (isValidElement(options.headerLeft) || options.headerLeft === false) {
       return <Styled.Left>{options.headerLeft}</Styled.Left>;
     }
 

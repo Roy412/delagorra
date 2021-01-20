@@ -34,7 +34,7 @@ const CommentItem = ({ currentMessage, style }) => {
   const handlePress = () => {};
 
   const handleReply = () => {
-    navigation.push(home.chatRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
+    navigation.push(navigators.replyRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
   };
 
   const strSince = timeSince(parseISO(currentMessage.createdAt));

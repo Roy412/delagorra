@@ -7,6 +7,7 @@ import { profile, navigators } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
 import { settingsData } from '~/config/settings';
 import ProgressScreen from '~/screens/Auth/Progress';
+import ChatRoom from '~/screens/Main/Chat/ChatRoom';
 
 import Auth from './auth';
 import MainTab from './main/mainTab';
@@ -47,6 +48,12 @@ const RootNavigator = () => (
       name={navigators.progress}
       component={ProgressScreen}
       options={{ headerShown: true, header: SimpleHeader }}
+    />
+
+    <Stack.Screen
+      name={navigators.replyRoom}
+      component={ChatRoom}
+      options={{ headerShown: true, header: MainHeader, headerLeft: false }}
     />
   </Stack.Navigator>
 );

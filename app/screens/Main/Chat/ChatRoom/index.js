@@ -29,12 +29,17 @@ const ChatRoom = ({ route, navigation }) => {
       navigation.setOptions({ title: room.otherUser.displayName });
     }
     if (type === 'post') {
-      navigation.setOptions({ title: post ? post.creator.displayName : 'Replies' });
+      navigation.setOptions({
+        title: post ? post.creator.displayName : 'Replies',
+        headerRight: !post && <Styled.CloseButton onPress={handleClose} />,
+      });
     }
   }, [navigation, room]);
 
   useEffect(() => {
+    // setTimeout(() => {
     fetchRoom();
+    // }, 5000);
   }, []);
 
   useEffect(() => {
@@ -54,6 +59,10 @@ const ChatRoom = ({ route, navigation }) => {
       });
       setRoom(result);
     } catch (e) {}
+  };
+
+  const handleClose = () => {
+    navigation.goBack();
   };
 
   const onSend = useCallback(

@@ -1,6 +1,6 @@
 import { createNames } from '~/utils/navigation';
 
-export const navigators = createNames(['auth', 'main', 'mainNav', 'progress', 'privacyPolicy'], {
+export const navigators = createNames(['auth', 'main', 'mainNav', 'progress', 'privacyPolicy', 'replyRoom'], {
   prefix: 'navigators/',
 });
 
