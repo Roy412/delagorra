@@ -75,9 +75,7 @@ const PersonalPage = ({ route, navigation }) => {
         <Styled.Text color="veryDarkGray" fontSize={18}>
           {profile.displayName}
         </Styled.Text>
-        <Styled.Box alignItems="center" justifyContent="center" bg="vividBlue" borderRadius={18} px={9} py={3} ml={15}>
-          <Styled.Text color="white" fontSize={13} fontStyle="semiBold">{`LV ${profile.level}`}</Styled.Text>
-        </Styled.Box>
+        <Styled.LevelBox level={profile.level} />
         <Styled.Box flex={1} />
         {isMine && <Styled.BtnEditProfile onPress={handleEditProfile} />}
       </Styled.Box>

@@ -6,6 +6,7 @@ import { personalBackground, backIcon, profileMessage } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Loader, Image, AvatarCircle, Button } from '~/components/ui';
+export { LevelBox } from '~/components/blocks';
 export { SimpleHeader } from '~/components/headers';
 
 export const Container = styled(Box)`
