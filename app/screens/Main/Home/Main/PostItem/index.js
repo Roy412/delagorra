@@ -21,7 +21,7 @@ const PostActionItem = ({ source, text, size, justifyContent }) => (
   </Styled.Box>
 );
 
-const PostItem = ({ item, onPress = _.noop }) => {
+const PostItem = ({ item, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
 
@@ -33,7 +33,7 @@ const PostItem = ({ item, onPress = _.noop }) => {
 
   return (
     <TouchableWithoutFeedback onPress={() => onPress(item)}>
-      <Styled.Box bg="white" mb={10} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
+      <Styled.Box bg="white" style={style} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
         <Styled.Box pt={18} px={16}>
           <Styled.Box flexDirection="row">
             <Styled.AvatarCircle url={item.creator.avatar} size={35} onPress={handleAvatarPress} />

@@ -10,6 +10,7 @@ import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
 
 import * as Styled from './styled';
+import PostItem from '../../Home/Main/PostItem';
 
 const ChatRoom = ({ route, navigation }) => {
   const { otherUserId, post, type, commentId } = route.params || {};
@@ -65,6 +66,15 @@ const ChatRoom = ({ route, navigation }) => {
     [room],
   );
 
+  const renderHeader = (params) => (
+    <Styled.Box>
+      <PostItem item={post} />
+      <Styled.Box flexDirection="row" alignItems="center" bg="#F0F0F0" p={16}>
+        <Styled.Text>Comments ({room.commentCount})</Styled.Text>
+      </Styled.Box>
+    </Styled.Box>
+  );
+
   if (loading) {
     return <Styled.Loader loading />;
   }
@@ -87,6 +97,8 @@ const ChatRoom = ({ route, navigation }) => {
         inverted={type === 'chat'}
         scrollToBottom={type === 'chat'}
         keyboardShouldPersistTaps="handled"
+        renderLoadEarlier={renderHeader}
+        loadEarlier={!!post}
       />
     </Styled.Container>
   );

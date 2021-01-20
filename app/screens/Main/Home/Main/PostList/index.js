@@ -11,7 +11,6 @@ import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/se
 import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
-import PostItem from '../PostItem';
 
 const PostList = ({ onUnAuth }) => {
   const dispatch = useDispatch();
@@ -71,7 +70,7 @@ const PostList = ({ onUnAuth }) => {
     return <ActivityIndicator style={{ color: '#000', marginVertical: 10 }} size="large" />;
   };
 
-  const renderItem = ({ item }) => <PostItem item={item} onPress={handlePressItem} />;
+  const renderItem = ({ item }) => <Styled.PostItem item={item} onPress={handlePressItem} />;
 
   return (
     <Styled.List
