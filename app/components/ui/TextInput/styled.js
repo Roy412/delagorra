@@ -2,9 +2,8 @@ import styled from 'styled-components/native';
 import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 
 import { Colors } from '~/utils/theme';
-import { hitSlopArea } from '~/utils/utils';
+import { hitSlopArea, capitalizeFirstLetter } from '~/utils/utils';
 import { crossIcon } from '~/resources';
-import { capitalizeFirstLetter } from '~/utils/utils';
 
 import FieldErrorUI from '../FieldError';
 import TextUI from '../Text';

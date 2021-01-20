@@ -33,7 +33,9 @@ const ChatRoom = ({ route, navigation }) => {
   }, [navigation, room]);
 
   useEffect(() => {
-    fetchRoom();
+    setTimeout(() => {
+      fetchRoom();
+    }, 5000);
   }, []);
 
   useEffect(() => {
@@ -66,16 +68,19 @@ const ChatRoom = ({ route, navigation }) => {
     [room],
   );
 
-  const renderHeader = (params) => (
+  const renderHeader = () => (
     <Styled.Box>
       <PostItem item={post} />
       <Styled.Box flexDirection="row" alignItems="center" bg="#F0F0F0" p={16}>
-        <Styled.Text>Comments ({room.commentCount})</Styled.Text>
+        <Styled.Text color="veryDarkGray" fontSize={16}>
+          Comments {room && `(${room.commentCount})`}
+        </Styled.Text>
       </Styled.Box>
+      {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
   );
 
-  if (loading) {
+  if (type === 'chat' && loading) {
     return <Styled.Loader loading />;
   }
 
