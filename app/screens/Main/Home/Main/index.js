@@ -3,12 +3,14 @@ import { useSelector } from 'react-redux';
 
 import { navigators, home } from '~/navigation/routeNames';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { postActionLoading as postActionLoadingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const postActionLoading = useSelector(postActionLoadingSelector);
 
   const handleCreatePost = () => {
     navigation.navigate(navigators.mainNav, { screen: home.newPost });
@@ -35,7 +37,10 @@ const Home = ({ navigation }) => {
           <Styled.CreateButton text="+ Create" onPress={handleCreatePost} />
         </Styled.HeaderBar>
       </Styled.Content>
+
       <Styled.PostList onUnAuth={handleUnAuth} />
+
+      <Styled.Loader loading={postActionLoading} />
     </Styled.Container>
   );
 };

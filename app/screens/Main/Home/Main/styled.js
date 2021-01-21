@@ -5,7 +5,7 @@ import { Image, Button, Box } from '~/components/ui';
 
 import PostListUI from './PostList';
 
-export { Text, Box, Button, IconButton } from '~/components/ui';
+export { Text, Box, Button, IconButton, Loader } from '~/components/ui';
 
 export const Container = styled.View`
   flex: 1;

@@ -12,4 +12,10 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  postLike: (payload) =>
+    apiCall({
+      endpoint: 'post/like',
+      method: 'POST',
+      query: payload,
+    }),
 });

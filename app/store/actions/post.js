@@ -6,6 +6,11 @@ export const { Types: PostTypes, Creators: PostCreators } = createActions(
 
     getPostsRequest: ['payload', 'resolve', 'reject'],
     getPostsSuccess: ['payload'],
+
+    postLikeRequest: ['payload', 'resolve', 'reject'],
+    postLikeSuccess: ['payload'],
+
+    postActionLoadingSuccess: ['loading'],
   },
   { prefix: 'Post/' },
 );

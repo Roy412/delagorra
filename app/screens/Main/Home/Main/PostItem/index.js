@@ -1,7 +1,7 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { parseISO } from 'date-fns';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,27 +9,44 @@ import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { profile, navigators } from '~/navigation/routeNames';
+import { PostCreators } from '~/store/actions/post';
+import { showSimpleError } from '~/utils/alert';
+import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
-const PostActionItem = ({ source, text, size, justifyContent }) => (
+const PostActionItem = ({ source, text, size, justifyContent, onPress, active }) => (
   <Styled.Box flexDirection="row" alignItems="center" flex={1} justifyContent={justifyContent}>
-    <Styled.PostActionIcon size={size} source={source} />
-    <Styled.Text ml={6} color="rgba(19,19,19,0.25)" fontStyle="medium">
-      {text}
-    </Styled.Text>
+    <Styled.PostActionItem onPress={onPress}>
+      <Styled.PostActionIcon size={size} source={source} active={active} />
+      <Styled.Text ml={6} color={active ? 'pink' : 'rgba(19,19,19,0.25)'} fontStyle="medium">
+        {text}
+      </Styled.Text>
+    </Styled.PostActionItem>
   </Styled.Box>
 );
 
 const PostItem = ({ item, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const dispatch = useDispatch();
 
   const handleAvatarPress = () => {
     navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
   };
 
   const handlePostOption = () => {};
+
+  const handleLike = async () => {
+    try {
+      dispatch(PostCreators.postActionLoadingSuccess(true));
+      await Promisify(dispatch, PostCreators.postLikeRequest, { postId: item._id, like: !item.like });
+    } catch (e) {
+      showSimpleError(e);
+    } finally {
+      dispatch(PostCreators.postActionLoadingSuccess(false));
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => onPress(item)}>
@@ -59,9 +76,16 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
         {item.image && <Styled.PostImage mt={16} source={{ uri: item.image }} />}
 
         <Styled.Box flexDirection="row" alignItems="center" px={16} py={10}>
-          <PostActionItem source={likeIcon} text={0} size={25} justifyContent="flex-start" />
-          <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" />
-          <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" />
+          <PostActionItem
+            source={likeIcon}
+            text={item.totalLikes}
+            size={25}
+            justifyContent="flex-start"
+            onPress={handleLike}
+            active={item.like}
+          />
+          <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" onPress={handleLike} />
+          <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleLike} />
         </Styled.Box>
       </Styled.Box>
     </TouchableWithoutFeedback>

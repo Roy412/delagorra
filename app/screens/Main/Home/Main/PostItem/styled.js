@@ -14,9 +14,9 @@ export const List = styled.FlatList.attrs({
   background-color: ${Colors.background};
 `;
 
-export const PostActionIcon = styled(Image).attrs({
-  tintColor: 'rgba(19,19,19,0.25)',
-})``;
+export const PostActionIcon = styled(Image).attrs((props) => ({
+  tintColor: props.active ? 'pink' : 'rgba(19,19,19,0.25)',
+}))``;
 
 export const OptionButton = styled(IconButton).attrs({
   source: dotsIcon,
@@ -30,3 +30,8 @@ export const PostImage = styled(Image).attrs({
   scaleable: true,
   width: Metrics.screenWidth,
 })``;
+
+export const PostActionItem = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
+`;
