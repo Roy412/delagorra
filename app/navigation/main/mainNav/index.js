@@ -13,7 +13,6 @@ import PersonalPage from '~/screens/Main/Profile/PersonalPage';
 import { profile, home } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
 import NewPost from '~/screens/Main/Home/NewPost';
-import PostDetail from '~/screens/Main/Home/PostDetail';
 import ChatRoom from '~/screens/Main/Chat/ChatRoom';
 
 const Stack = createStackNavigator();
@@ -43,7 +42,6 @@ const MainNav = () => (
       component={NewPost}
       options={{ title: 'Make a Post', header: (props) => <MainHeader variant="post" {...props} /> }}
     />
-    <Stack.Screen name={home.postDetail} component={PostDetail} options={{ header: MainHeader }} />
     <Stack.Screen name={home.chatRoom} component={ChatRoom} options={{ header: MainHeader }} />
   </Stack.Navigator>
 );

@@ -59,8 +59,7 @@ const PostList = ({ onUnAuth }) => {
     if (!isAuthenticated) {
       return onUnAuth();
     }
-    navigation.navigate(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
-    // navigation.navigate(navigators.mainNav, { screen: home.postDetail, params: { post: item } });
+    navigation.navigate(navigators.mainNav, { screen: home.chatRoom, params: { postId: item._id, type: 'post' } });
   };
 
   const renderFooter = () => {

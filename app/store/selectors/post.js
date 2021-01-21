@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-import get from 'lodash/get';
+import _ from 'lodash';
 
 const getState = (state) => state.post;
 
-export const posts = createSelector(getState, (state) => get(state, 'posts'));
-export const postActionLoading = createSelector(getState, (state) => get(state, 'postActionLoading'));
+export const posts = createSelector(getState, (state) => _.get(state, 'posts'));
+export const postByPostId = (postId) => createSelector(posts, (state) => _.find(state, { _id: postId }));

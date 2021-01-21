@@ -10,7 +10,6 @@ import * as Styled from './styled';
 const Home = ({ navigation }) => {
   const [search, setSearch] = useState();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
-  const postActionLoading = useSelector(postActionLoadingSelector);
 
   const handleCreatePost = () => {
     navigation.navigate(navigators.mainNav, { screen: home.newPost });
@@ -39,8 +38,6 @@ const Home = ({ navigation }) => {
       </Styled.Content>
 
       <Styled.PostList onUnAuth={handleUnAuth} />
-
-      <Styled.Loader loading={postActionLoading} />
     </Styled.Container>
   );
 };

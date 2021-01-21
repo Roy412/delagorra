@@ -12,7 +12,7 @@ export const main = createNames(['home', 'notification', 'profile'], {
   prefix: 'main/',
 });
 
-export const home = createNames(['main', 'newPost', 'postDetail', 'chatRoom'], {
+export const home = createNames(['main', 'newPost', 'chatRoom'], {
   prefix: 'home/',
 });
 
