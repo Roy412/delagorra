@@ -6,6 +6,7 @@ function* createPost(api, { payload, resolve, reject }) {
   const response = yield call(api.post.create, payload);
 
   if (response.ok && response.data.result === 'OK') {
+    yield put(PostCreators.createPostSuccess(response.data.data));
     resolve(response.data.data);
   } else {
     reject(response.data);

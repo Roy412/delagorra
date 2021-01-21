@@ -28,8 +28,14 @@ const postLikeSuccess = (state, { payload: { postId, like } }) => {
   return state.merge({ posts: updatedPosts });
 };
 
+const postCreateSuccess = (state, { post }) => {
+  const sortedPosts = _.sortBy([post, ...state.posts], ({ createdAt }) => -createdAt);
+  return state.merge({ posts: sortedPosts });
+};
+
 const HANDLERS = {
   [PostTypes.GET_POSTS_SUCCESS]: getPostsSuccess,
+  [PostTypes.CREATE_POST_SUCCESS]: postCreateSuccess,
   [PostTypes.POST_LIKE_SUCCESS]: postLikeSuccess,
 };
 
