@@ -8,6 +8,7 @@ import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
+import { postActionLoading as postActionLoadingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
@@ -19,6 +20,7 @@ const ChatRoom = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const user = useSelector(userSelector);
+  const postActionLoading = useSelector(postActionLoadingSelector);
 
   const [room, setRoom] = useState();
   const [messages, setMessages] = useState([]);
@@ -109,6 +111,7 @@ const ChatRoom = ({ route, navigation }) => {
         renderLoadEarlier={renderHeader}
         loadEarlier={type === 'post'}
       />
+      <Styled.Loader loading={postActionLoading} />
     </Styled.Container>
   );
 };

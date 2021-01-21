@@ -7,7 +7,6 @@ import { PostTypes } from '~/store/actions/post';
 
 const INITIAL_STATE = Immutable({
   posts: [],
-  postActionLoading: false,
 });
 
 const getPostsSuccess = (state, { payload }) => {
@@ -29,12 +28,9 @@ const postLikeSuccess = (state, { payload: { postId, like } }) => {
   return state.merge({ posts: updatedPosts });
 };
 
-const postActionLoadingSuccess = (state, { loading }) => state.merge({ postActionLoading: loading });
-
 const HANDLERS = {
   [PostTypes.GET_POSTS_SUCCESS]: getPostsSuccess,
   [PostTypes.POST_LIKE_SUCCESS]: postLikeSuccess,
-  [PostTypes.POST_ACTION_LOADING_SUCCESS]: postActionLoadingSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

@@ -1,4 +1,5 @@
 import styled from 'styled-components/native';
+import {ActivityIndicator} from 'react-native';
 
 import { IconButton, Image } from '~/components/ui';
 import { Colors, Metrics } from '~/utils/theme';
@@ -34,4 +35,9 @@ export const PostImage = styled(Image).attrs({
 export const PostActionItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
+`;
+
+export const ActionLoading = styled(ActivityIndicator)`
+  margin-left: 5px;
+  height: 25px;
 `;
