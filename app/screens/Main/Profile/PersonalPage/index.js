@@ -38,7 +38,7 @@ const PersonalPage = ({ route, navigation }) => {
   };
 
   const handleChat = () => {
-    navigation.navigate(home.chatRoom, { otherUserId: profileId });
+    navigation.navigate(home.chatRoom, { otherUserId: profileId, type: 'chat' });
   };
 
   const handleEditProfile = () => {};

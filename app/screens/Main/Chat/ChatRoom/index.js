@@ -16,10 +16,7 @@ import CommentsHeader from './CommentsHeader';
 
 const ChatRoom = ({ route, navigation }) => {
   const { otherUserId, postId, type, comment } = route.params || {};
-  let post;
-  if (postId) {
-    post = useSelector(postByPostId(postId));
-  }
+  const post = useSelector(postByPostId(postId));
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -103,7 +100,7 @@ const ChatRoom = ({ route, navigation }) => {
         )}
       </Styled.Box>
       <Styled.GiftedChat
-        renderMessage={type === 'post' && ((params) => <Styled.CommentItem {...params} />)}
+        renderMessage={type === 'post' ? (params) => <Styled.CommentItem {...params} /> : undefined}
         messages={messages}
         onSend={onSend}
         user={{ _id: user._id }}
