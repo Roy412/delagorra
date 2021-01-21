@@ -1,8 +1,8 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { user as userSelector } from '~/store/selectors/session';
-import { home, navigators } from '~/navigation/routeNames';
+import { home, profile as profileNav } from '~/navigation/routeNames';
 import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
 
@@ -41,7 +41,9 @@ const PersonalPage = ({ route, navigation }) => {
     navigation.navigate(home.chatRoom, { otherUserId: profileId, type: 'chat' });
   };
 
-  const handleEditProfile = () => {};
+  const handleEditProfile = () => {
+    navigation.navigate(profileNav.editProfile);
+  };
 
   const handleBack = () => {
     navigation.goBack(null);
