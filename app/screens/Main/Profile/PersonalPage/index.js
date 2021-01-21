@@ -31,6 +31,10 @@ const PersonalPage = ({ route, navigation }) => {
     fetchProfile();
   }, []);
 
+  useEffect(() => {
+    setProfile({ ...profile, ...user });
+  }, [JSON.stringify(user)]);
+
   const fetchProfile = async () => {
     try {
       setProfile(await Promisify(dispatch, ProfileCreators.getProfileRequest, profileId));
