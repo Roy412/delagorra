@@ -6,6 +6,8 @@ export const { Types: ProfileTypes, Creators: ProfileCreators } = createActions(
     profileUpdateSuccess: ['payload'],
 
     getProfileRequest: ['profileId', 'resolve', 'reject'],
+
+    profileFollowRequest: ['payload', 'resolve', 'reject'],
   },
   { prefix: 'Profile/' },
 );

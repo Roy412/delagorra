@@ -62,13 +62,18 @@ export const PointBox = styled(Box).attrs({
   height: 15px;
 `;
 
-export const BtnEditProfile = styled(Button).attrs({
+export const BtnEditProfile = styled(Button).attrs((props) => ({
   variant: 'outlined',
-  text: 'Edit profile',
+  text: props.isMine ? 'Edit profile' : props.follow ? 'Following' : 'Follow',
   py: 5,
-  px: 13,
-  textProps: { color: 'veryDarkGray', fontStyle: 'regular', fontSize: 13 },
-})`
+  textProps: {
+    color: !props.isMine && !props.follow ? 'white' : 'veryDarkGray',
+    fontStyle: 'regular',
+    fontSize: 13,
+  },
+}))`
   border-radius: 3px;
-  border-color: rgba(0, 0, 0, 0.2);
+  width: 86px;
+  ${(props) => (props.isMine || props.follow) && 'border-color: rgba(0, 0, 0, 0.2);'};
+  ${(props) => !props.isMine && !props.follow && `background-color: ${Colors.pink};`}
 `;

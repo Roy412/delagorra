@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import _ from 'lodash';
 
 import { user as userSelector } from '~/store/selectors/session';
 import { home, profile as profileNav } from '~/navigation/routeNames';
 import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
+import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
 
@@ -46,8 +48,24 @@ const PersonalPage = ({ route, navigation }) => {
   };
 
   const handleEditProfile = () => {
-    navigation.navigate(profileNav.editProfile);
+    if (isMine) {
+      return navigation.navigate(profileNav.editProfile);
+    }
+    setProfile({ ...profile, follow: !profile.follow });
+    handleFollowDebounced(!profile.follow);
   };
+
+  const handleFollowDebounced = useCallback(
+    _.debounce(async (followValue) => {
+      try {
+        await Promisify(dispatch, ProfileCreators.profileFollowRequest, { otherId: profileId, follow: followValue });
+      } catch (e) {
+        showSimpleError(e);
+      } finally {
+      }
+    }, 100),
+    [],
+  );
 
   const handleBack = () => {
     navigation.goBack(null);
@@ -83,7 +101,7 @@ const PersonalPage = ({ route, navigation }) => {
         </Styled.Text>
         <Styled.LevelBox level={profile.level} />
         <Styled.Box flex={1} />
-        {isMine && <Styled.BtnEditProfile onPress={handleEditProfile} />}
+        <Styled.BtnEditProfile onPress={handleEditProfile} isMine={isMine} follow={profile.follow} />
       </Styled.Box>
 
       <Styled.Box flexDirection="row" alignItems="center" mt={16} mx={18}>

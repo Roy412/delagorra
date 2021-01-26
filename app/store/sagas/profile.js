@@ -23,9 +23,20 @@ function* getProfile(api, { profileId, resolve, reject }) {
   }
 }
 
+function* followProfile(api, { payload, resolve, reject }) {
+  const response = yield call(api.profile.follow, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    resolve(response.data.data);
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([
     takeLatest(ProfileTypes.PROFILE_UPDATE_REQUEST, updateProfile, api),
     takeLatest(ProfileTypes.GET_PROFILE_REQUEST, getProfile, api),
+    takeLatest(ProfileTypes.PROFILE_FOLLOW_REQUEST, followProfile, api),
   ]);
 }
