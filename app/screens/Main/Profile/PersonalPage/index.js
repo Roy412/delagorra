@@ -34,7 +34,9 @@ const PersonalPage = ({ route, navigation }) => {
   }, []);
 
   useEffect(() => {
-    setProfile({ ...profile, ...user });
+    if (isMine) {
+      setProfile({ ...profile, ...user });
+    }
   }, [JSON.stringify(user)]);
 
   const fetchProfile = async () => {
@@ -51,7 +53,11 @@ const PersonalPage = ({ route, navigation }) => {
     if (isMine) {
       return navigation.navigate(profileNav.editProfile);
     }
-    setProfile({ ...profile, follow: !profile.follow });
+    setProfile({
+      ...profile,
+      follow: !profile.follow,
+      following: !profile.follow ? profile.following + 1 : profile.following - 1,
+    });
     handleFollowDebounced(!profile.follow);
   };
 
