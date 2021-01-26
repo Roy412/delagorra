@@ -145,6 +145,19 @@ const sendMessageMockRequest = (state, { payload }) => {
 
 const setActiveRoomIdSuccess = (state, { roomId }) => state.merge({ activeRoomId: roomId });
 
+const messageLikeSuccess = (state, { payload: { roomId, msgId, like, totalLikes } }) => {
+  const roomMessages = state.messagesByRoomId[roomId] || [];
+
+  const updatedRoomMessages = _.map(roomMessages, (message) => {
+    if (message._id === msgId) {
+      return { ...message, like, totalLikes };
+    }
+    return message;
+  });
+
+  return state.merge({ messagesByRoomId: { ...state.messagesByRoomId, [roomId]: updatedRoomMessages } });
+};
+
 const HANDLERS = {
   [ChatTypes.GET_ROOMS_SUCCESS]: getRoomsSuccess,
   [ChatTypes.READ_MESSAGE_SUCCESS]: readMessageSuccess,
@@ -153,6 +166,7 @@ const HANDLERS = {
   [ChatTypes.SEND_MESSAGE_MOCK_REQUEST]: sendMessageMockRequest,
   [ChatTypes.GET_ROOM_SUCCESS]: getRoomSuccess,
   [ChatTypes.SET_ACTIVE_ROOM_ID_SUCCESS]: setActiveRoomIdSuccess,
+  [ChatTypes.MESSAGE_LIKE_SUCCESS]: messageLikeSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

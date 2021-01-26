@@ -15,6 +15,9 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
 
     readMessageRequest: ['payload', 'resolve', 'reject'],
     readMessageSuccess: ['roomId', 'messageId'],
+
+    messageLikeRequest: ['payload', 'resolve', 'reject'],
+    messageLikeSuccess: ['payload'],
   },
   { prefix: 'Chat/' },
 );

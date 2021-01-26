@@ -19,7 +19,7 @@ const PostActionItem = ({ source, text, size, justifyContent, onPress, active })
   <Styled.Box flexDirection="row" alignItems="center" flex={1} justifyContent={justifyContent}>
     <Styled.PostActionItem onPress={onPress}>
       <Styled.PostActionIcon size={size} source={source} active={active} />
-      <Styled.Text ml={6} color={active ? 'pink' : 'rgba(19,19,19,0.25)'} fontStyle="medium">
+      <Styled.Text ml={6} color={active ? 'pink' : 'rgba(0,0,0,0.25)'} fontStyle="medium">
         {text}
       </Styled.Text>
     </Styled.PostActionItem>
@@ -60,6 +60,10 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
     handleLikeDebounced(!item.like);
   };
 
+  const handleShare = () => {
+
+  }
+
   return (
     <TouchableWithoutFeedback onPress={() => onPress(item)}>
       <Styled.Box bg="white" style={style} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
@@ -96,8 +100,8 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
             onPress={handleLike}
             active={item.like}
           />
-          <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" onPress={handleLike} />
-          <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleLike} />
+          <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" onPress={() => onPress(item)} />
+          <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleShare} />
         </Styled.Box>
       </Styled.Box>
     </TouchableWithoutFeedback>

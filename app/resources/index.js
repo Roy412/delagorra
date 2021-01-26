@@ -21,6 +21,7 @@ export dotsIcon from './icons/dots.png';
 export searchIcon from './icons/search.png';
 export profileMessage from './icons/profile_message.png';
 export profilePicture from './icons/profile_picture.png';
+export unlikeIcon from './icons/unlike.png';
 
 export profileImage from './images/profile.png';
 export personalBackground from './images/personal_background.png';

@@ -19,4 +19,10 @@ export default (apiCall) => ({
         messageId,
       },
     }),
+  messageLike: ({ roomId, msgId, ...payload }) =>
+    apiCall({
+      endpoint: `chat/${roomId}/${msgId}/like`,
+      method: 'POST',
+      query: payload,
+    }),
 });

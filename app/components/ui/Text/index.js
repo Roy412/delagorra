@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { space, color, fontSize, lineHeight, textAlign, flex } from 'styled-system';
+import { width, space, color, fontSize, lineHeight, textAlign, flex } from 'styled-system';
 import { capitalizeFirstLetter } from '~/utils/utils';
 
 const Text = styled.Text`
@@ -9,6 +9,7 @@ const Text = styled.Text`
   ${fontSize}
   ${lineHeight}
   ${textAlign}
+  ${width}
   ${flex}
   font-family: ${(props) =>
     props.fontStyle ? `SFUIDisplay-${capitalizeFirstLetter(props.fontStyle)}` : 'SFUIDisplay-Regular'};

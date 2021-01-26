@@ -16,7 +16,7 @@ export const List = styled.FlatList.attrs({
 `;
 
 export const PostActionIcon = styled(Image).attrs((props) => ({
-  tintColor: props.active ? 'pink' : 'rgba(19,19,19,0.25)',
+  tintColor: props.active ? 'pink' : 'rgba(0,0,0,0.25)',
 }))``;
 
 export const OptionButton = styled(IconButton).attrs({

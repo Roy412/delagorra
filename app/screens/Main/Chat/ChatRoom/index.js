@@ -100,7 +100,7 @@ const ChatRoom = ({ route, navigation }) => {
         )}
       </Styled.Box>
       <Styled.GiftedChat
-        renderMessage={type === 'post' ? (params) => <Styled.CommentItem {...params} /> : undefined}
+        renderMessage={type === 'post' ? (params) => <Styled.CommentItem {...params} roomId={room._id} /> : undefined}
         messages={messages}
         onSend={onSend}
         user={{ _id: user._id }}

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { parseISO } from 'date-fns';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,6 +9,9 @@ import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { profile, home, navigators } from '~/navigation/routeNames';
+import { ChatCreators } from '~/store/actions/chat';
+import { showSimpleError } from '~/utils/alert';
+import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
@@ -21,9 +24,9 @@ const PostActionItem = ({ source, text, size, justifyContent }) => (
   </Styled.Box>
 );
 
-const CommentItem = ({ currentMessage, style }) => {
+const CommentItem = ({ currentMessage, style, roomId }) => {
   const navigation = useNavigation();
-  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const dispatch = useDispatch();
 
   const handleAvatarPress = () => {
     // navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
@@ -38,6 +41,36 @@ const CommentItem = ({ currentMessage, style }) => {
   };
 
   const strSince = timeSince(parseISO(currentMessage.createdAt));
+
+  const handleLikeDebounced = useCallback(
+    _.debounce(async (likeValue) => {
+      try {
+        await Promisify(dispatch, ChatCreators.messageLikeRequest, {
+          roomId,
+          like: likeValue,
+          msgId: currentMessage._id,
+        });
+      } catch (e) {
+        showSimpleError(e);
+      } finally {
+      }
+    }, 100),
+    [],
+  );
+
+  const handleLike = (value) => {
+    if (value !== currentMessage.like) {
+      dispatch(
+        ChatCreators.messageLikeSuccess({
+          msgId: currentMessage._id,
+          roomId,
+          like: value,
+          totalLikes: currentMessage.totalLikes + (currentMessage.like === 0 ? value : value * 2),
+        }),
+      );
+      handleLikeDebounced(value);
+    }
+  };
 
   return (
     <Styled.Container onPress={handlePress}>
@@ -68,12 +101,24 @@ const CommentItem = ({ currentMessage, style }) => {
               </Styled.Text>
             )}
 
-            <Styled.ReplyContainer onPress={handleReply}>
-              <Styled.CommentIcon />
-              <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
-                {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
-              </Styled.Text>
-            </Styled.ReplyContainer>
+            <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between">
+              <Styled.ReplyContainer onPress={handleReply}>
+                <Styled.CommentIcon />
+                <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
+                  {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
+                </Styled.Text>
+              </Styled.ReplyContainer>
+
+              <Styled.Box flexDirection="row" alignItems="center">
+                <Styled.LikeButton onPress={() => handleLike(1)} active={currentMessage.like === 1} />
+
+                <Styled.Text width={40} color="rgba(0,0,0,0.25)" fontStyle="medium" textAlign="center">
+                  {currentMessage.totalLikes}
+                </Styled.Text>
+
+                <Styled.LikeButton onPress={() => handleLike(-1)} active={currentMessage.like === -1} unLike />
+              </Styled.Box>
+            </Styled.Box>
           </Styled.Box>
         </Styled.Box>
 

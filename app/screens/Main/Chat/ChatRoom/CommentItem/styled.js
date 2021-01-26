@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 import { IconButton, Image } from '~/components/ui';
 import { Colors, Metrics } from '~/utils/theme';
-import { dotsIcon, commentIcon } from '~/resources';
+import { dotsIcon, commentIcon, likeIcon, unlikeIcon } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
@@ -17,8 +17,10 @@ export const List = styled.FlatList.attrs({
   background-color: ${Colors.background};
 `;
 
-export const PostActionIcon = styled(Image).attrs({
-  tintColor: 'rgba(19,19,19,0.25)',
+export const LikeIcon = styled(Image).attrs({
+  source: likeIcon,
+  tintColor: 'rgba(0,0,0,0.25)',
+  size: 22,
 })``;
 
 export const OptionButton = styled(IconButton).attrs({
@@ -49,3 +51,10 @@ export const CommentIcon = styled(Image).attrs({
   tintColor: Colors.darkGray,
   size: 12,
 })``;
+
+export const LikeButton = styled(IconButton).attrs((props) => ({
+  source: props.unLike ? unlikeIcon : likeIcon,
+  hitSlop: hitSlopArea(5),
+  size: 22,
+  tintColor: props.active ? 'pink' : 'rgba(0,0,0,0.25)',
+}))``;
