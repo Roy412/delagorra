@@ -1,7 +1,7 @@
 import styled from 'styled-components/native';
 
 import { IconButton, Image } from '~/components/ui';
-import { Colors, Metrics } from '~/utils/theme';
+import { Colors } from '~/utils/theme';
 import { dotsIcon, commentIcon, likeIcon, unlikeIcon } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
@@ -17,23 +17,11 @@ export const List = styled.FlatList.attrs({
   background-color: ${Colors.background};
 `;
 
-export const LikeIcon = styled(Image).attrs({
-  source: likeIcon,
-  tintColor: 'rgba(0,0,0,0.25)',
-  size: 22,
-})``;
-
 export const OptionButton = styled(IconButton).attrs({
   source: dotsIcon,
   hitSlop: hitSlopArea(5),
   iconStyle: { width: 18, aspectRatio: 80 / 18, height: undefined },
   pb: 10,
-})``;
-
-export const PostImage = styled(Image).attrs({
-  resizeMode: 'contain',
-  scaleable: true,
-  width: Metrics.screenWidth,
 })``;
 
 export const ReplyContainer = styled.TouchableOpacity`
