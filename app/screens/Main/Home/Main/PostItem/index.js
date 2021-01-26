@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,18 +15,14 @@ import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
-const PostActionItem = ({ source, text, size, justifyContent, onPress, active, loading }) => (
+const PostActionItem = ({ source, text, size, justifyContent, onPress, active }) => (
   <Styled.Box flexDirection="row" alignItems="center" flex={1} justifyContent={justifyContent}>
-    {loading ? (
-      <Styled.ActionLoading size="small" color="#0000aa" />
-    ) : (
-      <Styled.PostActionItem onPress={onPress}>
-        <Styled.PostActionIcon size={size} source={source} active={active} />
-        <Styled.Text ml={6} color={active ? 'pink' : 'rgba(19,19,19,0.25)'} fontStyle="medium">
-          {text}
-        </Styled.Text>
-      </Styled.PostActionItem>
-    )}
+    <Styled.PostActionItem onPress={onPress}>
+      <Styled.PostActionIcon size={size} source={source} active={active} />
+      <Styled.Text ml={6} color={active ? 'pink' : 'rgba(19,19,19,0.25)'} fontStyle="medium">
+        {text}
+      </Styled.Text>
+    </Styled.PostActionItem>
   </Styled.Box>
 );
 
@@ -35,23 +31,33 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
 
-  const [likeLoading, setLikeLoading] = useState(false);
-
   const handleAvatarPress = () => {
     navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
   };
 
   const handlePostOption = () => {};
 
-  const handleLike = async () => {
-    try {
-      setLikeLoading(true);
-      await Promisify(dispatch, PostCreators.postLikeRequest, { postId: item._id, like: !item.like });
-    } catch (e) {
-      showSimpleError(e);
-    } finally {
-      setLikeLoading(false);
-    }
+  const handleLikeDebounced = useCallback(
+    _.debounce(async (likeValue) => {
+      try {
+        await Promisify(dispatch, PostCreators.postLikeRequest, { postId: item._id, like: likeValue });
+      } catch (e) {
+        showSimpleError(e);
+      } finally {
+      }
+    }, 100),
+    [],
+  );
+
+  const handleLike = () => {
+    dispatch(
+      PostCreators.postLikeSuccess({
+        postId: item._id,
+        like: !item.like,
+        totalLikes: !item.like ? item.totalLikes + 1 : item.totalLikes - 1,
+      }),
+    );
+    handleLikeDebounced(!item.like);
   };
 
   return (
@@ -89,7 +95,6 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
             justifyContent="flex-start"
             onPress={handleLike}
             active={item.like}
-            loading={likeLoading}
           />
           <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" onPress={handleLike} />
           <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleLike} />

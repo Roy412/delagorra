@@ -28,7 +28,7 @@ function* postLike(api, { payload, resolve, reject }) {
   const response = yield call(api.post.postLike, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(PostCreators.postLikeSuccess(payload));
+    yield put(PostCreators.postLikeSuccess(response.data.data));
     resolve(response.data.data);
   } else {
     reject(response.data);

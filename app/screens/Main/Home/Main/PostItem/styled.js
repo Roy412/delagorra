@@ -36,8 +36,3 @@ export const PostActionItem = styled.TouchableOpacity`
   flex-direction: row;
   align-items: center;
 `;
-
-export const ActionLoading = styled(ActivityIndicator)`
-  margin-left: 5px;
-  height: 25px;
-`;

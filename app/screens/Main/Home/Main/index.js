@@ -3,7 +3,6 @@ import { useSelector } from 'react-redux';
 
 import { navigators, home } from '~/navigation/routeNames';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
-import { postActionLoading as postActionLoadingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 
