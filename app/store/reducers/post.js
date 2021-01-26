@@ -19,10 +19,14 @@ const getPostsSuccess = (state, { payload }) => {
 
 const postLikeSuccess = (state, { payload: { postId, like, totalLikes } }) => {
   const updatedPosts = _.map(state.posts, (item) => {
+    const result = { ...item };
     if (item._id === postId) {
-      return { ...item, totalLikes, like };
+      result.like = like;
+      if (totalLikes !== undefined) {
+        result.totalLikes = totalLikes;
+      }
     }
-    return item;
+    return result;
   });
   return state.merge({ posts: updatedPosts });
 };

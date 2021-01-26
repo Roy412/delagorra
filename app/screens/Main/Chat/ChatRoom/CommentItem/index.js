@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { parseISO } from 'date-fns';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import _ from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 

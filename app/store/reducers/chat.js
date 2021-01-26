@@ -149,10 +149,14 @@ const messageLikeSuccess = (state, { payload: { roomId, msgId, like, totalLikes 
   const roomMessages = state.messagesByRoomId[roomId] || [];
 
   const updatedRoomMessages = _.map(roomMessages, (message) => {
+    const result = { ...message };
     if (message._id === msgId) {
-      return { ...message, like, totalLikes };
+      result.like = like;
+      if (totalLikes !== undefined) {
+        result.totalLikes = totalLikes;
+      }
     }
-    return message;
+    return result;
   });
 
   return state.merge({ messagesByRoomId: { ...state.messagesByRoomId, [roomId]: updatedRoomMessages } });

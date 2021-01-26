@@ -60,9 +60,7 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
     handleLikeDebounced(!item.like);
   };
 
-  const handleShare = () => {
-
-  }
+  const handleShare = () => {};
 
   return (
     <TouchableWithoutFeedback onPress={() => onPress(item)}>
@@ -100,7 +98,13 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
             onPress={handleLike}
             active={item.like}
           />
-          <PostActionItem source={commentIcon} text={0} size={20} justifyContent="center" onPress={() => onPress(item)} />
+          <PostActionItem
+            source={commentIcon}
+            text={0}
+            size={20}
+            justifyContent="center"
+            onPress={() => onPress(item)}
+          />
           <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleShare} />
         </Styled.Box>
       </Styled.Box>
