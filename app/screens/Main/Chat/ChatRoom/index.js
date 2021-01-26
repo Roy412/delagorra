@@ -86,6 +86,8 @@ const ChatRoom = ({ route, navigation }) => {
     </Styled.Box>
   );
 
+  const renderSeparator = () => type === 'post' && <Styled.Box height={1} bg="rgba(19,19,19,0.07)" ml={16} />;
+
   if (type === 'chat' && loading) {
     return <Styled.Loader loading />;
   }
@@ -110,6 +112,7 @@ const ChatRoom = ({ route, navigation }) => {
         keyboardShouldPersistTaps="handled"
         renderLoadEarlier={renderHeader}
         loadEarlier={type === 'post'}
+        listViewProps={{ ItemSeparatorComponent: renderSeparator }}
       />
     </Styled.Container>
   );
