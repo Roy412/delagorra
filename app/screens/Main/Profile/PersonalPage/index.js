@@ -131,7 +131,7 @@ const PersonalPage = ({ route, navigation }) => {
 
       <Styled.Box bg="background" height={3} mt={16} />
 
-      <Tabs />
+      <Tabs profileId={profileId} />
     </Styled.Container>
   );
 };
