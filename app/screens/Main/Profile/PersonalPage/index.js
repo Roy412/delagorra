@@ -9,6 +9,7 @@ import { ProfileCreators } from '~/store/actions/profile';
 import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
+import Tabs from './Tabs';
 
 const ProfileInfoItem = ({ label, value }) => (
   <Styled.Box alignItems="center" flex={1}>
@@ -127,6 +128,10 @@ const PersonalPage = ({ route, navigation }) => {
           {profile.bio}
         </Styled.Text>
       )}
+
+      <Styled.Box bg="background" height={3} mt={16} />
+
+      <Tabs />
     </Styled.Container>
   );
 };

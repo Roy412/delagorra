@@ -23,7 +23,9 @@ export const HeaderBar = styled(Box).attrs({
   bg: 'white',
 })``;
 
-export const PostList = styled(PostListUI)``;
+export const PostList = styled(PostListUI).attrs({
+  contentContainerStyle: { marginTop: 5 },
+})``;
 
 export const LogoIcon = styled(Image).attrs({
   source: appLogoIcon,

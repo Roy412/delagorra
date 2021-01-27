@@ -1,5 +1,4 @@
 import styled from 'styled-components/native';
-import {ActivityIndicator} from 'react-native';
 
 import { IconButton, Image } from '~/components/ui';
 import { Colors, Metrics } from '~/utils/theme';

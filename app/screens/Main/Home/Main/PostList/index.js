@@ -12,7 +12,7 @@ import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const PostList = ({ onUnAuth }) => {
+const PostList = ({ onUnAuth, ...props }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const posts = useSelector(postsSelector);
@@ -81,6 +81,7 @@ const PostList = ({ onUnAuth }) => {
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
       bounces={!loading}
+      {...props}
     />
   );
 };

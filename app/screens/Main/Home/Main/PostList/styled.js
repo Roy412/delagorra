@@ -5,9 +5,7 @@ import PostItemUI from '../PostItem';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
-export const List = styled.FlatList.attrs({
-  contentContainerStyle: { marginTop: 5 },
-})`
+export const List = styled.FlatList`
   flex: 1;
   background-color: ${Colors.background};
 `;

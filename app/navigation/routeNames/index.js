@@ -37,3 +37,7 @@ export const profile = createNames(
     prefix: 'profile/',
   },
 );
+
+export const personalPage = createNames(['posts', 'comments'], {
+  prefix: 'personalPage/',
+});
