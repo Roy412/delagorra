@@ -30,7 +30,6 @@ const Main = ({ variant = 'main', scene, navigation, canGoBack = true }) => {
 
   const renderBack = () => <Styled.BackButton tintColor={vart.title} onPress={handleBackPress} />;
 
-  console.log('wow', canGoBack);
   const renderLeft = () => {
     if (isValidElement(options.headerLeft) || options.headerLeft === false) {
       return <Styled.Left>{options.headerLeft}</Styled.Left>;
