@@ -95,8 +95,15 @@ const ProfileMain = ({ navigation }) => {
   };
 
   const handleMyActivities = () => {
-    navigation.navigate(navigators.mainNav, { screen: profile.myActivities, params: { profileId: user._id } });
-  }
+    navigation.navigate(navigators.mainNav, {
+      screen: profile.myActivities,
+      params: { profileId: user._id },
+    });
+  };
+
+  const handleBookmarks = () => {
+    navigation.navigate(navigators.mainNav, { screen: profile.bookmarks, params: { profileId: user._id } });
+  };
 
   return (
     <Styled.Content>
@@ -130,9 +137,15 @@ const ProfileMain = ({ navigation }) => {
       </Styled.Box>
 
       <Styled.BookmarkContainer>
-        <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} />
+        <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} onPress={handleBookmarks} />
         <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} />
-        <BookmarkItem label="My activites" icon={activityIcon} width={23} aspectRatio={1} onPress={handleMyActivities}/>
+        <BookmarkItem
+          label="My activites"
+          icon={activityIcon}
+          width={23}
+          aspectRatio={1}
+          onPress={handleMyActivities}
+        />
         <BookmarkItem label="History" icon={historyIcon} width={24} aspectRatio={1} />
       </Styled.BookmarkContainer>
 

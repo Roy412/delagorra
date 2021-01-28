@@ -12,7 +12,7 @@ import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const PostList = ({ onUnAuth, profileId, ...props }) => {
+const PostList = ({ onUnAuth, profileId, type, ...props }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const posts = useSelector(postsSelector);
@@ -39,11 +39,15 @@ const PostList = ({ onUnAuth, profileId, ...props }) => {
 
   const fetchPosts = async (lastId) => {
     try {
-      const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId });
-      if (response.posts.length < 1) {
+      if (type === 'bookmark') {
         setHasMore(false);
       } else {
-        setLastPostId(response.lastId);
+        const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId });
+        if (response.posts.length < 1) {
+          setHasMore(false);
+        } else {
+          setLastPostId(response.lastId);
+        }
       }
     } catch (e) {
       showSimpleError(e);

@@ -8,8 +8,9 @@ import * as Styled from './styled';
 
 const Tab = createMaterialTopTabNavigator();
 
-const MyActivities = ({ route }) => {
+const MyActivities = ({ route, type }) => {
   const { profileId } = route.params || {};
+
   return (
     <Tab.Navigator
       tabBarOptions={{
@@ -26,13 +27,13 @@ const MyActivities = ({ route }) => {
         style: { backgroundColor: 'white' },
       }}>
       <Tab.Screen name={personalPage.posts} options={{ title: 'Posts' }}>
-        {(props) => <Styled.PostList profileId={profileId} {...props} />}
+        {(props) => <Styled.PostList profileId={profileId} type={type} {...props} />}
       </Tab.Screen>
       <Tab.Screen name={personalPage.comments} options={{ title: 'Comments' }}>
-        {(props) => <Styled.CommentList profileId={profileId} {...props} />}
+        {(props) => <Styled.CommentList profileId={profileId} type={type} {...props} />}
       </Tab.Screen>
     </Tab.Navigator>
   );
-}
+};
 
 export default MyActivities;

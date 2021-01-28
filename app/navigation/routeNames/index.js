@@ -33,6 +33,7 @@ export const profile = createNames(
     'aboutUs',
     'personalPage',
     'myActivities',
+    'bookmarks',
   ],
   {
     prefix: 'profile/',

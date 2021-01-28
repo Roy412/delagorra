@@ -38,6 +38,9 @@ const MainNav = () => (
       options={{ headerShown: false, headerTransparent: true }}
     />
     <Stack.Screen name={profile.myActivities} component={MyActivitiesPage} options={{ title: 'My activities' }} />
+    <Stack.Screen name={profile.bookmarks} options={{ title: 'Bookmarks' }}>
+      {(props) => <MyActivitiesPage type="bookmark" {...props} />}
+    </Stack.Screen>
     <Stack.Screen name={profile.aboutUs} component={AboutUs} options={{ title: 'About Us' }} />
     <Stack.Screen
       name={home.newPost}

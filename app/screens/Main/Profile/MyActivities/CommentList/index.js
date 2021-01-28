@@ -9,7 +9,7 @@ import { showSimpleError } from '~/utils/alert';
 import * as Styled from './styled';
 import _ from 'lodash';
 
-const CommentList = ({ profileId, ...props }) => {
+const CommentList = ({ profileId, type, ...props }) => {
   const dispatch = useDispatch();
 
   const [isRefreshing, setIsRefreshing] = useState();
@@ -36,15 +36,19 @@ const CommentList = ({ profileId, ...props }) => {
         type: 'comment',
       });
 
-      if (!lastId) {
-        setComments(response.messages);
-      } else {
-        setComments(_.unionBy(comments, response.messages, '_id'));
-      }
-      if (response.messages.length < 1) {
+      if (type === 'bookmark') {
         setHasMore(false);
       } else {
-        setLastCommentId(response.lastMessageId);
+        if (!lastId) {
+          setComments(response.messages);
+        } else {
+          setComments(_.unionBy(comments, response.messages, '_id'));
+        }
+        if (response.messages.length < 1) {
+          setHasMore(false);
+        } else {
+          setLastCommentId(response.lastMessageId);
+        }
       }
     } catch (e) {
       showSimpleError(e);
