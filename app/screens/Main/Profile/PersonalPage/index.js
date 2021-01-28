@@ -14,7 +14,7 @@ import Tabs from './Tabs';
 const ProfileInfoItem = ({ label, value }) => (
   <Styled.Box alignItems="center" flex={1}>
     <Styled.Text color="veryDarkGray" fontSize={15}>
-      {value}
+      {value === undefined ? ' ' : value}
     </Styled.Text>
     <Styled.Text color="rgba(19,19,19,0.5)" fontSize={15}>
       {label}
@@ -42,7 +42,7 @@ const PersonalPage = ({ route, navigation }) => {
 
   const fetchProfile = async () => {
     try {
-      setProfile(await Promisify(dispatch, ProfileCreators.getProfileRequest, profileId));
+      setProfile(await Promisify(dispatch, ProfileCreators.getProfileRequest, { profileId, isMine }));
     } catch (e) {}
   };
 

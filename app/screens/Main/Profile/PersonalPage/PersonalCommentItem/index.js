@@ -94,7 +94,7 @@ const CommentItem = ({ item, style }) => {
             Replied to:
           </Styled.Text>
           <Styled.Text color="veryDarkGray" fontSize={15} fontStyle="semiBold">
-            {item.post && item.post.title}
+            {item.post.title}
           </Styled.Text>
         </Styled.ReplyContainer>
       </Styled.Box>

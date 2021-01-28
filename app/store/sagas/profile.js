@@ -13,11 +13,14 @@ function* updateProfile(api, { payload, resolve, reject }) {
   }
 }
 
-function* getProfile(api, { profileId, resolve, reject }) {
-  const response = yield call(api.profile.getProfile, profileId);
+function* getProfile(api, { payload, resolve, reject }) {
+  const response = yield call(api.profile.getProfile, payload.profileId);
 
   if (response.ok && response.data.result === 'OK') {
     resolve(response.data.data.profile);
+    if (payload.isMine) {
+      yield put(ProfileCreators.profileUpdateSuccess({ user: response.data.data.profile }));
+    }
   } else {
     reject(response.data);
   }

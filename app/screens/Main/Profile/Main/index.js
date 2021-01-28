@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { PermissionsAndroid, Platform, Alert } from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
 import Toast from 'react-native-toast-message';
@@ -8,12 +8,25 @@ import RNFetchBlob from 'rn-fetch-blob';
 import { profile, navigators } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
 import { bookmarkIcon, messageIcon, activityIcon, historyIcon } from '~/resources';
+import { Promisify } from '~/utils/promisify';
+import { ProfileCreators } from '~/store/actions/profile';
 
 import * as Styled from './styled';
 
 const ProfileMain = ({ navigation }) => {
   const [isAvatarShow, setIsAvatarShow] = useState();
   const user = useSelector(userSelector);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    fetchUser();
+  }, []);
+
+  const fetchUser = async () => {
+    try {
+      await Promisify(dispatch, ProfileCreators.getProfileRequest, { profileId: user._id, isMine: true });
+    } catch (e) {}
+  };
 
   const handleSettings = () => {
     navigation.navigate(profile.settings);
@@ -133,7 +146,7 @@ const ProfileMain = ({ navigation }) => {
 const LikeItem = ({ label, value }) => (
   <Styled.Box flex={1}>
     <Styled.Text fontSize={16} textAlign="center" color="veryDarkGray">
-      {value}
+      {value === undefined ? ' ' : value}
     </Styled.Text>
     <Styled.Text mt={2} fontSize={14} textAlign="center" color="rgba(19,19,19,0.5)">
       {label}
