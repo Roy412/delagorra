@@ -94,6 +94,10 @@ const ProfileMain = ({ navigation }) => {
       });
   };
 
+  const handleMyActivities = () => {
+    navigation.navigate(navigators.mainNav, { screen: profile.myActivities });
+  }
+
   return (
     <Styled.Content>
       <Styled.Box bg="white" pb={10} pt={16}>
@@ -128,7 +132,7 @@ const ProfileMain = ({ navigation }) => {
       <Styled.BookmarkContainer>
         <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} />
         <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} />
-        <BookmarkItem label="My activites" icon={activityIcon} width={23} aspectRatio={1} />
+        <BookmarkItem label="My activites" icon={activityIcon} width={23} aspectRatio={1} onPress={handleMyActivities}/>
         <BookmarkItem label="History" icon={historyIcon} width={24} aspectRatio={1} />
       </Styled.BookmarkContainer>
 
@@ -154,8 +158,8 @@ const LikeItem = ({ label, value }) => (
   </Styled.Box>
 );
 
-const BookmarkItem = ({ label, icon, width, aspectRatio }) => (
-  <Styled.BookmarkItem>
+const BookmarkItem = ({ label, icon, width, aspectRatio, onPress }) => (
+  <Styled.BookmarkItem onPress={onPress}>
     <Styled.BookmarkIconWrapper>
       <Styled.BookmarkIcon icon={icon} width={width} aspectRatio={aspectRatio} />
     </Styled.BookmarkIconWrapper>

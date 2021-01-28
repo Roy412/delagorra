@@ -9,7 +9,7 @@ import { ProfileCreators } from '~/store/actions/profile';
 import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
-import Tabs from './Tabs';
+import Tabs from '../MyActivities';
 
 const ProfileInfoItem = ({ label, value }) => (
   <Styled.Box alignItems="center" flex={1}>

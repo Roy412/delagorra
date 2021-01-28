@@ -8,7 +8,7 @@ import * as Styled from './styled';
 
 const Tab = createMaterialTopTabNavigator();
 
-const Tabs = ({ profileId }) => (
+const MyActivities = ({ profileId }) => (
   <Tab.Navigator
     tabBarOptions={{
       indicatorStyle: {
@@ -32,4 +32,4 @@ const Tabs = ({ profileId }) => (
   </Tab.Navigator>
 );
 
-export default Tabs;
+export default MyActivities;

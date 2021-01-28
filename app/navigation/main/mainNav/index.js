@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { MainHeader, SimpleHeader } from '~/components/headers';
+import { MainHeader } from '~/components/headers';
 import { privacyData } from '~/config/settings';
 import AboutUs from '~/screens/Main/Profile/AboutUs';
 import CheckVersion from '~/screens/Main/Profile/CheckVersion';
@@ -10,6 +10,7 @@ import ProfileNotifications from '~/screens/Main/Profile/Notifications';
 import AccountSecurity from '~/screens/Main/Profile/AccountSecurity';
 import EditProfile from '~/screens/Main/Profile/EditProfile';
 import PersonalPage from '~/screens/Main/Profile/PersonalPage';
+import MyActivitiesPage from '~/screens/Main/Profile/MyActivities';
 import { profile, home } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
 import NewPost from '~/screens/Main/Home/NewPost';
@@ -36,6 +37,7 @@ const MainNav = () => (
       component={PersonalPage}
       options={{ headerShown: false, headerTransparent: true }}
     />
+    <Stack.Screen name={profile.myActivities} component={MyActivitiesPage} options={{ title: 'My activities' }} />
     <Stack.Screen name={profile.aboutUs} component={AboutUs} options={{ title: 'About Us' }} />
     <Stack.Screen
       name={home.newPost}

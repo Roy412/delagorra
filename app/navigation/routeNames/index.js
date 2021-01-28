@@ -32,6 +32,7 @@ export const profile = createNames(
     'checkVersion',
     'aboutUs',
     'personalPage',
+    'myActivities',
   ],
   {
     prefix: 'profile/',
