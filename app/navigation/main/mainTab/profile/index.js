@@ -8,7 +8,10 @@ import { profile } from '~/navigation/routeNames';
 const Stack = createStackNavigator();
 
 const ProfileNavigator = () => (
-  <Stack.Navigator screenOptions={{ header: MainHeader }} headerMode="screen" initialRouteName={profile.main}>
+  <Stack.Navigator
+    screenOptions={{ header: (props) => <MainHeader {...props} canGoBack={false} /> }}
+    headerMode="screen"
+    initialRouteName={profile.main}>
     <Stack.Screen name={profile.main} component={Profile} />
   </Stack.Navigator>
 );

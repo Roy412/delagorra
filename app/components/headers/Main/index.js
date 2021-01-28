@@ -20,7 +20,7 @@ const variants = {
   },
 };
 
-const Main = ({ variant = 'main', scene, navigation }) => {
+const Main = ({ variant = 'main', scene, navigation, canGoBack = true }) => {
   const { options } = scene.descriptor;
   const vart = variants[variant] || variants.main;
 
@@ -30,12 +30,13 @@ const Main = ({ variant = 'main', scene, navigation }) => {
 
   const renderBack = () => <Styled.BackButton tintColor={vart.title} onPress={handleBackPress} />;
 
+  console.log('wow', canGoBack);
   const renderLeft = () => {
     if (isValidElement(options.headerLeft) || options.headerLeft === false) {
       return <Styled.Left>{options.headerLeft}</Styled.Left>;
     }
 
-    return <Styled.Left>{navigation.canGoBack() && renderBack()}</Styled.Left>;
+    return <Styled.Left>{canGoBack && navigation.canGoBack() && renderBack()}</Styled.Left>;
   };
 
   const renderRight = () => {
