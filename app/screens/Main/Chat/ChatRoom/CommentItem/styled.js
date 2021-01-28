@@ -32,6 +32,7 @@ export const ReplyContainer = styled.TouchableOpacity`
   padding-horizontal: 8px;
   height: 25px;
   align-self: flex-start;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export const CommentIcon = styled(Image).attrs({

@@ -12,7 +12,7 @@ import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
-const CommentItem = ({ currentMessage, style, roomId }) => {
+const CommentItem = ({ item, style }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -25,18 +25,18 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
   const handlePress = () => {};
 
   const handleReply = () => {
-    navigation.push(navigators.replyRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
+    navigation.push(navigators.replyRoom, { type: 'post', comment: item, post: null, otherUserId: null });
   };
 
-  const strSince = timeSince(parseISO(currentMessage.createdAt));
+  const strSince = timeSince(parseISO(item.createdAt));
 
   const handleLikeDebounced = useCallback(
     _.debounce(async (likeValue) => {
       try {
         await Promisify(dispatch, ChatCreators.messageLikeRequest, {
-          roomId,
+          roomId: item.room,
           like: likeValue,
-          msgId: currentMessage._id,
+          msgId: item._id,
         });
       } catch (e) {
         showSimpleError(e);
@@ -47,13 +47,13 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
   );
 
   const handleLike = (value) => {
-    if (value !== currentMessage.like) {
+    if (value !== item.like) {
       dispatch(
         ChatCreators.messageLikeSuccess({
-          msgId: currentMessage._id,
-          roomId,
+          msgId: item._id,
+          roomId: item.room,
           like: value,
-          totalLikes: currentMessage.totalLikes + (currentMessage.like === 0 ? value : value * 2),
+          totalLikes: item.totalLikes + (item.like === 0 ? value : value * 2),
         }),
       );
       handleLikeDebounced(value);
@@ -64,28 +64,28 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
     <Styled.Container onPress={handlePress}>
       <Styled.Box style={style} pt={18} px={16} pb={10}>
         <Styled.Box flexDirection="row">
-          <Styled.AvatarCircle url={currentMessage.user.avatar} size={35} onPress={handleAvatarPress} />
+          <Styled.AvatarCircle url={item.user.avatar} size={35} onPress={handleAvatarPress} />
           <Styled.Box flex={1} ml={10}>
             <Styled.Box alignItems="center" flexDirection="row">
               <Styled.Box flex={1} justifyContent="center">
                 <Styled.Box alignItems="center" flexDirection="row">
                   <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
-                    {currentMessage.user.displayName}
+                    {item.user.displayName}
                   </Styled.Text>
-                  <Styled.LevelBox level={currentMessage.user.level} />
+                  <Styled.LevelBox level={item.user.level} />
                 </Styled.Box>
                 {strSince && (
                   <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
-                    {timeSince(parseISO(currentMessage.createdAt))}
+                    {timeSince(parseISO(item.createdAt))}
                   </Styled.Text>
                 )}
               </Styled.Box>
               <Styled.OptionButton onPress={handlePostOption} />
             </Styled.Box>
 
-            {!!currentMessage.text && (
+            {!!item.text && (
               <Styled.Text mt={16} mb={10}>
-                {currentMessage.text}
+                {item.text}
               </Styled.Text>
             )}
 
@@ -93,18 +93,18 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
               <Styled.ReplyContainer onPress={handleReply}>
                 <Styled.CommentIcon />
                 <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
-                  {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
+                  {item.replyCount ? `Replies ${item.replyCount}` : 'Reply'}
                 </Styled.Text>
               </Styled.ReplyContainer>
 
               <Styled.Box flexDirection="row" alignItems="center">
-                <Styled.LikeButton onPress={() => handleLike(1)} active={currentMessage.like === 1} />
+                <Styled.LikeButton onPress={() => handleLike(1)} active={item.like === 1} />
 
                 <Styled.Text width={40} color="rgba(0,0,0,0.25)" fontStyle="medium" textAlign="center">
-                  {currentMessage.totalLikes}
+                  {item.totalLikes}
                 </Styled.Text>
 
-                <Styled.LikeButton onPress={() => handleLike(-1)} active={currentMessage.like === -1} unLike />
+                <Styled.LikeButton onPress={() => handleLike(-1)} active={item.like === -1} unLike />
               </Styled.Box>
             </Styled.Box>
           </Styled.Box>

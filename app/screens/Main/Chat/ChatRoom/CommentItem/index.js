@@ -90,7 +90,8 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
             )}
 
             <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between">
-              <Styled.ReplyContainer onPress={handleReply}>
+              <Styled.ReplyContainer onPress={handleReply}                   disabled={!!currentMessage.mockId}
+              >
                 <Styled.CommentIcon />
                 <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
                   {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
@@ -98,13 +99,22 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
               </Styled.ReplyContainer>
 
               <Styled.Box flexDirection="row" alignItems="center">
-                <Styled.LikeButton onPress={() => handleLike(1)} active={currentMessage.like === 1} />
+                <Styled.LikeButton
+                  onPress={() => handleLike(1)}
+                  active={currentMessage.like === 1}
+                  disabled={!!currentMessage.mockId}
+                />
 
                 <Styled.Text width={40} color="rgba(0,0,0,0.25)" fontStyle="medium" textAlign="center">
                   {currentMessage.totalLikes}
                 </Styled.Text>
 
-                <Styled.LikeButton onPress={() => handleLike(-1)} active={currentMessage.like === -1} unLike />
+                <Styled.LikeButton
+                  onPress={() => handleLike(-1)}
+                  active={currentMessage.like === -1}
+                  unLike
+                  disabled={!!currentMessage.mockId}
+                />
               </Styled.Box>
             </Styled.Box>
           </Styled.Box>
