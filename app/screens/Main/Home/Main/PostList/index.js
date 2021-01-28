@@ -75,6 +75,12 @@ const PostList = ({ onUnAuth, profileId, ...props }) => {
 
   const renderItem = ({ item }) => <Styled.PostItem item={item} onPress={handlePressItem} />;
 
+  const renderEmpty = () => (
+    <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
+      No Posts
+    </Styled.Text>
+  );
+
   return (
     <Styled.List
       data={profileId ? profilePosts : posts}
@@ -82,6 +88,7 @@ const PostList = ({ onUnAuth, profileId, ...props }) => {
       keyExtractor={(item) => item._id}
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
       ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
       bounces={!loading}

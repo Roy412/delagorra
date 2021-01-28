@@ -95,7 +95,7 @@ const ProfileMain = ({ navigation }) => {
   };
 
   const handleMyActivities = () => {
-    navigation.navigate(navigators.mainNav, { screen: profile.myActivities });
+    navigation.navigate(navigators.mainNav, { screen: profile.myActivities, params: { profileId: user._id } });
   }
 
   return (
