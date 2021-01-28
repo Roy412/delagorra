@@ -8,8 +8,6 @@ import { hitSlopArea } from '~/utils/utils';
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 export { LevelBox } from '~/components/blocks';
 
-export const Container = styled.TouchableWithoutFeedback``;
-
 export const List = styled.FlatList.attrs({
   contentContainerStyle: { marginTop: 5 },
 })`

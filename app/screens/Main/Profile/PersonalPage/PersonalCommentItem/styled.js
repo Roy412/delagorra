@@ -8,8 +8,6 @@ import { hitSlopArea } from '~/utils/utils';
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 export { LevelBox } from '~/components/blocks';
 
-export const Container = styled.TouchableWithoutFeedback``;
-
 export const List = styled.FlatList.attrs({
   contentContainerStyle: { marginTop: 5 },
 })`
@@ -17,28 +15,10 @@ export const List = styled.FlatList.attrs({
   background-color: ${Colors.background};
 `;
 
-export const OptionButton = styled(IconButton).attrs({
-  source: dotsIcon,
-  hitSlop: hitSlopArea(5),
-  iconStyle: { width: 18, aspectRatio: 80 / 18, height: undefined },
-  pb: 10,
-})``;
-
 export const ReplyContainer = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
-  background-color: rgba(19, 19, 19, 0.05);
-  border-radius: 15px;
-  padding-horizontal: 8px;
-  height: 25px;
-  align-self: flex-start;
+  background-color: rgba(19, 19, 19, 0.03);
+  padding: 9px;
 `;
-
-export const CommentIcon = styled(Image).attrs({
-  source: commentIcon,
-  tintColor: Colors.darkGray,
-  size: 12,
-})``;
 
 export const LikeButton = styled(IconButton).attrs((props) => ({
   source: props.unLike ? unlikeIcon : likeIcon,

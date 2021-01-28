@@ -22,8 +22,6 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
 
   const handlePostOption = () => {};
 
-  const handlePress = () => {};
-
   const handleReply = () => {
     navigation.push(navigators.replyRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
   };
@@ -61,66 +59,61 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
   };
 
   return (
-    <Styled.Container onPress={handlePress}>
-      <Styled.Box style={style} pt={18} px={16} pb={10}>
-        <Styled.Box flexDirection="row">
-          <Styled.AvatarCircle url={currentMessage.user.avatar} size={35} onPress={handleAvatarPress} />
-          <Styled.Box flex={1} ml={10}>
+    <Styled.Box flexDirection="row" style={style} pt={18} px={16} pb={10}>
+      <Styled.AvatarCircle url={currentMessage.user.avatar} size={35} onPress={handleAvatarPress} />
+      <Styled.Box flex={1} ml={10}>
+        <Styled.Box alignItems="center" flexDirection="row">
+          <Styled.Box flex={1} justifyContent="center">
             <Styled.Box alignItems="center" flexDirection="row">
-              <Styled.Box flex={1} justifyContent="center">
-                <Styled.Box alignItems="center" flexDirection="row">
-                  <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
-                    {currentMessage.user.displayName}
-                  </Styled.Text>
-                  <Styled.LevelBox level={currentMessage.user.level} />
-                </Styled.Box>
-                {strSince && (
-                  <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
-                    {timeSince(parseISO(currentMessage.createdAt))}
-                  </Styled.Text>
-                )}
-              </Styled.Box>
-              <Styled.OptionButton onPress={handlePostOption} />
+              <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
+                {currentMessage.user.displayName}
+              </Styled.Text>
+              <Styled.LevelBox level={currentMessage.user.level} />
             </Styled.Box>
-
-            {!!currentMessage.text && (
-              <Styled.Text mt={16} mb={10}>
-                {currentMessage.text}
+            {strSince && (
+              <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
+                {timeSince(parseISO(currentMessage.createdAt))}
               </Styled.Text>
             )}
+          </Styled.Box>
+          <Styled.OptionButton onPress={handlePostOption} />
+        </Styled.Box>
 
-            <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between">
-              <Styled.ReplyContainer onPress={handleReply}                   disabled={!!currentMessage.mockId}
-              >
-                <Styled.CommentIcon />
-                <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
-                  {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
-                </Styled.Text>
-              </Styled.ReplyContainer>
+        {!!currentMessage.text && (
+          <Styled.Text mt={16} mb={10}>
+            {currentMessage.text}
+          </Styled.Text>
+        )}
 
-              <Styled.Box flexDirection="row" alignItems="center">
-                <Styled.LikeButton
-                  onPress={() => handleLike(1)}
-                  active={currentMessage.like === 1}
-                  disabled={!!currentMessage.mockId}
-                />
+        <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between">
+          <Styled.ReplyContainer onPress={handleReply} disabled={!!currentMessage.mockId}>
+            <Styled.CommentIcon />
+            <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
+              {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
+            </Styled.Text>
+          </Styled.ReplyContainer>
 
-                <Styled.Text width={40} color="rgba(0,0,0,0.25)" fontStyle="medium" textAlign="center">
-                  {currentMessage.totalLikes}
-                </Styled.Text>
+          <Styled.Box flexDirection="row" alignItems="center">
+            <Styled.LikeButton
+              onPress={() => handleLike(1)}
+              active={currentMessage.like === 1}
+              disabled={!!currentMessage.mockId}
+            />
 
-                <Styled.LikeButton
-                  onPress={() => handleLike(-1)}
-                  active={currentMessage.like === -1}
-                  unLike
-                  disabled={!!currentMessage.mockId}
-                />
-              </Styled.Box>
-            </Styled.Box>
+            <Styled.Text width={40} color="rgba(0,0,0,0.25)" fontStyle="medium" textAlign="center">
+              {currentMessage.totalLikes}
+            </Styled.Text>
+
+            <Styled.LikeButton
+              onPress={() => handleLike(-1)}
+              active={currentMessage.like === -1}
+              unLike
+              disabled={!!currentMessage.mockId}
+            />
           </Styled.Box>
         </Styled.Box>
       </Styled.Box>
-    </Styled.Container>
+    </Styled.Box>
   );
 };
 
