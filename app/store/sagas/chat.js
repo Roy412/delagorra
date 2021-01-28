@@ -116,11 +116,22 @@ function* messageLike(api, { payload, resolve, reject }) {
   }
 }
 
+function* messagesList(api, { payload, resolve, reject }) {
+  const response = yield call(api.chat.getMessages, payload);
+
+  if (response.ok && response.data.result === 'OK') {
+    resolve(response.data.data);
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([
     takeEvery(ChatTypes.CHAT_SEND_REQUEST, sendMessage, api),
     takeLatest(ChatTypes.GET_ROOM_REQUEST, getRoom, api),
     takeLatest(ChatTypes.READ_MESSAGE_REQUEST, readMessage, api),
     takeLatest(ChatTypes.MESSAGE_LIKE_REQUEST, messageLike, api),
+    takeLatest(ChatTypes.GET_MESSAGES_REQUEST, messagesList, api),
   ]);
 }

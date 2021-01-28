@@ -25,4 +25,10 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  getMessages: (payload) =>
+    apiCall({
+      endpoint: 'chat/list',
+      method: 'POST',
+      query: payload,
+    }),
 });

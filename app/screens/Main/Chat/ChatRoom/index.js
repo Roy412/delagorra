@@ -39,9 +39,7 @@ const ChatRoom = ({ route, navigation }) => {
   }, [navigation, room]);
 
   useEffect(() => {
-    // setTimeout(() => {
     fetchRoom();
-    // }, 5000);
   }, []);
 
   useEffect(() => {

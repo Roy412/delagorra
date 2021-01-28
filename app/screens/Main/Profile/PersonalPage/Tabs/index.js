@@ -27,7 +27,7 @@ const Tabs = ({ profileId }) => (
       {(props) => <Styled.PostList profileId={profileId} {...props} />}
     </Tab.Screen>
     <Tab.Screen name={personalPage.comments} options={{ title: 'Comments' }}>
-      {(props) => <Styled.PostList profileId={profileId} {...props} />}
+      {(props) => <Styled.CommentList profileId={profileId} {...props} />}
     </Tab.Screen>
   </Tab.Navigator>
 );
