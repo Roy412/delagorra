@@ -8,15 +8,13 @@ import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
-import { postByPostId } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
 import CommentsHeader from './CommentsHeader';
 
 const ChatRoom = ({ route, navigation }) => {
-  const { otherUserId, postId, type, comment } = route.params || {};
-  const post = useSelector(postByPostId(postId));
+  const { otherUserId, post, type, comment } = route.params || {};
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);

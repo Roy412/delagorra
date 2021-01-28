@@ -67,7 +67,7 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
     if (!isAuthenticated) {
       return onUnAuth();
     }
-    navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { postId: item._id, type: 'post' } });
+    navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
   };
 
   const renderFooter = () => {
