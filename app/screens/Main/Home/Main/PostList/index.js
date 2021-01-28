@@ -75,11 +75,12 @@ const PostList = ({ onUnAuth, profileId, ...props }) => {
 
   const renderItem = ({ item }) => <Styled.PostItem item={item} onPress={handlePressItem} />;
 
-  const renderEmpty = () => (
-    <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
-      No Posts
-    </Styled.Text>
-  );
+  const renderEmpty = () =>
+    !hasMore && (
+      <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
+        No Posts
+      </Styled.Text>
+    );
 
   return (
     <Styled.List

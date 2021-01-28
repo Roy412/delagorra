@@ -71,11 +71,12 @@ const CommentList = ({ profileId, ...props }) => {
 
   const renderItem = ({ item }) => <Styled.CommentItem item={item} onPress={handlePressItem} />;
 
-  const renderEmpty = () => (
-    <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
-      No Comments
-    </Styled.Text>
-  );
+  const renderEmpty = () =>
+    !hasMore && (
+      <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
+        No Comments
+      </Styled.Text>
+    );
 
   return (
     <Styled.List
