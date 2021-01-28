@@ -127,6 +127,7 @@ const sendMessageMockRequest = (state, { payload }) => {
     createdAt: new Date(),
     user: { ...payload.sender, avatar: payload.sender.avatar || profileImage },
     _id: roomMessages[0] ? parseInt(roomMessages[0]._id, 10) + 1000 : 1000,
+    totalLikes: 0,
   };
 
   if (payload.type === 'image') {

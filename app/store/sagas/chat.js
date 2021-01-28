@@ -66,7 +66,7 @@ function* sendMessage(api, { payload, resolve, reject }) {
   }
 
   if (imageSent && payload.text) {
-    const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId });
+    const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId, roomType: payload.roomType  });
 
     if (response.ok && response.data.result === 'OK') {
       const { data } = response.data;

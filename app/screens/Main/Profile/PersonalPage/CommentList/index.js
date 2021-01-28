@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { ActivityIndicator, RefreshControl } from 'react-native';
 
 import { Promisify } from '~/utils/promisify';
@@ -71,6 +71,12 @@ const CommentList = ({ profileId, ...props }) => {
 
   const renderItem = ({ item }) => <Styled.CommentItem item={item} onPress={handlePressItem} />;
 
+  const renderEmpty = () => (
+    <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
+      No Comments
+    </Styled.Text>
+  );
+
   return (
     <Styled.List
       data={comments}
@@ -81,6 +87,7 @@ const CommentList = ({ profileId, ...props }) => {
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
       bounces={!loading}
+      ListEmptyComponent={renderEmpty}
       {...props}
     />
   );

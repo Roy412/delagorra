@@ -69,7 +69,11 @@ const ChatRoom = ({ route, navigation }) => {
     (newMessages = []) => {
       _.forEach(newMessages, async (newMsg) => {
         try {
-          await Promisify(dispatch, ChatCreators.chatSendRequest, { text: newMsg.text, roomId: room._id });
+          await Promisify(dispatch, ChatCreators.chatSendRequest, {
+            text: newMsg.text,
+            roomId: room._id,
+            roomType: type === 'chat' ? 'chat' : 'comment',
+          });
         } catch (e) {}
       });
     },

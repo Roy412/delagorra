@@ -56,8 +56,6 @@ const CommentItem = ({ item, style }) => {
     }
   };
 
-  console.log('wow', item);
-
   return (
     <Styled.Box bg="white" flexDirection="row" style={style} pt={18} pl={16} pr={7} pb={10}>
       <Styled.AvatarCircle url={item.user.avatar} size={35} onPress={handleAvatarPress} />
@@ -96,7 +94,7 @@ const CommentItem = ({ item, style }) => {
             Replied to:
           </Styled.Text>
           <Styled.Text color="veryDarkGray" fontSize={15} fontStyle="semiBold">
-            {item.post.title}
+            {item.post && item.post.title}
           </Styled.Text>
         </Styled.ReplyContainer>
       </Styled.Box>
