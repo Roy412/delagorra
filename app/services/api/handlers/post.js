@@ -12,9 +12,9 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
-  postLike: (payload) =>
+  postUpdateStatus: (payload) =>
     apiCall({
-      endpoint: 'post/like',
+      endpoint: 'post/update-status',
       method: 'POST',
       query: payload,
     }),

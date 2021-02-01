@@ -36,16 +36,11 @@ const updatePostStatus = (posts, postId, status) =>
     return item;
   });
 
-const postLikeSuccess = (state, { payload: { postId, like, totalLikes } }) => {
-  const result = { like };
-  if (totalLikes !== undefined) {
-    result.totalLikes = totalLikes;
-  }
-  return state.merge({
-    posts: updatePostStatus(state.posts, postId, result),
-    profilePosts: updatePostStatus(state.profilePosts, postId, result),
+const postUpdateStatusSuccess = (state, { payload: { postId, status } }) =>
+  state.merge({
+    posts: updatePostStatus(state.posts, postId, status),
+    profilePosts: updatePostStatus(state.profilePosts, postId, status),
   });
-};
 
 const postCreateSuccess = (state, { post }) => {
   const sortedPosts = _.sortBy([post, ...state.posts], ({ createdAt }) => -createdAt);
@@ -55,7 +50,7 @@ const postCreateSuccess = (state, { post }) => {
 const HANDLERS = {
   [PostTypes.GET_POSTS_SUCCESS]: getPostsSuccess,
   [PostTypes.CREATE_POST_SUCCESS]: postCreateSuccess,
-  [PostTypes.POST_LIKE_SUCCESS]: postLikeSuccess,
+  [PostTypes.POST_UPDATE_STATUS_SUCCESS]: postUpdateStatusSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

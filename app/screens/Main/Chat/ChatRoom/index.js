@@ -80,7 +80,7 @@ const ChatRoom = ({ route, navigation }) => {
 
   const renderHeader = () => (
     <Styled.Box>
-      {post ? <PostItem item={post} /> : <Styled.ReplyCommentItem currentMessage={comment} />}
+      {post ? <PostItem item={post} bookmarkEnabled /> : <Styled.ReplyCommentItem currentMessage={comment} />}
       <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>

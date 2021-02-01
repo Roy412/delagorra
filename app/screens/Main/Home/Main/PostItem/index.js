@@ -5,10 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useNavigation } from '@react-navigation/native';
 
-import { likeIcon, commentIcon, shareIcon } from '~/resources';
+import { likeIcon, commentIcon, shareIcon, starIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
-import { postByPostId } from '~/store/selectors/post';
 import { profile, navigators } from '~/navigation/routeNames';
 import { PostCreators } from '~/store/actions/post';
 import { showSimpleError } from '~/utils/alert';
@@ -27,11 +26,15 @@ const PostActionItem = ({ source, text, size, justifyContent, onPress, active })
   </Styled.Box>
 );
 
-const PostItem = ({ item: post, onPress = _.noop, style }) => {
+const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
   const [item, setItem] = useState(post);
+
+  useEffect(() => {
+    setItem(post);
+  }, [JSON.stringify(post)]);
 
   const handleAvatarPress = () => {
     navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
@@ -39,10 +42,10 @@ const PostItem = ({ item: post, onPress = _.noop, style }) => {
 
   const handlePostOption = () => {};
 
-  const handleLikeDebounced = useCallback(
-    _.debounce(async (likeValue) => {
+  const handleUpdateStatusDebounced = useCallback(
+    _.debounce(async (value) => {
       try {
-        await Promisify(dispatch, PostCreators.postLikeRequest, { postId: item._id, like: likeValue });
+        await Promisify(dispatch, PostCreators.postUpdateStatusRequest, { postId: item._id, status: value });
       } catch (e) {
         showSimpleError(e);
       } finally {
@@ -54,15 +57,27 @@ const PostItem = ({ item: post, onPress = _.noop, style }) => {
   const handleLike = () => {
     const result = {
       postId: item._id,
-      like: !item.like,
-      totalLikes: !item.like ? item.totalLikes + 1 : item.totalLikes - 1,
+      status: { like: !item.like, totalLikes: !item.like ? item.totalLikes + 1 : item.totalLikes - 1 },
     };
-    setItem({ ...item, ...result });
-    dispatch(PostCreators.postLikeSuccess({ result }));
-    handleLikeDebounced(!item.like);
+    setItem({ ...item, ...result.status });
+    dispatch(PostCreators.postUpdateStatusSuccess(result));
+    handleUpdateStatusDebounced({ like: !item.like });
   };
 
   const handleShare = () => {};
+
+  const handleBookmark = () => {
+    if (!bookmarkEnabled) {
+      return onPress(item);
+    }
+    const result = {
+      postId: item._id,
+      status: { bookmark: !item.bookmark },
+    };
+    setItem({ ...item, ...result.status });
+    dispatch(PostCreators.postUpdateStatusSuccess(result));
+    handleUpdateStatusDebounced({ bookmark: !item.bookmark });
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => onPress(item)}>
@@ -101,13 +116,20 @@ const PostItem = ({ item: post, onPress = _.noop, style }) => {
             active={item.like}
           />
           <PostActionItem
-            source={commentIcon}
-            text={0}
-            size={20}
+            source={bookmarkEnabled ? starIcon : commentIcon}
+            text={bookmarkEnabled ? 'Bookmark' : 0}
+            size={25}
             justifyContent="center"
-            onPress={() => onPress(item)}
+            onPress={handleBookmark}
+            active={bookmarkEnabled && item.bookmark}
           />
-          <PostActionItem source={shareIcon} text={0} size={20} justifyContent="flex-end" onPress={handleShare} />
+          <PostActionItem
+            source={shareIcon}
+            text={bookmarkEnabled ? 'Share' : 0}
+            size={20}
+            justifyContent="flex-end"
+            onPress={handleShare}
+          />
         </Styled.Box>
       </Styled.Box>
     </TouchableWithoutFeedback>
