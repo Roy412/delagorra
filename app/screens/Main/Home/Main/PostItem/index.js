@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
 import { parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
@@ -8,6 +8,7 @@ import { useNavigation } from '@react-navigation/native';
 import { likeIcon, commentIcon, shareIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { postByPostId } from '~/store/selectors/post';
 import { profile, navigators } from '~/navigation/routeNames';
 import { PostCreators } from '~/store/actions/post';
 import { showSimpleError } from '~/utils/alert';
@@ -26,10 +27,11 @@ const PostActionItem = ({ source, text, size, justifyContent, onPress, active })
   </Styled.Box>
 );
 
-const PostItem = ({ item, onPress = _.noop, style }) => {
+const PostItem = ({ item: post, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
+  const [item, setItem] = useState(post);
 
   const handleAvatarPress = () => {
     navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
@@ -50,13 +52,13 @@ const PostItem = ({ item, onPress = _.noop, style }) => {
   );
 
   const handleLike = () => {
-    dispatch(
-      PostCreators.postLikeSuccess({
-        postId: item._id,
-        like: !item.like,
-        totalLikes: !item.like ? item.totalLikes + 1 : item.totalLikes - 1,
-      }),
-    );
+    const result = {
+      postId: item._id,
+      like: !item.like,
+      totalLikes: !item.like ? item.totalLikes + 1 : item.totalLikes - 1,
+    };
+    setItem({ ...item, ...result });
+    dispatch(PostCreators.postLikeSuccess({ result }));
     handleLikeDebounced(!item.like);
   };
 
