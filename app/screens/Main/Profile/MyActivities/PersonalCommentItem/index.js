@@ -12,7 +12,7 @@ import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
-const CommentItem = ({ item, style }) => {
+const PersonalCommentItem = ({ item, style }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -102,4 +102,4 @@ const CommentItem = ({ item, style }) => {
   );
 };
 
-export default CommentItem;
+export default PersonalCommentItem;

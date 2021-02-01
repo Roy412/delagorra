@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { ActivityIndicator, RefreshControl } from 'react-native';
+import _ from 'lodash';
 
 import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { showSimpleError } from '~/utils/alert';
 
 import * as Styled from './styled';
-import _ from 'lodash';
 
 const CommentList = ({ profileId, type, ...props }) => {
   const dispatch = useDispatch();
@@ -33,22 +33,18 @@ const CommentList = ({ profileId, type, ...props }) => {
       const response = await Promisify(dispatch, ChatCreators.getMessagesRequest, {
         profileId,
         lastMessageId: lastId,
-        type: 'comment',
+        type,
       });
 
-      if (type === 'bookmark') {
+      if (!lastId) {
+        setComments(response.messages);
+      } else {
+        setComments(_.unionBy(comments, response.messages, '_id'));
+      }
+      if (response.messages.length < 1) {
         setHasMore(false);
       } else {
-        if (!lastId) {
-          setComments(response.messages);
-        } else {
-          setComments(_.unionBy(comments, response.messages, '_id'));
-        }
-        if (response.messages.length < 1) {
-          setHasMore(false);
-        } else {
-          setLastCommentId(response.lastMessageId);
-        }
+        setLastCommentId(response.lastMessageId);
       }
     } catch (e) {
       showSimpleError(e);

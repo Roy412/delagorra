@@ -71,6 +71,7 @@ const ChatRoom = ({ route, navigation }) => {
             text: newMsg.text,
             roomId: room._id,
             roomType: type === 'chat' ? 'chat' : 'comment',
+            postId: type === 'post' ? post && post._id : null,
           });
         } catch (e) {}
       });
