@@ -5,12 +5,12 @@ import { Colors } from '~/utils/theme';
 
 import * as Styled from './styled';
 
-const Loader = ({ loading }) => {
+const Loader = ({ loading, style }) => {
   if (!loading) {
     return null;
   }
   return (
-    <Styled.OverlayBackground>
+    <Styled.OverlayBackground style={style}>
       <BallIndicator color={Colors.pink} />
     </Styled.OverlayBackground>
   );

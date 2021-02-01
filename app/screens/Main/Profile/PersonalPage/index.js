@@ -78,12 +78,8 @@ const PersonalPage = ({ route, navigation }) => {
     navigation.goBack(null);
   };
 
-  if (!profile) {
-    return <Styled.Loader loading />;
-  }
-
-  return (
-    <Styled.Container>
+  const renderContent = () => (
+    <>
       <Styled.Box>
         <Styled.BackgroundImage />
         <Styled.SimpleHeader barStyle="light-content" bg={'transparent'} />
@@ -130,8 +126,14 @@ const PersonalPage = ({ route, navigation }) => {
       )}
 
       <Styled.Box bg="background" height={3} mt={16} />
+    </>
+  );
 
+  return (
+    <Styled.Container>
+      {profile ? renderContent() : null}
       <Tabs route={{ params: { profileId } }} />
+      {!profile && <Styled.Loader loading />}
     </Styled.Container>
   );
 };

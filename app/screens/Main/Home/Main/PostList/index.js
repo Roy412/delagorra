@@ -5,19 +5,26 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
-import { posts as postsSelector, profilePosts as profilePostsSelector } from '~/store/selectors/post';
+import { posts as postsSelector } from '~/store/selectors/post';
 import { showSimpleError } from '~/utils/alert';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
+import _ from 'lodash';
 
 const PostList = ({ onUnAuth, profileId, type, ...props }) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const posts = useSelector(postsSelector);
-  const profilePosts = useSelector(profilePostsSelector);
+  const postsArray = useSelector(postsSelector);
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (type === 'home') {
+      setPosts(postsArray);
+    }
+  }, [JSON.stringify(postsArray)]);
 
   const [isRefreshing, setIsRefreshing] = useState();
   const [loading, setLoading] = useState(true);
@@ -25,9 +32,6 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
   const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
-    if (profileId) {
-      dispatch(PostCreators.getPostsSuccess({ posts: [], profileId, isRefresh: true }));
-    }
     handleLoadMore(true);
   }, []);
 
@@ -43,6 +47,15 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
         setHasMore(false);
       } else {
         const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId });
+        let updatedPosts = response.posts;
+
+        if (type !== 'home') {
+          if (lastId) {
+            updatedPosts = _.unionBy(posts, updatedPosts, '_id');
+          }
+          setPosts(updatedPosts);
+        }
+
         if (response.posts.length < 1) {
           setHasMore(false);
         } else {
@@ -88,7 +101,7 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
 
   return (
     <Styled.List
-      data={profileId ? profilePosts : posts}
+      data={posts}
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}

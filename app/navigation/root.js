@@ -47,7 +47,7 @@ const RootNavigator = () => (
     <Stack.Screen
       name={navigators.progress}
       component={ProgressScreen}
-      options={{ headerShown: true, header: SimpleHeader }}
+      options={{ headerShown: true, header: (props) => <SimpleHeader {...props} barStyle="dark" /> }}
     />
 
     <Stack.Screen

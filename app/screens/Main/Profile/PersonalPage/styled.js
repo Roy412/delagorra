@@ -1,11 +1,11 @@
 import styled from 'styled-components/native';
 
-import { Box, IconButton, Image, Button } from '~/components/ui';
+import { Box, IconButton, Image, Button, Loader as LoaderUI } from '~/components/ui';
 import { Colors } from '~/utils/theme';
 import { personalBackground, backIcon, profileMessage } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
-export { Text, Box, Loader, Image, AvatarCircle, Button } from '~/components/ui';
+export { Text, Box, Image, AvatarCircle, Button } from '~/components/ui';
 export { LevelBox } from '~/components/blocks';
 export { SimpleHeader } from '~/components/headers';
 
@@ -77,3 +77,7 @@ export const BtnEditProfile = styled(Button).attrs((props) => ({
   ${(props) => (props.isMine || props.follow) && 'border-color: rgba(0, 0, 0, 0.2);'};
   ${(props) => !props.isMine && !props.follow && `background-color: ${Colors.pink};`}
 `;
+
+export const Loader = styled(LoaderUI)`
+  background-color: ${Colors.background};
+`

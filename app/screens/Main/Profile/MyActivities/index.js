@@ -8,7 +8,7 @@ import * as Styled from './styled';
 
 const Tab = createMaterialTopTabNavigator();
 
-const MyActivities = ({ route, type }) => {
+const MyActivities = ({ route, type = 'myactivities' }) => {
   const { profileId } = route.params || {};
 
   return (

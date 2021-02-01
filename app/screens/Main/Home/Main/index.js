@@ -36,7 +36,7 @@ const Home = ({ navigation }) => {
         </Styled.HeaderBar>
       </Styled.Content>
 
-      <Styled.PostList onUnAuth={handleUnAuth} />
+      <Styled.PostList onUnAuth={handleUnAuth} type="home" />
     </Styled.Container>
   );
 };
