@@ -43,24 +43,20 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
 
   const fetchPosts = async (lastId) => {
     try {
-      if (type === 'bookmark') {
+      const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId, type });
+      let updatedPosts = response.posts;
+
+      if (type !== 'home') {
+        if (lastId) {
+          updatedPosts = _.unionBy(posts, updatedPosts, '_id');
+        }
+        setPosts(updatedPosts);
+      }
+
+      if (response.posts.length < 1) {
         setHasMore(false);
       } else {
-        const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId });
-        let updatedPosts = response.posts;
-
-        if (type !== 'home') {
-          if (lastId) {
-            updatedPosts = _.unionBy(posts, updatedPosts, '_id');
-          }
-          setPosts(updatedPosts);
-        }
-
-        if (response.posts.length < 1) {
-          setHasMore(false);
-        } else {
-          setLastPostId(response.lastId);
-        }
+        setLastPostId(response.lastId);
       }
     } catch (e) {
       showSimpleError(e);
