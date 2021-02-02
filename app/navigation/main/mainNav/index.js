@@ -13,6 +13,7 @@ import PersonalPage from '~/screens/Main/Profile/PersonalPage';
 import MyActivitiesPage from '~/screens/Main/Profile/MyActivities';
 import { profile, home } from '~/navigation/routeNames';
 import Settings from '~/screens/Main/Profile/Settings';
+import ChatLobby from '~/screens/Main/Profile/ChatLobby';
 import NewPost from '~/screens/Main/Home/NewPost';
 import ChatRoom from '~/screens/Main/Chat/ChatRoom';
 
@@ -30,6 +31,7 @@ const MainNav = () => (
     />
     <Stack.Screen name={profile.notifications} component={ProfileNotifications} options={{ title: 'Notifications' }} />
     <Stack.Screen name={profile.privacy} component={ProfilePrivacy} options={{ title: 'Privacy' }} />
+    <Stack.Screen name={profile.chatLobby} component={ChatLobby} options={{ title: 'Private Messages' }} />
     <Stack.Screen name={profile.blockedUsers} component={BlockedUsers} options={{ title: 'Blocked users' }} />
     <Stack.Screen name={profile.checkVersion} component={CheckVersion} options={{ title: 'Version' }} />
     <Stack.Screen

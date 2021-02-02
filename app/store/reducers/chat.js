@@ -164,7 +164,6 @@ const messageLikeSuccess = (state, { payload: { roomId, msgId, like, totalLikes 
 };
 
 const HANDLERS = {
-  [ChatTypes.GET_ROOMS_SUCCESS]: getRoomsSuccess,
   [ChatTypes.READ_MESSAGE_SUCCESS]: readMessageSuccess,
   [ChatTypes.GET_MESSAGES_SUCCESS]: getMessagesSuccess,
   [ChatTypes.GET_MESSAGE_SUCCESS]: getMessageSuccess,
@@ -172,6 +171,7 @@ const HANDLERS = {
   [ChatTypes.GET_ROOM_SUCCESS]: getRoomSuccess,
   [ChatTypes.SET_ACTIVE_ROOM_ID_SUCCESS]: setActiveRoomIdSuccess,
   [ChatTypes.MESSAGE_LIKE_SUCCESS]: messageLikeSuccess,
+  [ChatTypes.GET_ROOMS_SUCCESS]: getRoomsSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

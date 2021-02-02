@@ -105,6 +105,10 @@ const ProfileMain = ({ navigation }) => {
     navigation.navigate(navigators.mainNav, { screen: profile.bookmarks, params: { profileId: user._id } });
   };
 
+  const handleMessages = () => {
+    navigation.navigate(navigators.mainNav, { screen: profile.chatLobby });
+  };
+
   return (
     <Styled.Content>
       <Styled.Box bg="white" pb={10} pt={16}>
@@ -138,7 +142,7 @@ const ProfileMain = ({ navigation }) => {
 
       <Styled.BookmarkContainer>
         <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} onPress={handleBookmarks} />
-        <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} />
+        <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} onPress={handleMessages} />
         <BookmarkItem
           label="My activites"
           icon={activityIcon}

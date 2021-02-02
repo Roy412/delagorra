@@ -49,7 +49,6 @@ const RootNavigator = () => (
       component={ProgressScreen}
       options={{ headerShown: true, header: (props) => <SimpleHeader {...props} barStyle="dark" /> }}
     />
-
     <Stack.Screen
       name={navigators.replyRoom}
       component={ChatRoom}

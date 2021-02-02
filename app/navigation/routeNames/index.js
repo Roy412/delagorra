@@ -34,6 +34,7 @@ export const profile = createNames(
     'personalPage',
     'myActivities',
     'bookmarks',
+    'chatLobby',
   ],
   {
     prefix: 'profile/',

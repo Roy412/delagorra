@@ -1,21 +1,10 @@
 import { all, takeLatest, takeEvery, call, put, select } from 'redux-saga/effects';
 import _ from 'lodash';
-import { createSelector } from 'reselect';
 
 import { ChatTypes, ChatCreators } from '~/store/actions/chat';
 import { generateRandomString } from '~/utils/utils';
 import { user as userSelector } from '~/store/selectors/session';
 import { getMessagesByRoomId } from '~/store/selectors/chat';
-
-// function* sendMessage(api, { payload, resolve, reject }) {
-//   const response = yield call(api.chat.send, payload);
-//
-//   if (response.ok && response.data.result === 'OK') {
-//     resolve(response.data.data);
-//   } else {
-//     reject(response.data);
-//   }
-// }
 
 function* sendMessage(api, { payload, resolve, reject }) {
   const user = yield select(userSelector);
@@ -66,7 +55,13 @@ function* sendMessage(api, { payload, resolve, reject }) {
   }
 
   if (imageSent && payload.text) {
-    const response = yield call(api.chat.send, { roomId: payload.roomId, text: payload.text, mockId, roomType: payload.roomType  });
+    const response = yield call(api.chat.send, {
+      roomId: payload.roomId,
+      text: payload.text,
+      mockId,
+      roomType: payload.roomType,
+      type: 'text',
+    });
 
     if (response.ok && response.data.result === 'OK') {
       const { data } = response.data;
@@ -126,6 +121,16 @@ function* messagesList(api, { payload, resolve, reject }) {
   }
 }
 
+function* getRooms(api, { payload, resolve, reject }) {
+  const response = yield call(api.chat.getRooms, payload);
+  if (response.ok && response.data.result === 'OK') {
+    yield put(ChatCreators.getRoomsSuccess(response.data.data.rooms));
+    resolve(response.data.data.rooms);
+  } else {
+    reject(response.data);
+  }
+}
+
 export default function* main(api) {
   yield all([
     takeEvery(ChatTypes.CHAT_SEND_REQUEST, sendMessage, api),
@@ -133,5 +138,6 @@ export default function* main(api) {
     takeLatest(ChatTypes.READ_MESSAGE_REQUEST, readMessage, api),
     takeLatest(ChatTypes.MESSAGE_LIKE_REQUEST, messageLike, api),
     takeLatest(ChatTypes.GET_MESSAGES_REQUEST, messagesList, api),
+    takeLatest(ChatTypes.GET_ROOMS_REQUEST, getRooms, api),
   ]);
 }

@@ -72,7 +72,7 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
             </Styled.Box>
             {strSince && (
               <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
-                {timeSince(parseISO(currentMessage.createdAt))}
+                {strSince}
               </Styled.Text>
             )}
           </Styled.Box>

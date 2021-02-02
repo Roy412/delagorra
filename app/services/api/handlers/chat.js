@@ -31,4 +31,10 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  getRooms: (payload) =>
+    apiCall({
+      endpoint: 'chat/get-rooms',
+      method: 'POST',
+      query: payload,
+    }),
 });
