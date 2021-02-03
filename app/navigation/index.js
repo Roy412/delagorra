@@ -72,7 +72,7 @@ const NavigationWrapper = () => {
     const read = activeRoomId === room._id;
     dispatch(ChatCreators.getMessageSuccess(room, message, read));
     if (read) {
-      dispatch(ChatCreators.readMessageRequest({ roomId: room._id, messageId: message._id }));
+      dispatch(ChatCreators.readMessageRequest({ roomId: room._id, messageId: message._id, message }));
     }
   };
 

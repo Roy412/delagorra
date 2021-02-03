@@ -66,7 +66,7 @@ function* sendMessage(api, { payload, resolve, reject }) {
     if (response.ok && response.data.result === 'OK') {
       const { data } = response.data;
       yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
-      yield put(ChatCreators.readMessageSuccess(data.roomId, data.message._id));
+      yield put(ChatCreators.readMessageSuccess(data.roomId, data.message.createdAt));
       if (resolve) {
         resolve(data);
       }
@@ -87,14 +87,14 @@ function* getRoom(api, { payload, resolve, reject }) {
   }
 }
 
-function* readMessage(api, { payload, resolve, reject }) {
-  const response = yield call(api.chat.readMessage, payload);
+function* readMessage(api, { payload: { message, ...payload }, resolve, reject }) {
+  const response = yield call(api.chat.markRead, payload);
 
   if (response.ok && response.data.result === 'OK') {
     if (resolve) {
       resolve(response.data.data);
     }
-    yield put(ChatCreators.readMessageSuccess(payload.roomId, payload.messageId));
+    yield put(ChatCreators.readMessageSuccess(payload.roomId, message.createdAt));
   } else if (reject) {
     reject(response.data);
   }

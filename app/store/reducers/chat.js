@@ -1,5 +1,6 @@
 import Immutable from 'seamless-immutable';
 import _ from 'lodash';
+import { compareAsc, parseISO } from 'date-fns';
 
 import { createReducer } from '~/store/redux';
 import { AuthTypes } from '~/store/actions/auth';
@@ -15,17 +16,21 @@ const INITIAL_STATE = Immutable({
 
 const getRoomsSuccess = (state, { rooms }) => state.merge({ rooms });
 
-const readMessageSuccess = (state, { roomId, messageId }) => {
+const readMessageSuccess = (state, { roomId, readAt }) => {
   const otherRooms = _.filter(state.rooms, (item) => item._id !== roomId);
   const room = _.find(state.rooms, { _id: roomId });
   if (!room) {
     return state;
   }
+  let lastReadAt = room.lastReadAt;
+  if (!lastReadAt || compareAsc(parseISO(readAt), parseISO(lastReadAt)) > 0) {
+    lastReadAt = readAt;
+  }
   const rooms = [
     ...otherRooms,
     {
       ...room,
-      lastReadMessageId: room.lastReadMessageId < messageId ? messageId : room.lastReadMessageId,
+      lastReadAt,
       countUnread: 0,
     },
   ];
@@ -67,6 +72,7 @@ const getRoomSuccess = (state, { room }) => {
 const getMessageSuccess = (state, { room, message, read, mockId }) => {
   message.user = { ...message.sender, avatar: message.sender.avatar || profileImage };
   const roomMessages = state.messagesByRoomId[room._id] || [];
+  let totalCountUnread = state.totalCountUnread;
 
   if (_.find(roomMessages, { _id: message._id })) {
     return state;
@@ -95,14 +101,14 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
   const oldRoom = _.find(state.rooms, { _id: room._id }) || {
     ...room,
     countUnread: 0,
-    lastReadMessageId: 0,
   };
 
   const updatedRoom = { ...oldRoom, lastMessage };
   if (read) {
-    updatedRoom.lastReadMessageId = lastMessage._id;
-  } else if (updatedRoom.lastReadMessageId < lastMessage._id) {
+    updatedRoom.lastReadAt = lastMessage.createdAt;
+  } else if (!updatedRoom.lastReadAt || compareAsc(parseISO(message.createdAt), parseISO(updatedRoom.lastReadAt)) > 0) {
     updatedRoom.countUnread += 1;
+    totalCountUnread += 1;
   }
   const rooms = [...otherRooms, updatedRoom];
 
@@ -112,6 +118,7 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
       ...state.messagesByRoomId,
       [room._id]: updatedRoomMessages,
     },
+    totalCountUnread,
   });
 };
 
