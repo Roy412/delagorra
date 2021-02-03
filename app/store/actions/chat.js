@@ -23,6 +23,8 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
 
     getRoomsRequest: ['payload', 'resolve', 'reject'],
     getRoomsSuccess: ['rooms'],
+
+    messageReadRequest: ['payload', 'resolve', 'reject'],
   },
   { prefix: 'Chat/' },
 );

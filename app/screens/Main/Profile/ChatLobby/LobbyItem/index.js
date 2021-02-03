@@ -1,21 +1,11 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { parseISO } from 'date-fns';
-import { useDispatch } from 'react-redux';
-import _ from 'lodash';
-import { useNavigation } from '@react-navigation/native';
 
 import { timeSince } from '~/utils/utils';
-import { navigators } from '~/navigation/routeNames';
-import { ChatCreators } from '~/store/actions/chat';
-import { showSimpleError } from '~/utils/alert';
-import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
 const LobbyItem = ({ item, onPress }) => {
-  const navigation = useNavigation();
-  const dispatch = useDispatch();
-
   const handleAvatarPress = () => {
     // navigation.navigate(navigators.mainNav, { screen: profile.personalPage, params: { profileId: item.creator._id } });
   };
@@ -35,19 +25,13 @@ const LobbyItem = ({ item, onPress }) => {
         </Styled.Text>
       </Styled.Box>
 
-      <Styled.Box alignItems="flex-end">
+      <Styled.Box alignItems="flex-end" alignSelf="flex-start" mt={4}>
         {strSince && (
           <Styled.Text fontSize={11} color="rgba(19,19,19,0.5)">
             {strSince}
           </Styled.Text>
         )}
-        {item.countUnread && (
-          <Styled.UnreadWrapper mt={6} bg="pink" height={20}>
-            <Styled.Text color="white" fontStyle="semiBold" fontSize={14}>
-              {item.countUnread}
-            </Styled.Text>
-          </Styled.UnreadWrapper>
-        )}
+        <Styled.Badge mt={6} value={item.countUnread} />
       </Styled.Box>
     </Styled.Container>
   );

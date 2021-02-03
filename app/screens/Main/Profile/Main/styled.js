@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native';
 
 import { gearIcon, nextIcon } from '~/resources';
 import { IconButton, Image, Box } from '~/components/ui';
+import { Badge as BadgeUI } from '~/components/blocks';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Button, IconButton, AvatarCircle, ImageViewer } from '~/components/ui';
@@ -75,4 +76,10 @@ export const BookmarkItem = styled.TouchableOpacity`
   flex: 1;
   align-items: center;
   justify-content: center;
+`;
+
+export const Badge = styled(BadgeUI)`
+  position: absolute;
+  top: 0;
+  right: 0;
 `;

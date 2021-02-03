@@ -37,4 +37,10 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
+  markRead: ({ roomId, ...payload }) =>
+    apiCall({
+      endpoint: `chat/${roomId}/read`,
+      method: 'POST',
+      query: payload,
+    }),
 });

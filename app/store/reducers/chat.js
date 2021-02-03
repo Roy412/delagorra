@@ -2,7 +2,6 @@ import Immutable from 'seamless-immutable';
 import _ from 'lodash';
 
 import { createReducer } from '~/store/redux';
-
 import { AuthTypes } from '~/store/actions/auth';
 import { ChatTypes } from '~/store/actions/chat';
 import { profileImage } from '~/resources';
@@ -11,6 +10,7 @@ const INITIAL_STATE = Immutable({
   rooms: [],
   messagesByRoomId: {},
   activeRoomId: null,
+  totalCountUnread: 0,
 });
 
 const getRoomsSuccess = (state, { rooms }) => state.merge({ rooms });

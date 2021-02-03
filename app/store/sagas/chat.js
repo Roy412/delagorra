@@ -125,7 +125,18 @@ function* getRooms(api, { payload, resolve, reject }) {
   const response = yield call(api.chat.getRooms, payload);
   if (response.ok && response.data.result === 'OK') {
     yield put(ChatCreators.getRoomsSuccess(response.data.data.rooms));
-    resolve(response.data.data.rooms);
+    if (resolve) {
+      resolve(response.data.data.rooms);
+    }
+  } else if (reject) {
+    reject(response.data);
+  }
+}
+
+function* messageRead(api, { payload, resolve, reject }) {
+  const response = yield call(api.chat.markRead, payload);
+  if (response.ok && response.data.result === 'OK') {
+    resolve(response.data.data);
   } else {
     reject(response.data);
   }
@@ -139,5 +150,6 @@ export default function* main(api) {
     takeLatest(ChatTypes.MESSAGE_LIKE_REQUEST, messageLike, api),
     takeLatest(ChatTypes.GET_MESSAGES_REQUEST, messagesList, api),
     takeLatest(ChatTypes.GET_ROOMS_REQUEST, getRooms, api),
+    takeLatest(ChatTypes.MESSAGE_READ_REQUEST, messageRead, api),
   ]);
 }

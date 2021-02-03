@@ -7,6 +7,7 @@ import RNFetchBlob from 'rn-fetch-blob';
 
 import { profile, navigators } from '~/navigation/routeNames';
 import { user as userSelector } from '~/store/selectors/session';
+import { totalCountUnread as totalCountUnreadSelector } from '~/store/selectors/chat';
 import { bookmarkIcon, messageIcon, activityIcon, historyIcon } from '~/resources';
 import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
@@ -16,6 +17,7 @@ import * as Styled from './styled';
 const ProfileMain = ({ navigation }) => {
   const [isAvatarShow, setIsAvatarShow] = useState();
   const user = useSelector(userSelector);
+  const totalCountUnread = useSelector(totalCountUnreadSelector);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -142,7 +144,14 @@ const ProfileMain = ({ navigation }) => {
 
       <Styled.BookmarkContainer>
         <BookmarkItem label="Bookmarks" icon={bookmarkIcon} width={24} aspectRatio={1} onPress={handleBookmarks} />
-        <BookmarkItem label="Messages" icon={messageIcon} width={24} aspectRatio={80 / 56} onPress={handleMessages} />
+        <BookmarkItem
+          label="Messages"
+          icon={messageIcon}
+          width={24}
+          aspectRatio={80 / 56}
+          onPress={handleMessages}
+          badge={totalCountUnread}
+        />
         <BookmarkItem
           label="My activites"
           icon={activityIcon}
@@ -175,7 +184,7 @@ const LikeItem = ({ label, value }) => (
   </Styled.Box>
 );
 
-const BookmarkItem = ({ label, icon, width, aspectRatio, onPress }) => (
+const BookmarkItem = ({ label, icon, width, aspectRatio, onPress, badge }) => (
   <Styled.BookmarkItem onPress={onPress}>
     <Styled.BookmarkIconWrapper>
       <Styled.BookmarkIcon icon={icon} width={width} aspectRatio={aspectRatio} />
@@ -183,6 +192,7 @@ const BookmarkItem = ({ label, icon, width, aspectRatio, onPress }) => (
     <Styled.Text mt={7} fontSize={11} textAlign="center" color="rgba(19,19,19,0.5)">
       {label}
     </Styled.Text>
+    <Styled.Badge value={badge} />
   </Styled.BookmarkItem>
 );
 

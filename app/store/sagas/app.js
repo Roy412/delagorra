@@ -2,12 +2,14 @@ import { all, put, takeLatest, select } from 'redux-saga/effects';
 
 import { AppCreators, AppTypes } from '~/store/actions/app';
 import { AuthCreators } from '~/store/actions/auth';
+import { ChatCreators } from '~/store/actions/chat';
 import { isAuthenticated } from '~/store/selectors/session';
 
 function* startup() {
   const authenticated = yield select(isAuthenticated);
   if (authenticated) {
     yield put(AuthCreators.signInTokenRequest());
+    yield put(ChatCreators.getRoomsRequest());
   } else {
     yield put(AppCreators.completeRehydration());
   }
