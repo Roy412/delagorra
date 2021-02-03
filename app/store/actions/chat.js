@@ -22,7 +22,7 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
     getMessagesRequest: ['payload', 'resolve', 'reject'],
 
     getRoomsRequest: ['payload', 'resolve', 'reject'],
-    getRoomsSuccess: ['rooms'],
+    getRoomsSuccess: ['payload'],
 
     messageReadRequest: ['payload', 'resolve', 'reject'],
   },

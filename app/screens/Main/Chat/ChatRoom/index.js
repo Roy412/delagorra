@@ -42,10 +42,15 @@ const ChatRoom = ({ route, navigation }) => {
 
   useEffect(() => {
     if (room) {
+      dispatch(ChatCreators.setActiveRoomIdSuccess(room._id));
       setLoading(false);
-      setMessages(allMessagesByRoomId[room._id] || []);
+      const result = allMessagesByRoomId[room._id] || [];
+      setMessages(result);
+      if (result[0]) {
+        dispatch(ChatCreators.readMessageRequest({ roomId: room._id, message: result[0] }));
+      }
     }
-  }, [room, allMessagesByRoomId]);
+  }, [room, JSON.stringify(allMessagesByRoomId)]);
 
   const fetchRoom = async () => {
     try {

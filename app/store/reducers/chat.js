@@ -14,7 +14,7 @@ const INITIAL_STATE = Immutable({
   totalCountUnread: 0,
 });
 
-const getRoomsSuccess = (state, { rooms }) => state.merge({ rooms });
+const getRoomsSuccess = (state, { payload: { rooms, totalCountUnread } }) => state.merge({ rooms, totalCountUnread });
 
 const readMessageSuccess = (state, { roomId, readAt }) => {
   const otherRooms = _.filter(state.rooms, (item) => item._id !== roomId);
@@ -22,6 +22,7 @@ const readMessageSuccess = (state, { roomId, readAt }) => {
   if (!room) {
     return state;
   }
+  const totalCountUnread = state.totalCountUnread;
   let lastReadAt = room.lastReadAt;
   if (!lastReadAt || compareAsc(parseISO(readAt), parseISO(lastReadAt)) > 0) {
     lastReadAt = readAt;
@@ -35,7 +36,7 @@ const readMessageSuccess = (state, { roomId, readAt }) => {
     },
   ];
 
-  return state.merge({ rooms });
+  return state.merge({ rooms, totalCountUnread: totalCountUnread - room.countUnread });
 };
 
 const getMessagesSuccess = (state, { roomId, messages }) => {
@@ -104,8 +105,11 @@ const getMessageSuccess = (state, { room, message, read, mockId }) => {
   };
 
   const updatedRoom = { ...oldRoom, lastMessage };
+
   if (read) {
     updatedRoom.lastReadAt = lastMessage.createdAt;
+    updatedRoom.countUnread = 0;
+    totalCountUnread -= oldRoom.countUnread;
   } else if (!updatedRoom.lastReadAt || compareAsc(parseISO(message.createdAt), parseISO(updatedRoom.lastReadAt)) > 0) {
     updatedRoom.countUnread += 1;
     totalCountUnread += 1;

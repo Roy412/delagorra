@@ -87,14 +87,14 @@ function* getRoom(api, { payload, resolve, reject }) {
   }
 }
 
-function* readMessage(api, { payload: { message, ...payload }, resolve, reject }) {
-  const response = yield call(api.chat.markRead, payload);
+function* readMessage(api, { payload: { message, roomId }, resolve, reject }) {
+  const response = yield call(api.chat.markRead, { roomId, messageId: message._id });
 
   if (response.ok && response.data.result === 'OK') {
     if (resolve) {
       resolve(response.data.data);
     }
-    yield put(ChatCreators.readMessageSuccess(payload.roomId, message.createdAt));
+    yield put(ChatCreators.readMessageSuccess(roomId, message.createdAt));
   } else if (reject) {
     reject(response.data);
   }
@@ -124,7 +124,7 @@ function* messagesList(api, { payload, resolve, reject }) {
 function* getRooms(api, { payload, resolve, reject }) {
   const response = yield call(api.chat.getRooms, payload);
   if (response.ok && response.data.result === 'OK') {
-    yield put(ChatCreators.getRoomsSuccess(response.data.data.rooms));
+    yield put(ChatCreators.getRoomsSuccess(response.data.data));
     if (resolve) {
       resolve(response.data.data.rooms);
     }

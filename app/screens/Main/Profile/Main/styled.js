@@ -81,5 +81,5 @@ export const BookmarkItem = styled.TouchableOpacity`
 export const Badge = styled(BadgeUI)`
   position: absolute;
   top: 0;
-  right: 0;
+  right: 12px;
 `;
