@@ -7,8 +7,10 @@ function* getNotifications(api, { payload, resolve, reject }) {
 
   if (response.ok && response.data.result === 'OK') {
     yield put(NotificationCreators.getNotificationsSuccess({ ...response.data.data, isRefresh: !payload.lastId }));
-    resolve(response.data.data);
-  } else {
+    if (resolve) {
+      resolve(response.data.data);
+    }
+  } else if (reject) {
     reject(response.data);
   }
 }

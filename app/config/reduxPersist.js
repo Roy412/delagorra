@@ -9,7 +9,7 @@ const REDUX_PERSIST = {
   rootConfig: {
     key: 'primary',
     storage: AsyncStorage,
-    whitelist: ['session', 'chat'],
+    whitelist: ['session', 'chat', 'notification'],
     stateReconciler: seamlessImmutableReconciler,
   },
 

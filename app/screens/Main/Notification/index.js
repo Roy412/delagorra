@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { Promisify } from '~/utils/promisify';
-import { PostCreators } from '~/store/actions/post';
+import { NotificationCreators } from '~/store/actions/notification';
 import { notifications as notificationsSelector } from '~/store/selectors/notification';
 import { showSimpleError } from '~/utils/alert';
 import { navigators, home } from '~/navigation/routeNames';
@@ -33,7 +33,7 @@ const NotificationList = ({ profileId, type, ...props }) => {
 
   const fetchNotifications = async (lastId) => {
     try {
-      const response = await Promisify(dispatch, PostCreators.getNotificationsRequest, { lastId });
+      const response = await Promisify(dispatch, NotificationCreators.getNotificationsRequest, { lastId });
       if (response.notifications.length < 1) {
         setHasMore(false);
       } else {
@@ -69,7 +69,7 @@ const NotificationList = ({ profileId, type, ...props }) => {
   const renderEmpty = () =>
     !hasMore && (
       <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
-        No Posts
+        No Notifications
       </Styled.Text>
     );
 
