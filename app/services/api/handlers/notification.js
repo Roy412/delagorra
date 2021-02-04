@@ -5,7 +5,7 @@ export default (apiCall) => ({
       method: 'POST',
       query: payload,
     }),
-  markRead: (notificationId) =>
+  markRead: ({ notificationId }) =>
     apiCall({
       endpoint: `notification/${notificationId}/read`,
       method: 'POST',

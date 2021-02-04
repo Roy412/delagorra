@@ -77,6 +77,7 @@ const ChatRoom = ({ route, navigation }) => {
             roomId: room._id,
             roomType: type === 'chat' ? 'chat' : 'comment',
             postId: type === 'post' ? post && post._id : null,
+            isReplyRoom: type === 'post' && !post,
           });
         } catch (e) {}
       });

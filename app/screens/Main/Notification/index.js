@@ -54,7 +54,14 @@ const NotificationList = ({ profileId, type, ...props }) => {
   };
 
   const handlePressItem = (item) => {
-    // navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
+    dispatch(NotificationCreators.readNotificationRequest({ notificationId: item._id }));
+    if (item.type === 'like_post' || item.type === 'like_comment') {
+      navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item.post, type: 'post' } });
+    } else if (item.type === 'reply_post') {
+      navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item.post, type: 'post' } });
+    } else if (item.type === 'reply_comment') {
+      navigation.push(navigators.replyRoom, { type: 'post', comment: item.comment, post: null, otherUserId: null });
+    }
   };
 
   const renderFooter = () => {
@@ -73,6 +80,8 @@ const NotificationList = ({ profileId, type, ...props }) => {
       </Styled.Text>
     );
 
+  const renderSeparator = () => <Styled.Box height={1} bg="lightGrayishBlue" mx={16} />;
+
   return (
     <Styled.List
       data={notifications}
@@ -83,6 +92,7 @@ const NotificationList = ({ profileId, type, ...props }) => {
       ListEmptyComponent={renderEmpty}
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
+      ItemSeparatorComponent={renderSeparator}
       bounces={!loading}
       {...props}
     />

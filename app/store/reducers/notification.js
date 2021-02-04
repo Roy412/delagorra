@@ -3,16 +3,16 @@ import _ from 'lodash';
 
 import { createReducer } from '~/store/redux';
 import { AuthTypes } from '~/store/actions/auth';
-import { PostTypes } from '~/store/actions/post';
+import { NotificationTypes } from '~/store/actions/notification';
 
 const INITIAL_STATE = Immutable({
   notifications: [],
 });
 
 const getNotificationsSuccess = (state, { payload }) => {
-  let updatedNotis = payload.posts;
+  let updatedNotis = payload.notifications;
   if (!payload.isRefresh) {
-    updatedNotis = _.unionBy(state.notifications, payload.posts, '_id');
+    updatedNotis = _.unionBy(state.notifications, payload.notifications, '_id');
   }
   return state.merge({ notifications: updatedNotis });
 };
@@ -29,8 +29,8 @@ const readNotificationSuccess = (state, { payload }) => {
 };
 
 const HANDLERS = {
-  [PostTypes.GET_NOTIFICATIONS_SUCCESS]: getNotificationsSuccess,
-  [PostTypes.READ_NOTIFICATION_SUCCESS]: readNotificationSuccess,
+  [NotificationTypes.GET_NOTIFICATIONS_SUCCESS]: getNotificationsSuccess,
+  [NotificationTypes.READ_NOTIFICATION_SUCCESS]: readNotificationSuccess,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

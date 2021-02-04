@@ -20,7 +20,9 @@ function* readNotification(api, { payload, resolve, reject }) {
 
   if (response.ok && response.data.result === 'OK') {
     yield put(NotificationCreators.readNotificationSuccess(payload));
-    resolve(response.data.data);
+    if (resolve) {
+      resolve(response.data.data);
+    }
   } else if (reject) {
     reject(response.data);
   }
