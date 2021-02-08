@@ -20,11 +20,11 @@ export const Icon = styled(Image)`
 `;
 
 export const Badge = styled(Box).attrs({
-  bg: 'deepBlush',
+  bg: 'pink',
 })`
   position: absolute;
   top: 4px;
-  right: ${Metrics.screenWidth / 6 - 25}px;
+  right: ${Metrics.screenWidth / 6 - 20}px;
   width: 20px;
   height: 20px;
   border-radius: 10px;

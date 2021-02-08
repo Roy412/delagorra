@@ -7,6 +7,7 @@ import { NotificationTypes } from '~/store/actions/notification';
 
 const INITIAL_STATE = Immutable({
   notifications: [],
+  totalCountUnread: 0,
 });
 
 const getNotificationsSuccess = (state, { payload }) => {
@@ -14,7 +15,7 @@ const getNotificationsSuccess = (state, { payload }) => {
   if (!payload.isRefresh) {
     updatedNotis = _.unionBy(state.notifications, payload.notifications, '_id');
   }
-  return state.merge({ notifications: updatedNotis });
+  return state.merge({ notifications: updatedNotis, totalCountUnread: payload.totalCountUnread });
 };
 
 const readNotificationSuccess = (state, { payload }) => {

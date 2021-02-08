@@ -6,6 +6,7 @@ import { profileIcon, homeIcon, bellIcon } from '~/resources';
 import { Colors, Metrics } from '~/utils/theme';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { navigators } from '~/navigation/routeNames';
+import { totalCountUnread as totalCountUnreadSelector } from '~/store/selectors/notification';
 
 import { main } from '../../routeNames';
 import TabBarItem from './TabBarItem';
@@ -17,6 +18,7 @@ const Tab = createBottomTabNavigator();
 
 const MainNavigator = () => {
   const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const totalCountUnread = useSelector(totalCountUnreadSelector);
 
   const tabPress = (e, navigation) => {
     if (isAuthenticated) {
@@ -50,7 +52,13 @@ const MainNavigator = () => {
         component={Notification}
         options={{
           tabBarIcon: (params) => (
-            <TabBarItem source={bellIcon} width={19.5} aspectRatio={80 / 96} tintColor={params.color} />
+            <TabBarItem
+              source={bellIcon}
+              width={19.5}
+              aspectRatio={80 / 96}
+              tintColor={params.color}
+              notifications={totalCountUnread}
+            />
           ),
         }}
         listeners={({ navigation, route }) => ({ tabPress: (e) => tabPress(e, navigation) })}
