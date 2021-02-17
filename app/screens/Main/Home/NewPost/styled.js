@@ -41,10 +41,12 @@ export const RightButton = styled(Button).attrs((props) => ({
 export const TitleInput = styled(TextInput).attrs({
   fontStyle: 'semibold',
   inputContainerStyle: { backgroundColor: 'transparent', height: 'auto', paddingBottom: 10 },
+  inputStyle: { maxHeight: 100 },
 })``;
 
 export const ContentInput = styled(TitleInput).attrs({
   fontStyle: 'regular',
+  inputStyle: { maxHeight: 150 },
 })`
   margin-top: 20px;
 `;
@@ -54,7 +56,7 @@ export const PictureImage = styled(Image).attrs((props) => ({
 }))`
   width: 25px;
   aspect-ratio: ${100 / 80};
-  height: undefined;
+  height: ${'undefined'};
 `;
 
 export const PostImage = styled(PostImageUI)`

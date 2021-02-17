@@ -38,9 +38,6 @@ const NewPost = ({ navigation }) => {
         presence: { message: '^Required', allowEmpty: false },
         length: { minimum: 3, maximum: 50, tooShort: '^Too short' },
       },
-      content: {
-        length: { maximum: 40 },
-      },
     };
 
     return Validate(values, constraints);
@@ -98,13 +95,7 @@ const NewPost = ({ navigation }) => {
             multiline
           />
 
-          <Field
-            name="content"
-            component={Styled.ContentInput}
-            placeholder="Write out your post"
-            maxLength={40}
-            multiline
-          />
+          <Field name="content" component={Styled.ContentInput} placeholder="Write out your post" multiline />
 
           <OnChange name="title">{setTitle}</OnChange>
           <OnChange name="content">{setContent}</OnChange>
@@ -121,7 +112,7 @@ const NewPost = ({ navigation }) => {
           <Styled.PictureImage />
         </Styled.ActionPicker>
         <Styled.Text fontStyle="semibold" color="pink">
-          {values.content ? values.content.length : 0}/40
+          {values.title ? values.title.length : 0}/50
         </Styled.Text>
       </Styled.Box>
     </Styled.Box>
