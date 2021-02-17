@@ -7,7 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { likeIcon, commentIcon, shareIcon, starIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
-import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
+import { isAuthenticated as isAuthenticatedSelector, user as userSelector } from '~/store/selectors/session';
 import { profile, navigators } from '~/navigation/routeNames';
 import { PostCreators } from '~/store/actions/post';
 import { showSimpleError } from '~/utils/alert';
@@ -30,6 +30,7 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
+  const user = useSelector(userSelector);
   const [item, setItem] = useState(post);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
       <Styled.Box bg="white" style={style} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
         <Styled.Box pt={18} px={16}>
           <Styled.Box flexDirection="row">
-            <Styled.AvatarCircle url={item.creator.avatar} size={35} onPress={handleAvatarPress} />
+            <Styled.AvatarCircle url={item.creator._id === user._id ? user.avatar : item.creator.avatar} size={35} onPress={handleAvatarPress} />
             <Styled.Box flex={1} ml={10} justifyContent="center">
               <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
                 {item.creator.displayName}
