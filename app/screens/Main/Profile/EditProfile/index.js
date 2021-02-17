@@ -34,7 +34,7 @@ const EditProfile = ({ navigation }) => {
       setLoading(true);
       await Promisify(dispatch, ProfileCreators.profileUpdateRequest, {
         ..._.pick(user, ['displayName', 'bio', 'gender', 'city', 'birthday']),
-        profileImage,
+        avatar: profileImage,
       });
       setLoading(false);
       Toast.show({ text1: 'Successful updated the profile!', position: 'bottom' });
