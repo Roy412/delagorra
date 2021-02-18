@@ -21,6 +21,7 @@ const updatePosts = (prevPosts, payload) => {
 
 const getPostsSuccess = (state, { payload }) => {
   let result;
+
   if (payload.profileId) {
     result = { profilePosts: updatePosts(state.profilePosts, payload) };
   } else if (payload.type === 'search') {
@@ -43,6 +44,7 @@ const postUpdateStatusSuccess = (state, { payload: { postId, status } }) =>
   state.merge({
     posts: updatePostStatus(state.posts, postId, status),
     profilePosts: updatePostStatus(state.profilePosts, postId, status),
+    searchPosts: updatePostStatus(state.searchPosts, postId, status),
   });
 
 const postCreateSuccess = (state, { post }) => {

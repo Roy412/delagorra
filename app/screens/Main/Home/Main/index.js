@@ -24,8 +24,8 @@ const Home = ({ navigation }) => {
     if (item) {
       setSearchKeyword(item);
     }
-    searchList.current.handleRefresh(item);
     setShowSearchResults(true);
+    searchList.current.handleRefresh(item);
     dispatch(SearchHistoryCreators.searchAddSuccess(item || searchKeyword));
   };
 

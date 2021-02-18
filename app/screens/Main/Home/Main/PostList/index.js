@@ -36,10 +36,15 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   }, []);
 
   useEffect(() => {
-    handleRefresh(searchKeyword);
+    if (type === 'search') {
+      handleRefresh(searchKeyword);
+    }
   }, [sortMode]);
 
   const handleRefresh = async (keyword) => {
+    if (!isVisible && !keyword) {
+      return;
+    }
     if (keyword) {
       setPosts([]);
       setLoading(true);
@@ -65,7 +70,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       });
       let updatedPosts = response.posts;
 
-      if (type !== 'home') {
+      if (type !== 'home' && type !== 'search') {
         if (lastId) {
           updatedPosts = _.unionBy(posts, updatedPosts, '_id');
         }
@@ -83,7 +88,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   };
 
   const handleLoadMore = async (isInitial) => {
-    if (!hasMore || (loading && !isInitial)) {
+    if (!isVisible || !hasMore || (loading && !isInitial)) {
       return;
     }
     setLoading(true);
@@ -136,7 +141,6 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       ListEmptyComponent={renderEmpty}
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
-      bounces={!loading}
       keyboardShouldPersistTaps="always"
       {...props}
     />

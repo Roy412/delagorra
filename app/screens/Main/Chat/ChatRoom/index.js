@@ -102,7 +102,7 @@ const ChatRoom = ({ route, navigation }) => {
   return (
     <Styled.Container>
       <Styled.Box style={StyleSheet.absoluteFill} alignItems="center" pt={50} bg="background" mb={getBottomSpace()}>
-        {messages.length === 0 && (
+        {!loading && messages.length === 0 && (
           <Styled.Text fontSize={17} textAlign="center">
             No conversations
           </Styled.Text>
