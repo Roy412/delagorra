@@ -9,12 +9,12 @@ const ActionPicker = ({ children, options, onPressItem, disabled, ...props }) =>
     if (Platform.OS === 'ios') {
       ActionSheetIOS.showActionSheetWithOptions(
         {
-          options: ['Cancel', ...options],
+          options: ['Cancel', ...options.map((option) => option.label)],
           cancelButtonIndex: 0,
         },
         (buttonIndex) => {
           if (buttonIndex !== 0) {
-            onPressItem(options[buttonIndex]);
+            onPressItem(options[buttonIndex - 1]);
           }
         },
       );
@@ -32,7 +32,7 @@ const ActionPicker = ({ children, options, onPressItem, disabled, ...props }) =>
   return (
     <RNPickerSelect
       onValueChange={onPressItem}
-      items={options.map((option) => ({ label: option, value: option }))}
+      items={options}
       placeholder={{}}
       touchableWrapperProps={{ activeOpacity: undefined }}
       disabled={disabled}>

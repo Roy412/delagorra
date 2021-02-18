@@ -122,7 +122,7 @@ const EditProfile = ({ navigation }) => {
 
   const handlePhotoPress = (option) => {
     setStatusBarStyle('dark-content');
-    const func = option === 'Take Photo...' ? ImagePicker.openCamera : ImagePicker.openPicker;
+    const func = option.value === 'take' ? ImagePicker.openCamera : ImagePicker.openPicker;
     func({
       width: 500,
       height: 500,
@@ -141,7 +141,15 @@ const EditProfile = ({ navigation }) => {
   return (
     <Styled.Container>
       <Styled.FocusAwareStatusBar barStyle={statusBarStyle} />
-      <Styled.ActionPicker options={['Take Photo...', 'Choose from Library...']} onPressItem={handlePhotoPress}>
+      <Styled.ActionPicker
+        options={[
+          {
+            label: 'Take Photo...',
+            value: 'take',
+          },
+          { label: 'Choose from Library...', value: 'choose' },
+        ]}
+        onPressItem={handlePhotoPress}>
         <Styled.ProfileImage source={profileImage && { uri: profileImage.uri }} />
         <Styled.CameraIcon />
       </Styled.ActionPicker>

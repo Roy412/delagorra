@@ -3,7 +3,6 @@ import { RefreshControl, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
-import OutsideClickHandler from 'react-outside-click-handler';
 
 import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
@@ -24,7 +23,6 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   const [loading, setLoading] = useState(true);
   const [lastPostId, setLastPostId] = useState();
   const [hasMore, setHasMore] = useState(true);
-  const [showSort, setShowSort] = useState(false);
   const [sortMode, setSortMode] = useState('new');
 
   useEffect(() => {
@@ -36,6 +34,10 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   useEffect(() => {
     handleLoadMore(true);
   }, []);
+
+  useEffect(() => {
+    handleRefresh(searchKeyword);
+  }, [sortMode]);
 
   const handleRefresh = async (keyword) => {
     if (keyword) {
@@ -96,10 +98,6 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
   };
 
-  const handleSortPress = () => {
-    setShowSort(true);
-  };
-
   const renderFooter = () => {
     if (!loading) {
       return null;
@@ -120,20 +118,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     if (type !== 'search') {
       return null;
     }
-    return (
-      <Styled.SearchResults onPress={handleSortPress}>
-        <Styled.Text fontSize={17}>Search results</Styled.Text>
-        <Styled.ArrowDownIcon />
-        {showSort && (
-          <OutsideClickHandler
-            onOutsideClick={() => {
-              setShowSort(false);
-            }}>
-            <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />
-          </OutsideClickHandler>
-        )}
-      </Styled.SearchResults>
-    );
+    return <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />;
   };
 
   if (!isVisible) {
