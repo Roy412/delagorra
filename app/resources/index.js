@@ -23,6 +23,7 @@ export profileMessage from './icons/profile_message.png';
 export profilePicture from './icons/profile_picture.png';
 export unlikeIcon from './icons/unlike.png';
 export starIcon from './icons/star.png';
+export arrowDownIcon from './icons/arrow_down.png';
 
 export profileImage from './images/profile.png';
 export personalBackground from './images/personal_background.png';

@@ -21,11 +21,11 @@ const Home = ({ navigation }) => {
   };
 
   const handleSearch = (item) => {
-    setShowSearchResults(true);
     if (item) {
       setSearchKeyword(item);
     }
-    searchList.current.handleRefresh();
+    searchList.current.handleRefresh(item);
+    setShowSearchResults(true);
     dispatch(SearchHistoryCreators.searchAddSuccess(item || searchKeyword));
   };
 
@@ -76,7 +76,7 @@ const Home = ({ navigation }) => {
       <Styled.PostList
         ref={searchList}
         onUnAuth={handleUnAuth}
-        type="home"
+        type="search"
         searchKeyword={searchKeyword}
         isVisible={!!showSearchResults}
       />

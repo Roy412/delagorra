@@ -28,13 +28,7 @@ const SearchHistory = ({ onSearch, isVisible }) => {
     return null;
   }
 
-  return (
-    <Styled.List
-      data={searchHistory}
-      renderItem={renderItem}
-      keyExtractor={(item) => item}
-    />
-  );
+  return <Styled.List data={searchHistory} renderItem={renderItem} keyExtractor={(item) => item} />;
 };
 
 export default SearchHistory;

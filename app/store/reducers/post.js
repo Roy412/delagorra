@@ -8,6 +8,7 @@ import { PostTypes } from '~/store/actions/post';
 const INITIAL_STATE = Immutable({
   posts: [],
   profilePosts: [],
+  searchPosts: [],
 });
 
 const updatePosts = (prevPosts, payload) => {
@@ -22,6 +23,8 @@ const getPostsSuccess = (state, { payload }) => {
   let result;
   if (payload.profileId) {
     result = { profilePosts: updatePosts(state.profilePosts, payload) };
+  } else if (payload.type === 'search') {
+    result = { searchPosts: updatePosts(state.searchPosts, payload) };
   } else {
     result = { posts: updatePosts(state.posts, payload) };
   }

@@ -2,26 +2,26 @@ import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'rea
 import { RefreshControl, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
+import _ from 'lodash';
 
 import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
-import { posts as postsSelector } from '~/store/selectors/post';
+import { posts as postsSelector, searchPosts as searchPostsSelector } from '~/store/selectors/post';
 import { showSimpleError } from '~/utils/alert';
 import { isAuthenticated as isAuthenticatedSelector } from '~/store/selectors/session';
 import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
-import _ from 'lodash';
 
 const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisible = true, ...props }, ref) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const postsArray = useSelector(postsSelector);
+  const postsArray = useSelector(type === 'search' ? searchPostsSelector : postsSelector);
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    if (type === 'home') {
+    if (type === 'home' || type === 'search') {
       setPosts(postsArray);
     }
   }, [JSON.stringify(postsArray)]);
@@ -35,10 +35,14 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     handleLoadMore(true);
   }, []);
 
-  const handleRefresh = async () => {
+  const handleRefresh = async (keyword) => {
+    if (keyword) {
+      setPosts([]);
+      setLoading(true);
+    }
     setIsRefreshing(true);
     setHasMore(true);
-    await fetchPosts();
+    await fetchPosts(null, keyword);
     setIsRefreshing(false);
   };
 
@@ -46,13 +50,13 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     handleRefresh,
   }));
 
-  const fetchPosts = async (lastId) => {
+  const fetchPosts = async (lastId, keyword) => {
     try {
       const response = await Promisify(dispatch, PostCreators.getPostsRequest, {
         lastId,
         profileId,
         type,
-        searchKeyword,
+        searchKeyword: keyword || searchKeyword,
       });
       let updatedPosts = response.posts;
 
@@ -105,6 +109,18 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       </Styled.Text>
     );
 
+  const renderHeader = () => {
+    if (type !== 'search') {
+      return null;
+    }
+    return (
+      <Styled.SearchResults>
+        <Styled.Text fontSize={17}>Search results</Styled.Text>
+        <Styled.ArrowDownIcon />
+      </Styled.SearchResults>
+    );
+  };
+
   if (!isVisible) {
     return null;
   }
@@ -114,7 +130,8 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       data={posts}
       renderItem={renderItem}
       keyExtractor={(item) => item._id}
-      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+      refreshControl={type === 'home' && <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+      ListHeaderComponent={renderHeader}
       ListFooterComponent={renderFooter}
       ListEmptyComponent={renderEmpty}
       onEndReachedThreshold={0.4}

@@ -9,6 +9,7 @@ export { Text, Box, Loader } from '~/components/ui';
 
 export const List = styled.FlatList.attrs({
   contentContainerStyle: { backgroundColor: Colors.background },
+  keyboardShouldPersistTaps: 'handled',
 })`
   flex: 1;
 `;
