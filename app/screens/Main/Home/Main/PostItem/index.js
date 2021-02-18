@@ -85,7 +85,11 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
       <Styled.Box bg="white" style={style} pointerEvents={isAuthenticated ? 'auto' : 'box-only'}>
         <Styled.Box pt={18} px={16}>
           <Styled.Box flexDirection="row">
-            <Styled.AvatarCircle url={item.creator._id === user._id ? user.avatar : item.creator.avatar} size={35} onPress={handleAvatarPress} />
+            <Styled.AvatarCircle
+              url={item.creator._id === (user && user._id) ? user.avatar : item.creator.avatar}
+              size={35}
+              onPress={handleAvatarPress}
+            />
             <Styled.Box flex={1} ml={10} justifyContent="center">
               <Styled.Text fontStyle="semibold" color="rgba(19,19,19,0.6)">
                 {item.creator.displayName}

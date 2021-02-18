@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from 'react-native';
-import _ from 'lodash';
 
 import { Colors } from '~/utils/theme';
 import ProgressScreen from '~/screens/Auth/Progress';
@@ -10,7 +9,7 @@ import { Toast } from '~/components/ui';
 import { isRehydrated as isRehydratedSelector } from '~/store/selectors/app';
 import { AppCreators } from '~/store/actions/app';
 import { getJWTToken, getJWTHeader } from '~/store/selectors/session';
-import SocketService, { RECEIVE_MESSAGE, RECEIVE_INVITE, RECEIVE_NOTIFICATION } from '~/services/socket';
+import SocketService from '~/services/socket';
 import { activeRoomId as activeRoomIdSelector } from '~/store/selectors/chat';
 import { home, main } from '~/navigation/routeNames';
 import { ChatCreators } from '~/store/actions/chat';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import { RefreshControl, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -13,7 +13,7 @@ import { navigators, home } from '~/navigation/routeNames';
 import * as Styled from './styled';
 import _ from 'lodash';
 
-const PostList = ({ onUnAuth, profileId, type, ...props }) => {
+const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisible = true, ...props }, ref) => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const postsArray = useSelector(postsSelector);
@@ -37,13 +37,23 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
 
   const handleRefresh = async () => {
     setIsRefreshing(true);
+    setHasMore(true);
     await fetchPosts();
     setIsRefreshing(false);
   };
 
+  useImperativeHandle(ref, () => ({
+    handleRefresh,
+  }));
+
   const fetchPosts = async (lastId) => {
     try {
-      const response = await Promisify(dispatch, PostCreators.getPostsRequest, { lastId, profileId, type });
+      const response = await Promisify(dispatch, PostCreators.getPostsRequest, {
+        lastId,
+        profileId,
+        type,
+        searchKeyword,
+      });
       let updatedPosts = response.posts;
 
       if (type !== 'home') {
@@ -95,6 +105,10 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
       </Styled.Text>
     );
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <Styled.List
       data={posts}
@@ -109,6 +123,6 @@ const PostList = ({ onUnAuth, profileId, type, ...props }) => {
       {...props}
     />
   );
-};
+});
 
 export default PostList;

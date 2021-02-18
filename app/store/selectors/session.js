@@ -15,3 +15,5 @@ export const getJWTToken = createSelector(getState, (state) => state.token);
 export const getJWTHeader = createSelector(getJWTToken, (token) => (token ? `Bearer ${token}` : null));
 
 export const isAuthenticated = createSelector(getJWTToken, (token) => token !== null);
+
+export const searchHistory = createSelector(getState, (state) => state.searchHistory);

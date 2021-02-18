@@ -6,6 +6,7 @@ import { Image, Button, Box } from '~/components/ui';
 import PostListUI from './PostList';
 
 export { Text, Box, Button, IconButton, Loader } from '~/components/ui';
+export SearchHistory from './SearchHistory';
 
 export const Container = styled.View`
   flex: 1;
@@ -40,6 +41,8 @@ export const CreateButton = styled(Button).attrs({ py: 7, px: 10, ml: 16 })`
   border-radius: 20px;
 `;
 
+export const SearchWrapper = styled.TouchableWithoutFeedback``;
+
 export const SearchContainer = styled(Box).attrs({
   borderRadius: 10,
   bg: 'rgba(118, 118, 128, 0.12)',
@@ -61,7 +64,14 @@ export const SearchIcon = styled(Image).attrs({
 
 export const SearchInput = styled.TextInput.attrs({
   returnKeyType: 'search',
-  placeholder: 'Search',
 })`
   flex: 1;
 `;
+
+export const CancelButton = styled(Button).attrs({
+  py: 5,
+  ml: 14,
+  variant: 'text',
+  text: 'Cancel',
+  textProps: { color: 'pink', fontStyle: 'regular' },
+})``;
