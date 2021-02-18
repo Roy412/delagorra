@@ -3,6 +3,7 @@ import { RefreshControl, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 import _ from 'lodash';
+import OutsideClickHandler from 'react-outside-click-handler';
 
 import { Promisify } from '~/utils/promisify';
 import { PostCreators } from '~/store/actions/post';
@@ -19,17 +20,18 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   const postsArray = useSelector(type === 'search' ? searchPostsSelector : postsSelector);
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const [posts, setPosts] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState();
+  const [loading, setLoading] = useState(true);
+  const [lastPostId, setLastPostId] = useState();
+  const [hasMore, setHasMore] = useState(true);
+  const [showSort, setShowSort] = useState(false);
+  const [sortMode, setSortMode] = useState('new');
 
   useEffect(() => {
     if (type === 'home' || type === 'search') {
       setPosts(postsArray);
     }
   }, [JSON.stringify(postsArray)]);
-
-  const [isRefreshing, setIsRefreshing] = useState();
-  const [loading, setLoading] = useState(true);
-  const [lastPostId, setLastPostId] = useState();
-  const [hasMore, setHasMore] = useState(true);
 
   useEffect(() => {
     handleLoadMore(true);
@@ -57,6 +59,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
         profileId,
         type,
         searchKeyword: keyword || searchKeyword,
+        sortMode,
       });
       let updatedPosts = response.posts;
 
@@ -93,6 +96,10 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
   };
 
+  const handleSortPress = () => {
+    setShowSort(true);
+  };
+
   const renderFooter = () => {
     if (!loading) {
       return null;
@@ -114,9 +121,17 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       return null;
     }
     return (
-      <Styled.SearchResults>
+      <Styled.SearchResults onPress={handleSortPress}>
         <Styled.Text fontSize={17}>Search results</Styled.Text>
         <Styled.ArrowDownIcon />
+        {showSort && (
+          <OutsideClickHandler
+            onOutsideClick={() => {
+              setShowSort(false);
+            }}>
+            <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />
+          </OutsideClickHandler>
+        )}
       </Styled.SearchResults>
     );
   };
@@ -137,6 +152,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
       onEndReachedThreshold={0.4}
       onEndReached={handleLoadMore}
       bounces={!loading}
+      keyboardShouldPersistTaps="always"
       {...props}
     />
   );

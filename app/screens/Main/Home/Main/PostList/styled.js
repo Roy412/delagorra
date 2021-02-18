@@ -5,6 +5,7 @@ import { arrowDownIcon } from '~/resources';
 import { Image } from '~/components/ui';
 
 import PostItemUI from '../PostItem';
+import SortPanelUI from './SortPanel';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 
@@ -32,3 +33,5 @@ export const SearchResults = styled.TouchableOpacity`
   justify-content: space-between;
   padding: 10px;
 `;
+
+export const SortPanel = styled(SortPanelUI)``;
