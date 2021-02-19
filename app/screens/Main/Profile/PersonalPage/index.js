@@ -85,8 +85,9 @@ const PersonalPage = ({ route, navigation }) => {
   const handleBackgroundPress = (option) => {
     const func = option.value === 'take' ? ImagePicker.openCamera : ImagePicker.openPicker;
     func({
-      width: 800,
-      height: 1000,
+      width: 1000,
+      height: 700,
+      cropping: true,
     })
       .then((value) => {
         handleBackgroundSave(PhotoService.file2Attachment(value, 'backgroundImg'));
