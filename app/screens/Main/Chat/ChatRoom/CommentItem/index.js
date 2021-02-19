@@ -12,7 +12,7 @@ import { Promisify } from '~/utils/promisify';
 
 import * as Styled from './styled';
 
-const CommentItem = ({ currentMessage, style, roomId }) => {
+const CommentItem = ({ currentMessage, style, roomId, noReply = false }) => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -86,12 +86,16 @@ const CommentItem = ({ currentMessage, style, roomId }) => {
         )}
 
         <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between">
-          <Styled.ReplyContainer onPress={handleReply} disabled={!!currentMessage.mockId}>
-            <Styled.CommentIcon />
-            <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
-              {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
-            </Styled.Text>
-          </Styled.ReplyContainer>
+          {!noReply ? (
+            <Styled.ReplyContainer onPress={handleReply} disabled={!!currentMessage.mockId}>
+              <Styled.CommentIcon />
+              <Styled.Text color="darkGray" fontSize={14} fontStyle="semiBold" ml={5}>
+                {currentMessage.replyCount ? `Replies ${currentMessage.replyCount}` : 'Reply'}
+              </Styled.Text>
+            </Styled.ReplyContainer>
+          ) : (
+            <Styled.Box />
+          )}
 
           <Styled.Box flexDirection="row" alignItems="center">
             <Styled.LikeButton

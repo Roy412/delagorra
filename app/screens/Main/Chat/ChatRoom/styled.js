@@ -25,7 +25,9 @@ export const ActivityIndicator = styled(ActivityIndicatorUI)`
   margin-top: 20px;
 `;
 
-export const ReplyCommentItem = styled(CommentItemUI)`
+export const ReplyCommentItem = styled(CommentItemUI).attrs({
+  noReply: true,
+})`
   background-color: white;
 `;
 

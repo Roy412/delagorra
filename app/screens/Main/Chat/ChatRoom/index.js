@@ -70,13 +70,21 @@ const ChatRoom = ({ route, navigation }) => {
 
   const onSend = useCallback(
     (newMessages = []) => {
+      let postId;
+      if (type === 'post') {
+        if (post) {
+          postId = post._id;
+        } else {
+          postId = comment && comment.post._id;
+        }
+      }
       _.forEach(newMessages, async (newMsg) => {
         try {
           await Promisify(dispatch, ChatCreators.chatSendRequest, {
             text: newMsg.text,
             roomId: room._id,
             roomType: type === 'chat' ? 'chat' : 'comment',
-            postId: type === 'post' ? post && post._id : null,
+            postId,
             isReplyRoom: type === 'post' && !post,
           });
         } catch (e) {}
