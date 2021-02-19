@@ -8,6 +8,7 @@ import { Promisify } from '~/utils/promisify';
 import { showSimpleError } from '~/utils/alert';
 import { AuthCreators } from '~/store/actions/auth';
 import { main, navigators, auth } from '~/navigation/routeNames';
+import { AppCreators } from '~/store/actions/app';
 
 import * as Styled from './styled';
 
@@ -52,6 +53,7 @@ const SetUpPassword = ({ navigation, route }) => {
     try {
       setLoading(true);
       await Promisify(dispatch, AuthCreators.updatePasswordRequest, { password: values.password, phoneNumber });
+      dispatch(AppCreators.startup());
       setLoading(false);
       Toast.show({
         text1: 'Successful Verification',

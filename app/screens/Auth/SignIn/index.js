@@ -10,6 +10,7 @@ import { showSimpleError } from '~/utils/alert';
 import { Colors } from '~/utils/theme';
 import { Promisify } from '~/utils/promisify';
 import { main, auth, navigators } from '~/navigation/routeNames';
+import { AppCreators } from '~/store/actions/app';
 
 import TermsModal from './TermsModal';
 import * as Styled from './styled';
@@ -110,6 +111,7 @@ const SignIn = ({ navigation }) => {
       } else {
         clearInterval(intervalRef.current);
         dispatch(AuthCreators.signInSuccess(response));
+        dispatch(AppCreators.startup());
         navigation.reset({ index: 0, routes: [{ name: navigators.main, params: { screen: main.home } }] });
       }
     } catch (e) {

@@ -1,3 +1,5 @@
+import { format, parseISO } from 'date-fns';
+
 export const capitalizeFirstLetter = (string) => string.charAt(0).toUpperCase() + string.slice(1);
 
 export const hitSlopArea = (offset) => ({
@@ -44,3 +46,5 @@ export const timeSince = (date, suf = '') => {
   const suffix = Math.floor(interval) > 1 ? ' secs' : ' sec';
   return Math.floor(seconds) + suffix + suf;
 };
+
+export const convertToTimeString = (createdAt) => format(parseISO(createdAt), 'hh:mm a');

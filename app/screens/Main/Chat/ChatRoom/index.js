@@ -8,6 +8,7 @@ import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
+import { convertToTimeString } from '~/utils/utils';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
@@ -103,6 +104,20 @@ const ChatRoom = ({ route, navigation }) => {
 
   const renderSeparator = () => type === 'post' && <Styled.Box height={1} bg="rgba(19,19,19,0.07)" ml={16} />;
 
+  const renderDayTime = ({ currentMessage, nextMessage }) => {
+    const timeString = convertToTimeString(currentMessage.createdAt);
+    if (nextMessage && nextMessage.createdAt) {
+      if (timeString === convertToTimeString(nextMessage.createdAt)) {
+        return null;
+      }
+    }
+    return (
+      <Styled.Text my={5} textAlign="center" color="#898A8D">
+        {timeString}
+      </Styled.Text>
+    );
+  };
+
   if (type === 'chat' && loading) {
     return <Styled.Loader loading />;
   }
@@ -128,6 +143,8 @@ const ChatRoom = ({ route, navigation }) => {
         renderLoadEarlier={renderHeader}
         loadEarlier={type === 'post'}
         listViewProps={{ ItemSeparatorComponent: renderSeparator }}
+        renderTime={() => null}
+        renderDay={renderDayTime}
       />
     </Styled.Container>
   );
