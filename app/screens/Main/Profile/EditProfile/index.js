@@ -34,10 +34,10 @@ const EditProfile = ({ navigation }) => {
       setLoading(true);
       await Promisify(dispatch, ProfileCreators.profileUpdateRequest, {
         ..._.pick(user, ['displayName', 'bio', 'gender', 'city', 'birthday']),
-        avatar: profileImage,
+        files: [profileImage],
       });
       setLoading(false);
-      Toast.show({ text1: 'Successful updated the profile!', position: 'bottom' });
+      Toast.show({ text1: 'Successfully updated the profile!', position: 'bottom' });
     } catch (e) {
       showSimpleError(e);
       setLoading(false);
@@ -130,7 +130,7 @@ const EditProfile = ({ navigation }) => {
       cropperCircleOverlay: true,
     })
       .then((image) => {
-        setProfileImage(PhotoService.file2Attachment(image));
+        setProfileImage(PhotoService.file2Attachment(image, 'avatar'));
       })
       .catch(() => {})
       .finally(() => {

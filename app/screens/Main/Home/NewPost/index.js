@@ -72,7 +72,7 @@ const NewPost = ({ navigation }) => {
   }, [navigation, postEnable, title, content, image]);
 
   const handlePicturePress = (option) => {
-    const func = option === 'Take Photo...' ? ImagePicker.openCamera : ImagePicker.openPicker;
+    const func = option.value === 'take' ? ImagePicker.openCamera : ImagePicker.openPicker;
     func({
       width: 500,
       height: 500,
@@ -106,7 +106,16 @@ const NewPost = ({ navigation }) => {
 
       <Styled.Box flexDirection="row" alignItems="center" justifyContent="space-between" bg="white" px={16} py={10}>
         <Styled.ActionPicker
-          options={['Take Photo...', 'Choose from Library...']}
+          options={[
+            {
+              value: 'take',
+              label: 'Take Photo...',
+            },
+            {
+              value: 'choose',
+              label: 'Choose from Library...',
+            },
+          ]}
           onPressItem={handlePicturePress}
           disabled={!!image}>
           <Styled.PictureImage />

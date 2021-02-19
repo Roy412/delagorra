@@ -1,12 +1,15 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
+import ImagePicker from 'react-native-image-crop-picker';
+import Toast from 'react-native-toast-message';
 
 import { user as userSelector } from '~/store/selectors/session';
 import { home, profile as profileNav } from '~/navigation/routeNames';
 import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
 import { showSimpleError } from '~/utils/alert';
+import PhotoService from '~/services/photo';
 
 import * as Styled from './styled';
 import Tabs from '../MyActivities';
@@ -23,10 +26,11 @@ const ProfileInfoItem = ({ label, value }) => (
 );
 
 const PersonalPage = ({ route, navigation }) => {
+  const dispatch = useDispatch();
   const { profileId } = route.params;
   const [profile, setProfile] = useState();
   const user = useSelector(userSelector);
-  const dispatch = useDispatch();
+  const [loading, setLoading] = useState();
 
   const isMine = profileId === user._id;
 
@@ -78,14 +82,55 @@ const PersonalPage = ({ route, navigation }) => {
     navigation.goBack(null);
   };
 
+  const handleBackgroundPress = (option) => {
+    const func = option.value === 'take' ? ImagePicker.openCamera : ImagePicker.openPicker;
+    func({
+      width: 800,
+      height: 1000,
+    })
+      .then((value) => {
+        handleBackgroundSave(PhotoService.file2Attachment(value, 'backgroundImg'));
+      })
+      .catch(() => {});
+  };
+
+  const handleBackgroundSave = async (file) => {
+    try {
+      setLoading(true);
+      await Promisify(dispatch, ProfileCreators.profileUpdateRequest, { files: [file] });
+      setLoading(false);
+      Toast.show({ text1: 'Successfully updated the profile background!', position: 'bottom' });
+    } catch (e) {
+      showSimpleError(e);
+      setLoading(false);
+    }
+  };
+
   const renderContent = () => (
     <>
       <Styled.Box>
-        <Styled.BackgroundImage />
+        <Styled.BackgroundImage source={profile.background && { uri: profile.background }} />
         <Styled.SimpleHeader barStyle="light-content" bg={'transparent'} />
         <Styled.Header flexDirection="row" alignItems="center" justifyContent="space-between" mt={10} mb={50}>
           <Styled.BackButton onPress={handleBack} />
           {!isMine && <Styled.RightButton onPress={handleChat} />}
+
+          {isMine && (
+            <Styled.ActionPicker
+              options={[
+                {
+                  value: 'take',
+                  label: 'Take Photo...',
+                },
+                {
+                  value: 'choose',
+                  label: 'Choose from Library...',
+                },
+              ]}
+              onPressItem={handleBackgroundPress}>
+              <Styled.PictureImage />
+            </Styled.ActionPicker>
+          )}
         </Styled.Header>
       </Styled.Box>
 
@@ -133,7 +178,8 @@ const PersonalPage = ({ route, navigation }) => {
     <Styled.Container>
       {profile ? renderContent() : null}
       <Tabs route={{ params: { profileId } }} />
-      {!profile && <Styled.Loader loading />}
+      {!profile && <Styled.Loader loading grayBackground />}
+      <Styled.Loader loading={loading} />
     </Styled.Container>
   );
 };

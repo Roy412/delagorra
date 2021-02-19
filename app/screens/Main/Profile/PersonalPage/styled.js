@@ -1,8 +1,8 @@
 import styled from 'styled-components/native';
 
-import { Box, IconButton, Image, Button, Loader as LoaderUI } from '~/components/ui';
+import { Box, IconButton, Image, Button, Loader as LoaderUI, ActionPicker as ActionPickerUI } from '~/components/ui';
 import { Colors } from '~/utils/theme';
-import { personalBackground, backIcon, profileMessage } from '~/resources';
+import { personalBackground, backIcon, profileMessage, profilePicture } from '~/resources';
 import { hitSlopArea } from '~/utils/utils';
 
 export { Text, Box, Image, AvatarCircle, Button } from '~/components/ui';
@@ -14,9 +14,9 @@ export const Container = styled(Box)`
   background-color: ${Colors.white};
 `;
 
-export const BackgroundImage = styled(Image).attrs({
-  source: personalBackground,
-})`
+export const BackgroundImage = styled(Image).attrs((props) => ({
+  source: props.source || personalBackground,
+}))`
   position: absolute;
   left: 0;
   top: 0;
@@ -79,5 +79,14 @@ export const BtnEditProfile = styled(Button).attrs((props) => ({
 `;
 
 export const Loader = styled(LoaderUI)`
-  background-color: ${Colors.background};
-`
+  ${(props) => props.grayBackground && `background-color: ${Colors.background};`}
+`;
+
+export const PictureImage = styled(Image).attrs({
+  source: profilePicture,
+  size: 26,
+})``;
+
+export const ActionPicker = styled(ActionPickerUI)`
+  margin-right: 17px;
+`;
