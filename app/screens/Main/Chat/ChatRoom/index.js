@@ -118,6 +118,8 @@ const ChatRoom = ({ route, navigation }) => {
     );
   };
 
+  const renderBubble = ({ containerStyle, onMessageLayout, ...props }) => <Styled.Bubble {...props} />;
+
   if (type === 'chat' && loading) {
     return <Styled.Loader loading />;
   }
@@ -145,6 +147,7 @@ const ChatRoom = ({ route, navigation }) => {
         listViewProps={{ ItemSeparatorComponent: renderSeparator }}
         renderTime={() => null}
         renderDay={renderDayTime}
+        renderBubble={renderBubble}
       />
     </Styled.Container>
   );

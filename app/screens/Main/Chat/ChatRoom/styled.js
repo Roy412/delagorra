@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { GiftedChat as GiftedChatUI } from 'react-native-gifted-chat';
+import { GiftedChat as GiftedChatUI, Bubble as BubbleUI } from 'react-native-gifted-chat';
 import { ActivityIndicator as ActivityIndicatorUI } from 'react-native';
 
 import CommentItemUI from './CommentItem';
@@ -37,4 +37,15 @@ export const CloseButton = styled(IconButton).attrs({
   pr: 17,
   tintColor: 'white',
   iconStyle: { width: 18, aspectRatio: 60 / 66, height: undefined },
+})``;
+
+export const Bubble = styled(BubbleUI).attrs({
+  wrapperStyle: {
+    left: { backgroundColor: 'white' },
+    right: { backgroundColor: '#E5E5E5' },
+  },
+  textStyle: {
+    left: { color: Colors.veryDarkGray },
+    right: { color: Colors.veryDarkGray },
+  },
 })``;
