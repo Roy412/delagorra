@@ -156,7 +156,7 @@ const ChatRoom = ({ route, navigation }) => {
         renderBubble={renderBubble}
       />
 
-      <Styled.Loader sharing={postSharing} />
+      <Styled.Loader loading={postSharing} />
     </Styled.Container>
   );
 };

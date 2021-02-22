@@ -83,7 +83,7 @@ const Home = ({ navigation }) => {
         isVisible={!!showSearchResults}
       />
 
-      <Styled.Loader sharing={postSharing} />
+      <Styled.Loader loading={postSharing} />
     </Styled.Container>
   );
 };

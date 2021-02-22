@@ -57,9 +57,7 @@ const postCreateSuccess = (state, { post }) => {
   return state.merge({ posts: sortedPosts });
 };
 
-const postShareLoading = (state, { loading }) => {
-  return state.merge({ sharing: loading });
-};
+const postShareLoading = (state, { loading }) => state.merge({ sharing: loading });
 
 const HANDLERS = {
   [PostTypes.GET_POSTS_SUCCESS]: getPostsSuccess,
