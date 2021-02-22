@@ -13,140 +13,138 @@ import { navigators, home } from '~/navigation/routeNames';
 
 import * as Styled from './styled';
 
-const PostList = forwardRef(
-  ({ onUnAuth, profileId, type, searchKeyword, isVisible = true, onShare = _.noop, ...props }, ref) => {
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
-    const postsArray = useSelector(type === 'search' ? searchPostsSelector : postsSelector);
-    const isAuthenticated = useSelector(isAuthenticatedSelector);
-    const [posts, setPosts] = useState([]);
-    const [isRefreshing, setIsRefreshing] = useState();
-    const [loading, setLoading] = useState(true);
-    const [lastPostId, setLastPostId] = useState();
-    const [hasMore, setHasMore] = useState(true);
-    const [sortMode, setSortMode] = useState('new');
+const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisible = true, ...props }, ref) => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const postsArray = useSelector(type === 'search' ? searchPostsSelector : postsSelector);
+  const isAuthenticated = useSelector(isAuthenticatedSelector);
+  const [posts, setPosts] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState();
+  const [loading, setLoading] = useState(true);
+  const [lastPostId, setLastPostId] = useState();
+  const [hasMore, setHasMore] = useState(true);
+  const [sortMode, setSortMode] = useState('new');
 
-    useEffect(() => {
-      if (type === 'home' || type === 'search') {
-        setPosts(postsArray);
-      }
-    }, [JSON.stringify(postsArray)]);
+  useEffect(() => {
+    if (type === 'home' || type === 'search') {
+      setPosts(postsArray);
+    }
+  }, [JSON.stringify(postsArray)]);
 
-    useEffect(() => {
-      handleLoadMore(true);
-    }, []);
+  useEffect(() => {
+    handleLoadMore(true);
+  }, []);
 
-    useEffect(() => {
-      if (type === 'search') {
-        handleRefresh(searchKeyword);
-      }
-    }, [sortMode]);
+  useEffect(() => {
+    if (type === 'search') {
+      handleRefresh(searchKeyword);
+    }
+  }, [sortMode]);
 
-    const handleRefresh = async (keyword) => {
-      if (!isVisible && !keyword) {
-        return;
-      }
-      if (keyword) {
-        setPosts([]);
-        setLoading(true);
-      }
-      setIsRefreshing(true);
-      setHasMore(true);
-      await fetchPosts(null, keyword);
-      setIsRefreshing(false);
-    };
-
-    useImperativeHandle(ref, () => ({
-      handleRefresh,
-    }));
-
-    const fetchPosts = async (lastId, keyword) => {
-      try {
-        const response = await Promisify(dispatch, PostCreators.getPostsRequest, {
-          lastId,
-          profileId,
-          type,
-          searchKeyword: keyword || searchKeyword,
-          sortMode,
-        });
-        let updatedPosts = response.posts;
-
-        if (type !== 'home' && type !== 'search') {
-          if (lastId) {
-            updatedPosts = _.unionBy(posts, updatedPosts, '_id');
-          }
-          setPosts(updatedPosts);
-        }
-
-        if (response.posts.length < 1) {
-          setHasMore(false);
-        } else {
-          setLastPostId(response.lastId);
-        }
-      } catch (e) {
-        showSimpleError(e);
-      }
-    };
-
-    const handleLoadMore = async (isInitial) => {
-      if (!isVisible || !hasMore || (loading && !isInitial)) {
-        return;
-      }
+  const handleRefresh = async (keyword) => {
+    if (!isVisible && !keyword) {
+      return;
+    }
+    if (keyword) {
+      setPosts([]);
       setLoading(true);
-      await fetchPosts(lastPostId);
-      setLoading(false);
-    };
+    }
+    setIsRefreshing(true);
+    setHasMore(true);
+    await fetchPosts(null, keyword);
+    setIsRefreshing(false);
+  };
 
-    const handlePressItem = (item) => {
-      if (!isAuthenticated) {
-        return onUnAuth();
+  useImperativeHandle(ref, () => ({
+    handleRefresh,
+  }));
+
+  const fetchPosts = async (lastId, keyword) => {
+    try {
+      const response = await Promisify(dispatch, PostCreators.getPostsRequest, {
+        lastId,
+        profileId,
+        type,
+        searchKeyword: keyword || searchKeyword,
+        sortMode,
+      });
+      let updatedPosts = response.posts;
+
+      if (type !== 'home' && type !== 'search') {
+        if (lastId) {
+          updatedPosts = _.unionBy(posts, updatedPosts, '_id');
+        }
+        setPosts(updatedPosts);
       }
-      navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
-    };
 
-    const renderFooter = () => {
-      if (!loading) {
-        return null;
+      if (response.posts.length < 1) {
+        setHasMore(false);
+      } else {
+        setLastPostId(response.lastId);
       }
-      return <ActivityIndicator style={{ color: '#000', marginVertical: 10 }} size="large" />;
-    };
+    } catch (e) {
+      showSimpleError(e);
+    }
+  };
 
-    const renderItem = ({ item }) => <Styled.PostItem item={item} onPress={handlePressItem} onShare={onShare} />;
+  const handleLoadMore = async (isInitial) => {
+    if (!isVisible || !hasMore || (loading && !isInitial)) {
+      return;
+    }
+    setLoading(true);
+    await fetchPosts(lastPostId);
+    setLoading(false);
+  };
 
-    const renderEmpty = () =>
-      !hasMore && (
-        <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
-          No Posts
-        </Styled.Text>
-      );
+  const handlePressItem = (item) => {
+    if (!isAuthenticated) {
+      return onUnAuth();
+    }
+    navigation.push(navigators.mainNav, { screen: home.chatRoom, params: { post: item, type: 'post' } });
+  };
 
-    const renderHeader = () => {
-      if (type !== 'search') {
-        return null;
-      }
-      return <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />;
-    };
-
-    if (!isVisible) {
+  const renderFooter = () => {
+    if (!loading) {
       return null;
     }
+    return <ActivityIndicator style={{ color: '#000', marginVertical: 10 }} size="large" />;
+  };
 
-    return (
-      <Styled.List
-        data={posts}
-        renderItem={renderItem}
-        keyExtractor={(item) => item._id}
-        refreshControl={type === 'home' && <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
-        ListHeaderComponent={renderHeader}
-        ListFooterComponent={renderFooter}
-        ListEmptyComponent={renderEmpty}
-        onEndReachedThreshold={0.4}
-        onEndReached={handleLoadMore}
-        keyboardShouldPersistTaps="always"
-        {...props}
-      />
+  const renderItem = ({ item }) => <Styled.PostItem item={item} onPress={handlePressItem} />;
+
+  const renderEmpty = () =>
+    !hasMore && (
+      <Styled.Text textAlign="center" mt={20} fontSize={15} fontStyle="medium">
+        No Posts
+      </Styled.Text>
     );
-  },
-);
+
+  const renderHeader = () => {
+    if (type !== 'search') {
+      return null;
+    }
+    return <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />;
+  };
+
+  if (!isVisible) {
+    return null;
+  }
+
+  return (
+    <Styled.List
+      data={posts}
+      renderItem={renderItem}
+      keyExtractor={(item) => item._id}
+      refreshControl={type === 'home' && <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />}
+      ListHeaderComponent={renderHeader}
+      ListFooterComponent={renderFooter}
+      ListEmptyComponent={renderEmpty}
+      onEndReachedThreshold={0.4}
+      onEndReached={handleLoadMore}
+      keyboardShouldPersistTaps="always"
+      {...props}
+    />
+  );
+});
 
 export default PostList;

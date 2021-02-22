@@ -10,6 +10,8 @@ export const { Types: PostTypes, Creators: PostCreators } = createActions(
 
     postUpdateStatusRequest: ['payload', 'resolve', 'reject'],
     postUpdateStatusSuccess: ['payload'],
+
+    postShareLoading: ['loading'],
   },
   { prefix: 'Post/' },
 );

@@ -9,21 +9,19 @@ import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
 import { convertToTimeString } from '~/utils/utils';
-import { PostCreators } from '~/store/actions/post';
+import { sharing as sharingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
 import CommentsHeader from './CommentsHeader';
-import RNFetchBlob from 'rn-fetch-blob';
-import Share from 'react-native-share';
 
 const ChatRoom = ({ route, navigation }) => {
   const { otherUserId, post, type, comment } = route.params || {};
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [screenLoading, setScreenLoading] = useState(true);
   const user = useSelector(userSelector);
+  const postSharing = useSelector(sharingSelector);
 
   const [room, setRoom] = useState();
   const [messages, setMessages] = useState([]);
@@ -98,36 +96,10 @@ const ChatRoom = ({ route, navigation }) => {
     [room],
   );
 
-  const handleShare = async (item) => {
-    let imagePath = null;
-    const shareOptions = { message: item.title };
-
-    try {
-      setScreenLoading(true);
-      if (item.image) {
-        const resp = await RNFetchBlob.config({ fileCache: true }).fetch('GET', item.image);
-        imagePath = resp.path();
-        let base64Data = await resp.readFile('base64');
-        base64Data = 'data:image/png;base64,' + base64Data;
-        shareOptions.url = base64Data;
-      }
-      setScreenLoading(false);
-      await Share.open(shareOptions);
-
-      if (imagePath) {
-        RNFetchBlob.fs.unlink(imagePath);
-      }
-
-      dispatch(PostCreators.postUpdateStatusRequest({ postId: item._id, status: { share: true } }));
-    } catch (err) {
-      setScreenLoading(false);
-    }
-  };
-
   const renderHeader = () => (
     <Styled.Box>
       {post ? (
-        <PostItem item={post} bookmarkEnabled onShare={handleShare} />
+        <PostItem item={post} bookmarkEnabled />
       ) : (
         <Styled.ReplyCommentItem currentMessage={comment} />
       )}
@@ -183,7 +155,8 @@ const ChatRoom = ({ route, navigation }) => {
         renderDay={renderDayTime}
         renderBubble={renderBubble}
       />
-      <Styled.Loader loading={screenLoading} />
+
+      <Styled.Loader sharing={postSharing} />
     </Styled.Container>
   );
 };

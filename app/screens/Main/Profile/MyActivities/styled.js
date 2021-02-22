@@ -5,6 +5,8 @@ import { Metrics } from '~/utils/theme';
 import PostListUI from '~/screens/Main/Home/Main/PostList';
 import CommentListUI from './CommentList';
 
+export { Loader } from '~/components/ui';
+
 export const PostList = styled(PostListUI).attrs({
   contentContainerStyle: { paddingBottom: Metrics.bottomSpace, marginTop: 3 },
 })``;

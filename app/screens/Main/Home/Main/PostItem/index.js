@@ -4,6 +4,8 @@ import { parseISO } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import _ from 'lodash';
 import { useNavigation } from '@react-navigation/native';
+import RNFetchBlob from 'rn-fetch-blob';
+import Share from 'react-native-share';
 
 import { likeIcon, commentIcon, shareIcon, starIcon } from '~/resources';
 import { timeSince } from '~/utils/utils';
@@ -26,7 +28,7 @@ const PostActionItem = ({ source, text, size, justifyContent, onPress, active })
   </Styled.Box>
 );
 
-const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style, onShare = _.noop }) => {
+const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
@@ -76,6 +78,32 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style, onShar
     setItem({ ...item, ...result.status });
     dispatch(PostCreators.postUpdateStatusSuccess(result));
     handleUpdateStatusDebounced({ bookmark: !item.bookmark });
+  };
+
+  const handleShare = async () => {
+    let imagePath = null;
+    const shareOptions = { message: item.title };
+
+    try {
+      dispatch(PostCreators.postShareLoading(true));
+      if (item.image) {
+        const resp = await RNFetchBlob.config({ fileCache: true }).fetch('GET', item.image);
+        imagePath = resp.path();
+        let base64Data = await resp.readFile('base64');
+        base64Data = 'data:image/png;base64,' + base64Data;
+        shareOptions.url = base64Data;
+      }
+      dispatch(PostCreators.postShareLoading(false));
+      await Share.open(shareOptions);
+
+      if (imagePath) {
+        RNFetchBlob.fs.unlink(imagePath);
+      }
+
+      dispatch(PostCreators.postUpdateStatusRequest({ postId: item._id, status: { share: true } }));
+    } catch (err) {
+      dispatch(PostCreators.postShareLoading(false));
+    }
   };
 
   return (
@@ -131,7 +159,7 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style, onShar
             text={bookmarkEnabled ? 'Share' : item.totalShares}
             size={20}
             justifyContent="flex-end"
-            onPress={() => onShare(item)}
+            onPress={handleShare}
           />
         </Styled.Box>
       </Styled.Box>

@@ -9,6 +9,7 @@ const INITIAL_STATE = Immutable({
   posts: [],
   profilePosts: [],
   searchPosts: [],
+  sharing: false,
 });
 
 const updatePosts = (prevPosts, payload) => {
@@ -56,10 +57,15 @@ const postCreateSuccess = (state, { post }) => {
   return state.merge({ posts: sortedPosts });
 };
 
+const postShareLoading = (state, { loading }) => {
+  return state.merge({ sharing: loading });
+};
+
 const HANDLERS = {
   [PostTypes.GET_POSTS_SUCCESS]: getPostsSuccess,
   [PostTypes.CREATE_POST_SUCCESS]: postCreateSuccess,
   [PostTypes.POST_UPDATE_STATUS_SUCCESS]: postUpdateStatusSuccess,
+  [PostTypes.POST_SHARE_LOADING]: postShareLoading,
 };
 
 export default createReducer(INITIAL_STATE, HANDLERS, {

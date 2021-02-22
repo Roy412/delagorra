@@ -10,6 +10,7 @@ import { Promisify } from '~/utils/promisify';
 import { ProfileCreators } from '~/store/actions/profile';
 import { showSimpleError } from '~/utils/alert';
 import PhotoService from '~/services/photo';
+import { sharing as sharingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 import Tabs from '../MyActivities';
@@ -31,6 +32,7 @@ const PersonalPage = ({ route, navigation }) => {
   const [profile, setProfile] = useState();
   const user = useSelector(userSelector);
   const [loading, setLoading] = useState();
+  const postSharing = useSelector(sharingSelector);
 
   const isMine = profileId === user._id;
 
@@ -180,7 +182,7 @@ const PersonalPage = ({ route, navigation }) => {
       {profile ? renderContent() : null}
       <Tabs route={{ params: { profileId } }} />
       {!profile && <Styled.Loader loading grayBackground />}
-      <Styled.Loader loading={loading} />
+      <Styled.Loader loading={loading || postSharing} />
     </Styled.Container>
   );
 };
