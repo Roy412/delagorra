@@ -22,6 +22,7 @@ const ChatRoom = ({ route, navigation }) => {
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [screenLoading, setScreenLoading] = useState(true);
   const user = useSelector(userSelector);
 
   const [room, setRoom] = useState();
@@ -102,7 +103,7 @@ const ChatRoom = ({ route, navigation }) => {
     const shareOptions = { message: item.title };
 
     try {
-      setLoading(true);
+      setScreenLoading(true);
       if (item.image) {
         const resp = await RNFetchBlob.config({ fileCache: true }).fetch('GET', item.image);
         imagePath = resp.path();
@@ -110,7 +111,7 @@ const ChatRoom = ({ route, navigation }) => {
         base64Data = 'data:image/png;base64,' + base64Data;
         shareOptions.url = base64Data;
       }
-      setLoading(false);
+      setScreenLoading(false);
       await Share.open(shareOptions);
 
       if (imagePath) {
@@ -119,13 +120,17 @@ const ChatRoom = ({ route, navigation }) => {
 
       dispatch(PostCreators.postUpdateStatusRequest({ postId: item._id, status: { share: true } }));
     } catch (err) {
-      setLoading(false);
+      setScreenLoading(false);
     }
   };
 
   const renderHeader = () => (
     <Styled.Box>
-      {post ? <PostItem item={post} bookmarkEnabled onShare={handleShare} /> : <Styled.ReplyCommentItem currentMessage={comment} />}
+      {post ? (
+        <PostItem item={post} bookmarkEnabled onShare={handleShare} />
+      ) : (
+        <Styled.ReplyCommentItem currentMessage={comment} />
+      )}
       <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
@@ -178,6 +183,7 @@ const ChatRoom = ({ route, navigation }) => {
         renderDay={renderDayTime}
         renderBubble={renderBubble}
       />
+      <Styled.Loader loading={screenLoading} />
     </Styled.Container>
   );
 };
