@@ -23,7 +23,13 @@ const CommentItem = ({ currentMessage, style, roomId, noReply = false }) => {
   const handlePostOption = () => {};
 
   const handleReply = () => {
-    navigation.push(navigators.replyRoom, { type: 'post', comment: currentMessage, post: null, otherUserId: null });
+    navigation.push(navigators.replyRoom, {
+      type: 'post',
+      comment: currentMessage,
+      post: null,
+      otherUserId: null,
+      prevRoomId: roomId,
+    });
   };
 
   const strSince = timeSince(parseISO(currentMessage.createdAt));

@@ -22,7 +22,7 @@ export const GiftedChat = styled(GiftedChatUI).attrs((props) => ({
 }))``;
 
 export const ActivityIndicator = styled(ActivityIndicatorUI)`
-  margin-top: 20px;
+  margin-vertical: 20px;
 `;
 
 export const ReplyCommentItem = styled(CommentItemUI).attrs({

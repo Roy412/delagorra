@@ -148,7 +148,7 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
           />
           <PostActionItem
             source={bookmarkEnabled ? starIcon : commentIcon}
-            text={bookmarkEnabled ? 'Bookmark' : 0}
+            text={bookmarkEnabled ? 'Bookmark' : item.totalComments}
             size={25}
             justifyContent="center"
             onPress={handleBookmark}

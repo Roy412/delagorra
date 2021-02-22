@@ -65,7 +65,7 @@ function* sendMessage(api, { payload, resolve, reject }) {
     if (response.ok && response.data.result === 'OK') {
       const { data } = response.data;
       yield put(ChatCreators.getMessageSuccess(data.room, data.message, true, mockId));
-      yield put(ProfileCreators.profileUpdateSuccess(data.user));
+      yield put(ProfileCreators.profileUpdateSuccess({ user: data.user }));
       yield put(ChatCreators.readMessageSuccess(data.roomId, data.message.createdAt));
       if (resolve) {
         resolve(data);

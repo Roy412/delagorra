@@ -25,6 +25,8 @@ export const { Types: ChatTypes, Creators: ChatCreators } = createActions(
     getRoomsSuccess: ['payload'],
 
     messageReadRequest: ['payload', 'resolve', 'reject'],
+
+    updateMessageSuccess: ['roomId', 'id', 'value'],
   },
   { prefix: 'Chat/' },
 );

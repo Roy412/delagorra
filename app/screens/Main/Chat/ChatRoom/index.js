@@ -16,7 +16,7 @@ import PostItem from '../../Home/Main/PostItem';
 import CommentsHeader from './CommentsHeader';
 
 const ChatRoom = ({ route, navigation }) => {
-  const { otherUserId, post, type, comment } = route.params || {};
+  const { otherUserId, post, type, comment, prevRoomId } = route.params || {};
 
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
@@ -92,17 +92,18 @@ const ChatRoom = ({ route, navigation }) => {
           });
         } catch (e) {}
       });
+      if (type === 'post' && !post) {
+        if (prevRoomId) {
+          dispatch(ChatCreators.updateMessageSuccess(prevRoomId, comment._id, { replyCount: (comment.replyCount || 0) + 1 }));
+        }
+      }
     },
     [room],
   );
 
   const renderHeader = () => (
     <Styled.Box>
-      {post ? (
-        <PostItem item={post} bookmarkEnabled />
-      ) : (
-        <Styled.ReplyCommentItem currentMessage={comment} />
-      )}
+      {post ? <PostItem item={post} bookmarkEnabled /> : <Styled.ReplyCommentItem currentMessage={comment} />}
       <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
@@ -154,6 +155,7 @@ const ChatRoom = ({ route, navigation }) => {
         renderTime={() => null}
         renderDay={renderDayTime}
         renderBubble={renderBubble}
+        textInputProps={{ autoFocus: type === 'post' && !post }}
       />
 
       <Styled.Loader loading={postSharing} />
