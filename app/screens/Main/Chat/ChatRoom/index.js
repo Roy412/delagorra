@@ -6,6 +6,7 @@ import { getBottomSpace } from 'react-native-iphone-x-helper';
 
 import { Promisify } from '~/utils/promisify';
 import { ChatCreators } from '~/store/actions/chat';
+import { PostCreators } from '~/store/actions/post';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
 import { convertToTimeString } from '~/utils/utils';
@@ -92,9 +93,18 @@ const ChatRoom = ({ route, navigation }) => {
           });
         } catch (e) {}
       });
-      if (type === 'post' && !post) {
-        if (prevRoomId) {
-          dispatch(ChatCreators.updateMessageSuccess(prevRoomId, comment._id, { replyCount: (comment.replyCount || 0) + 1 }));
+      if (type === 'post') {
+        if (!post) {
+          if (prevRoomId) {
+            dispatch(
+              ChatCreators.updateMessageSuccess(prevRoomId, comment._id, { replyCount: (comment.replyCount || 0) + 1 }),
+            );
+          }
+        } else {
+          PostCreators.postUpdateStatusSuccess({
+            postId: post._id,
+            status: { totalComments: (post.totalComments || 0) + 1 },
+          });
         }
       }
     },
