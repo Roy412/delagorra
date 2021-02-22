@@ -1,12 +1,14 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects';
 
 import { PostTypes, PostCreators } from '~/store/actions/post';
+import { ProfileCreators } from '~/store/actions/profile';
 
 function* createPost(api, { payload, resolve, reject }) {
   const response = yield call(api.post.create, payload);
 
   if (response.ok && response.data.result === 'OK') {
-    yield put(PostCreators.createPostSuccess(response.data.data));
+    yield put(PostCreators.createPostSuccess(response.data.data.post));
+    yield put(ProfileCreators.profileUpdateSuccess(response.data.data.user));
     resolve(response.data.data);
   } else {
     reject(response.data);
