@@ -29,8 +29,10 @@ function* postUpdateStatus(api, { payload, resolve, reject }) {
 
   if (response.ok && response.data.result === 'OK') {
     yield put(PostCreators.postUpdateStatusSuccess(payload));
-    resolve(response.data.data);
-  } else {
+    if (resolve) {
+      resolve(response.data.data);
+    }
+  } else if (reject) {
     reject(response.data);
   }
 }

@@ -26,7 +26,7 @@ const PostActionItem = ({ source, text, size, justifyContent, onPress, active })
   </Styled.Box>
 );
 
-const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
+const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style, onShare = _.noop }) => {
   const navigation = useNavigation();
   const isAuthenticated = useSelector(isAuthenticatedSelector);
   const dispatch = useDispatch();
@@ -64,8 +64,6 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
     dispatch(PostCreators.postUpdateStatusSuccess(result));
     handleUpdateStatusDebounced({ like: !item.like });
   };
-
-  const handleShare = () => {};
 
   const handleBookmark = () => {
     if (!bookmarkEnabled) {
@@ -130,10 +128,10 @@ const PostItem = ({ item: post, bookmarkEnabled, onPress = _.noop, style }) => {
           />
           <PostActionItem
             source={shareIcon}
-            text={bookmarkEnabled ? 'Share' : 0}
+            text={bookmarkEnabled ? 'Share' : item.totalShares}
             size={20}
             justifyContent="flex-end"
-            onPress={handleShare}
+            onPress={() => onShare(item)}
           />
         </Styled.Box>
       </Styled.Box>

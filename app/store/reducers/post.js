@@ -35,7 +35,11 @@ const getPostsSuccess = (state, { payload }) => {
 const updatePostStatus = (posts, postId, status) =>
   _.map(posts, (item) => {
     if (item._id === postId) {
-      return { ...item, ...status };
+      const result = { ...item, ...status };
+      if (status.share) {
+        result.totalShares = item.totalShares + 1;
+      }
+      return result;
     }
     return item;
   });

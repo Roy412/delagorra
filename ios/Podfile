@@ -9,7 +9,7 @@ target 'Cherry' do
   use_react_native!(:path => config["reactNativePath"])
 
   pod 'RNInputMask', :path => '../node_modules/react-native-text-input-mask/ios/InputMask'
-
+  
   target 'CherryTests' do
     inherit! :complete
     # Pods for testing

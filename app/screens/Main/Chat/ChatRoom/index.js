@@ -9,10 +9,13 @@ import { ChatCreators } from '~/store/actions/chat';
 import { getAllMessagesByRoomId } from '~/store/selectors/chat';
 import { user as userSelector } from '~/store/selectors/session';
 import { convertToTimeString } from '~/utils/utils';
+import { PostCreators } from '~/store/actions/post';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
 import CommentsHeader from './CommentsHeader';
+import RNFetchBlob from 'rn-fetch-blob';
+import Share from 'react-native-share';
 
 const ChatRoom = ({ route, navigation }) => {
   const { otherUserId, post, type, comment } = route.params || {};
@@ -94,9 +97,35 @@ const ChatRoom = ({ route, navigation }) => {
     [room],
   );
 
+  const handleShare = async (item) => {
+    let imagePath = null;
+    const shareOptions = { message: item.title };
+
+    try {
+      setLoading(true);
+      if (item.image) {
+        const resp = await RNFetchBlob.config({ fileCache: true }).fetch('GET', item.image);
+        imagePath = resp.path();
+        let base64Data = await resp.readFile('base64');
+        base64Data = 'data:image/png;base64,' + base64Data;
+        shareOptions.url = base64Data;
+      }
+      setLoading(false);
+      await Share.open(shareOptions);
+
+      if (imagePath) {
+        RNFetchBlob.fs.unlink(imagePath);
+      }
+
+      dispatch(PostCreators.postUpdateStatusRequest({ postId: item._id, status: { share: true } }));
+    } catch (err) {
+      setLoading(false);
+    }
+  };
+
   const renderHeader = () => (
     <Styled.Box>
-      {post ? <PostItem item={post} bookmarkEnabled /> : <Styled.ReplyCommentItem currentMessage={comment} />}
+      {post ? <PostItem item={post} bookmarkEnabled onShare={handleShare} /> : <Styled.ReplyCommentItem currentMessage={comment} />}
       <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
