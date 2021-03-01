@@ -14,7 +14,6 @@ import { sharing as sharingSelector } from '~/store/selectors/post';
 
 import * as Styled from './styled';
 import PostItem from '../../Home/Main/PostItem';
-import CommentsHeader from './CommentsHeader';
 
 const ChatRoom = ({ route, navigation }) => {
   const { otherUserId, post, type, comment, prevRoomId } = route.params || {};
@@ -26,6 +25,7 @@ const ChatRoom = ({ route, navigation }) => {
 
   const [room, setRoom] = useState();
   const [messages, setMessages] = useState([]);
+  const [sortMode, setSortMode] = useState('new');
   const allMessagesByRoomId = useSelector(getAllMessagesByRoomId);
 
   useLayoutEffect(() => {
@@ -56,6 +56,11 @@ const ChatRoom = ({ route, navigation }) => {
     }
   }, [room, JSON.stringify(allMessagesByRoomId)]);
 
+  useEffect(() => {
+    setLoading(true);
+    fetchRoom();
+  }, [sortMode]);
+
   const fetchRoom = async () => {
     try {
       const result = await Promisify(dispatch, ChatCreators.getRoomRequest, {
@@ -63,6 +68,7 @@ const ChatRoom = ({ route, navigation }) => {
         type,
         postId: post && post._id,
         commentId: comment && comment._id,
+        commentSortMode: sortMode,
       });
       setRoom(result);
     } catch (e) {}
@@ -114,7 +120,13 @@ const ChatRoom = ({ route, navigation }) => {
   const renderHeader = () => (
     <Styled.Box>
       {post ? <PostItem item={post} bookmarkEnabled /> : <Styled.ReplyCommentItem currentMessage={comment} />}
-      <CommentsHeader count={room && room.commentCount} title={post ? 'Comments' : 'Replies'} />
+      <Styled.SortPanel
+        onSort={setSortMode}
+        sortMode={sortMode}
+        count={room && room.commentCount}
+        title={post ? 'Comments' : 'Replies'}
+        type="comment"
+      />
       {loading && <Styled.ActivityIndicator size="large" color="#0000aa" />}
     </Styled.Box>
   );

@@ -123,7 +123,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
     if (type !== 'search') {
       return null;
     }
-    return <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} />;
+    return <Styled.SortPanel onSort={setSortMode} sortMode={sortMode} title="Search results" />;
   };
 
   if (!isVisible) {

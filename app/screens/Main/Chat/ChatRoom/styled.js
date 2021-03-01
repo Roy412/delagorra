@@ -7,6 +7,7 @@ import { Colors, Metrics } from '~/utils/theme';
 import { IconButton } from '~/components/ui';
 import { hitSlopArea } from '~/utils/utils';
 import { crossIcon } from '~/resources';
+import SortPanelUI from '../../Home/Main/PostList/SortPanel';
 
 export { Text, Box, Loader, Image, AvatarCircle } from '~/components/ui';
 export CommentItem from './CommentItem';
@@ -49,3 +50,8 @@ export const Bubble = styled(BubbleUI).attrs({
     right: { color: Colors.veryDarkGray },
   },
 })``;
+
+export const SortPanel = styled(SortPanelUI)`
+  background-color: #f0f0f0;
+  padding: 16px;
+`;
