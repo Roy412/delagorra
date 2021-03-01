@@ -104,7 +104,7 @@ const PostList = forwardRef(({ onUnAuth, profileId, type, searchKeyword, isVisib
   };
 
   const renderFooter = () => {
-    if (!loading) {
+    if (!loading || !hasMore) {
       return null;
     }
     return <ActivityIndicator style={{ color: '#000', marginVertical: 10 }} size="large" />;
