@@ -41,10 +41,6 @@ const ChatRoom = ({ route, navigation }) => {
   }, [navigation, room]);
 
   useEffect(() => {
-    fetchRoom();
-  }, []);
-
-  useEffect(() => {
     if (room) {
       dispatch(ChatCreators.setActiveRoomIdSuccess(room._id));
       setLoading(false);
@@ -57,9 +53,14 @@ const ChatRoom = ({ route, navigation }) => {
   }, [room, JSON.stringify(allMessagesByRoomId)]);
 
   useEffect(() => {
-    setLoading(true);
-    fetchRoom();
+    handleRefresh();
   }, [sortMode]);
+
+  const handleRefresh = () => {
+    setLoading(true);
+    setMessages([]);
+    fetchRoom();
+  };
 
   const fetchRoom = async () => {
     try {
